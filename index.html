@@ -135,7 +135,22 @@ body.es-admin main section{scroll-margin-top:122px}
 .team-emb{grid-row:1/3;width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-size:28px;background:color-mix(in srgb,var(--c) 20%,transparent);border:2px solid color-mix(in srgb,var(--c) 45%,transparent)}
 .team-nom{font:600 22px/1.05 var(--px);align-self:end}
 .team-tipo{color:var(--mist);font-size:13px;margin-top:4px}
-.team-datos{grid-column:1/3;align-self:end;display:flex;gap:18px;margin-top:16px;padding-top:12px;border-top:1px solid var(--sea-700);font-size:14px;color:#c3dbe0}
+.team-cupo{grid-column:1/3;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;font-size:14px;color:#c3dbe0}
+.team-cupo b{font:600 20px/1 var(--px);color:var(--foam);margin-right:3px}
+.team-barra{grid-column:1/3;height:6px;border-radius:3px;background:var(--sea-950);margin-top:8px;overflow:hidden}
+.team-barra i{display:block;height:100%;background:var(--c);border-radius:3px}
+.lleno{flex:none;font:600 13px/1 var(--sans);padding:5px 10px;border-radius:999px;background:var(--berry);color:#fff}
+.team.es-lleno .team-barra i{background:var(--berry)}
+.contador{display:flex;align-items:center;gap:8px;margin-top:4px}
+.contador button{width:36px;height:36px;border-radius:9px;border:2px solid var(--sea-600);background:var(--sea-850);color:var(--foam);font-size:18px;font-weight:600;cursor:pointer}
+.contador button:hover{border-color:var(--sand);color:var(--sand)}
+.panel-miembros{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.panel-miembros li{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;background:var(--sea-900);border:1px solid var(--sea-700);border-left:4px solid var(--c);border-radius:10px;padding:8px 10px}
+.panel-miembros b{display:block;font-weight:600;font-size:15px}
+.panel-miembros small{color:var(--mist);font-size:13px}
+.panel-miembros .contador{margin:0}
+.aviso-lleno{background:rgba(239,90,95,.12);border:1px solid rgba(239,90,95,.5);border-radius:10px;padding:12px 14px;font-size:15px;color:#ffd0d1}
+.team-datos{grid-column:1/3;align-self:end;display:flex;gap:18px;margin-top:12px;padding-top:12px;border-top:1px solid var(--sea-700);font-size:14px;color:#c3dbe0}
 .team-datos b{font:600 20px/1 var(--px);color:var(--c);margin-right:4px}
 .team-datos span:last-child{margin-left:auto;color:var(--mist);white-space:nowrap}
 
@@ -372,6 +387,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
   .dlg-cab h2{font-size:26px;padding-right:44px}
   .carta-pie{flex-direction:column;align-items:flex-start}
 }
+@media (max-width:640px){.toasts{top:auto;bottom:16px;left:16px;right:16px;max-width:none}}
 @media (max-width:460px){.solo-ancho{display:none}.top-in{gap:12px}.clasif .num{width:auto;padding-left:4px;padding-right:10px}.clasif th,.clasif td{font-size:14px;padding-left:8px}.clasif th{font-size:12px}.clasif .n{width:26px;padding-right:0}}
 @media (max-width:400px){.zonas{grid-template-columns:1fr}.brand b{font-size:16px}.brand svg{width:28px;height:28px}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
@@ -639,8 +655,9 @@ var Core = (function () {
     disputa: 'Disputa', liberacion: 'Liberación', muerto: 'Punto Muerto', resguardo: 'Resguardo'
   };
   var ESTADOS = ['Neutral', 'Controlada', 'En disputa', 'Punto Muerto'];
+  var CUPO = 30; // a partir de esta cantidad de miembros el team figura como Lleno
   var TABLAS = {
-    equipos: ['id', 'nombre', 'emoji', 'lider', 'tipo', 'color', 'lore', 'orden'],
+    equipos: ['id', 'nombre', 'emoji', 'lider', 'tipo', 'color', 'lore', 'orden', 'miembros'],
     territorios: ['id', 'nombre', 'tipo', 'estado', 'equipo', 'retador', 'ultimo', 'referencia', 'x', 'y', 'actualizado'],
     guerras: ['id', 'fecha', 'territorioId', 'territorio', 'accion', 'ganador', 'perdedor', 'resumen', 'nota'],
     torneos: ['id', 'nombre', 'fecha', 'formato', 'info', 'enlace', 'creado'],
@@ -664,6 +681,7 @@ var Core = (function () {
   function porId(lista, id) { for (var i = 0; i < lista.length; i++) if (lista[i].id === id) return lista[i]; return null; }
   function falla(m) { throw new Error(m); }
   function color(c, def) { c = txt(c); return /^#[0-9a-f]{6}$/i.test(c) ? c : def; }
+  function cantidad(v) { var n = Math.floor(Number(v)); return isFinite(n) && n > 0 ? Math.min(n, 999) : 0; }
   function enlace(u) { u = txt(u, 300); return /^https?:\/\//i.test(u) ? u : ''; }
   function equipoValido(db, nombre) {
     nombre = txt(nombre, 60); if (!nombre) return '';
@@ -687,7 +705,7 @@ var Core = (function () {
       ['elite', 'Escuadrón Élite', '⭐', '#c8f169', 'Fuerza de protección de la Región Star: prioriza el resguardo de civiles, el orden y la respuesta ante conflictos.'],
       ['delta', 'Team Delta', '🟢', '#8eea66', 'Clan emergente de origen desconocido. Su identidad y sus motivos se irán revelando en el roleo de la comunidad.']
     ].map(function (e, i) {
-      return { id: e[0], nombre: e[1], emoji: e[2], lider: '—', tipo: e[1] === 'Team Delta' ? 'Clan nuevo' : 'Escuadrón', color: e[3], lore: e[4], orden: String(i + 1) };
+      return { id: e[0], nombre: e[1], emoji: e[2], lider: '—', tipo: e[1] === 'Team Delta' ? 'Clan nuevo' : 'Escuadrón', color: e[3], lore: e[4], orden: String(i + 1), miembros: '0' };
     });
     var zonas = [
       ['Pueblo Alba', 'Pueblo'], ['Pueblo Valde', 'Pueblo'], ['Ciudad Spica', 'Ciudad'], ['Bosque Spica', 'Bosque'], ['Pueblo Talo', 'Pueblo'],
@@ -742,10 +760,17 @@ var Core = (function () {
         var viejo = x.nombre;
         x.nombre = n; x.emoji = txt(p.emoji, 8) || '✦'; x.lider = txt(p.lider, 40) || '—'; x.tipo = txt(p.tipo, 30) || 'Equipo comunitario';
         x.color = color(p.color, x.color || '#f4d38b'); x.lore = largo(p.lore, 600);
+        if (p.miembros != null && p.miembros !== '') x.miembros = String(cantidad(p.miembros)); else if (!x.miembros) x.miembros = '0';
         if (viejo) renombrarEquipo(db, viejo, n);
         return { cambios: ['equipos', 'territorios', 'guerras', 'combates'] };
       }
       case 'equipoBorrar': quitar(db.equipos, p.id); return { cambios: ['equipos'] };
+      case 'equipoMiembros': {
+        x = porId(db.equipos, p.id) || falla('Ese team ya no existe.');
+        var actual = cantidad(x.miembros);
+        x.miembros = String(cantidad(p.valor != null && p.valor !== '' ? p.valor : actual + (Number(p.delta) || 0)));
+        return { cambios: ['equipos'] };
+      }
       case 'equiposRestaurar': {
         semilla().equipos.forEach(function (e) {
           var ya = db.equipos.filter(function (q) { return igual(q.nombre, e.nombre); })[0];
@@ -835,7 +860,7 @@ var Core = (function () {
     };
   }
 
-  return { aplicar: aplicar, vista: vista, semilla: semilla, TABLAS: TABLAS, ACCIONES: ACCIONES, ESTADOS: ESTADOS, txt: txt };
+  return { aplicar: aplicar, vista: vista, semilla: semilla, TABLAS: TABLAS, ACCIONES: ACCIONES, ESTADOS: ESTADOS, CUPO: CUPO, cantidad: cantidad, txt: txt };
 })();
 // ===== FIN DEL NÚCLEO =====
 </script>
@@ -942,7 +967,8 @@ const plural = (n, s) => n === 1 ? s : s + 's';
 function toast(msg, tipo) {
   const t = document.createElement('div');
   t.className = 'toast' + (tipo ? ' ' + tipo : ''); t.textContent = msg;
-  $('#toasts').appendChild(t);
+  const caja = $('#toasts'); caja.appendChild(t);
+  while (caja.children.length > 2) caja.firstElementChild.remove();
   setTimeout(() => t.remove(), tipo === 'error' ? 7000 : 4200);
 }
 function ir(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }
@@ -1034,13 +1060,15 @@ function renderMapa() {
 function renderTeams() {
   const zonas = {};
   S.d.territorios.forEach(t => { if (t.estado === 'Controlada') zonas[t.equipo] = (zonas[t.equipo] || 0) + 1; });
-  $('#gridTeams').innerHTML = S.d.equipos.length ? S.d.equipos.map(e => `
-    <button type="button" class="team" data-act="team" data-id="${esc(e.id)}" style="--c:${esc(e.color || '#f4d38b')}">
+  $('#gridTeams').innerHTML = S.d.equipos.length ? S.d.equipos.map(e => { const m = Core.cantidad(e.miembros), lleno = m >= Core.CUPO; return `
+    <button type="button" class="team${lleno ? ' es-lleno' : ''}" data-act="team" data-id="${esc(e.id)}" style="--c:${esc(e.color || '#f4d38b')}" aria-label="${esc(e.nombre)}: ${m} de ${Core.CUPO} miembros${lleno ? ', lleno' : ''}">
       <span class="team-emb" aria-hidden="true">${esc(e.emoji || '✦')}</span>
       <span class="team-nom">${esc(e.nombre)}</span>
       <span class="team-tipo">${esc(e.tipo || 'Equipo comunitario')} · líder ${esc(e.lider && e.lider !== '—' ? e.lider : 'sin asignar')}</span>
+      <span class="team-cupo"><span><b>${m}</b>/ ${Core.CUPO} miembros</span>${lleno ? '<span class="lleno">Lleno</span>' : ''}</span>
+      <span class="team-barra" aria-hidden="true"><i style="width:${Math.min(100, m / Core.CUPO * 100)}%"></i></span>
       <span class="team-datos"><span><b>${zonas[e.nombre] || 0}</b>${plural(zonas[e.nombre] || 0, 'zona')}</span><span>Ver ficha</span></span>
-    </button>`).join('') : `<p class="vacio">${S.cargando ? 'Cargando teams…' : 'No hay teams cargados.'}</p>`;
+    </button>`; }).join('') : `<p class="vacio">${S.cargando ? 'Cargando teams…' : 'No hay teams cargados.'}</p>`;
 }
 
 function renderAtlas() {
@@ -1141,14 +1169,15 @@ const confirmar = (titulo, texto, boton, enviar) => formulario({ titulo, texto, 
 function fichaTeam(id) {
   const e = S.d.equipos.find(x => x.id === id); if (!e) return;
   const zonas = S.d.territorios.filter(t => t.estado === 'Controlada' && t.equipo === e.nombre);
+  const m = Core.cantidad(e.miembros), lleno = m >= Core.CUPO;
   const d = $('#dlgTeam');
   d.innerHTML = `<div class="dlg" style="--c:${esc(e.color)}"><div class="dlg-cab"><span style="font-size:34px" aria-hidden="true">${esc(e.emoji || '✦')}</span><h2>${esc(e.nombre)}</h2><p class="muted">${esc(e.tipo || 'Equipo comunitario')}</p><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
     <div class="dlg-cuerpo">
       <p class="lore">${esc(e.lore || 'Este team está escribiendo su historia en la comunidad.')}</p>
-      <p class="muted">Para sumarte a ${esc(e.nombre)}, escribile al líder o a un admin en el grupo de WhatsApp de Online.</p>
-      <dl class="ficha"><div><dt>Líder</dt><dd>${esc(e.lider && e.lider !== '—' ? e.lider : 'Sin asignar')}</dd></div><div><dt>Zonas controladas</dt><dd>${zonas.length}</dd></div></dl>
+      ${lleno ? `<p class="aviso-lleno">${esc(e.nombre)} está lleno: completó su cupo de ${Core.CUPO} miembros. Consultá en el grupo si se libera un lugar o mirá otros teams.</p>` : `<p class="muted">Para sumarte a ${esc(e.nombre)}, escribile al líder o a un admin en el grupo de WhatsApp de Online. Quedan ${Core.CUPO - m} ${Core.CUPO - m === 1 ? 'lugar' : 'lugares'}.</p>`}
+      <dl class="ficha"><div><dt>Líder</dt><dd>${esc(e.lider && e.lider !== '—' ? e.lider : 'Sin asignar')}</dd></div><div><dt>Miembros</dt><dd>${m} de ${Core.CUPO}${lleno ? ' · Lleno' : ''}${esAdmin() ? `<div class="contador"><button type="button" data-act="miembros-menos" data-id="${esc(e.id)}" aria-label="Restar un miembro">−</button><button type="button" data-act="miembros-mas" data-id="${esc(e.id)}" aria-label="Sumar un miembro">+</button></div>` : ''}</dd></div><div><dt>Zonas controladas</dt><dd>${zonas.length}</dd></div></dl>
       ${zonas.length ? `<div><h3 style="font-size:18px;margin-bottom:8px">Territorio</h3><div class="zchips">${zonas.map(z => `<button type="button" data-act="zona" data-id="${esc(z.id)}" style="--c:${esc(e.color)}">${esc(z.nombre)}</button>`).join('')}</div></div>` : ''}
-      <div class="dlg-acc">${esAdmin() ? `<button class="btn danger" type="button" data-act="borrar-team" data-id="${esc(e.id)}">Quitar team</button><button class="btn" type="button" data-act="editar-team" data-id="${esc(e.id)}">Editar</button>` : ''}<a class="btn sand" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener">Pedir ingreso por WhatsApp</a></div>
+      <div class="dlg-acc">${esAdmin() ? `<button class="btn danger" type="button" data-act="borrar-team" data-id="${esc(e.id)}">Quitar team</button><button class="btn" type="button" data-act="editar-team" data-id="${esc(e.id)}">Editar</button>` : ''}${lleno ? `<a class="btn" href="${WPP_ONLINE}" target="_blank" rel="noopener">Consultar en el grupo</a>` : `<a class="btn sand" href="${WPP_ONLINE}" target="_blank" rel="noopener">Pedir ingreso por WhatsApp</a>`}</div>
     </div></div>`;
   abrir(d);
 }
@@ -1195,7 +1224,8 @@ function formTeam(e) {
     campos: [
       { n: 'nombre', l: 'Nombre', v: e.nombre, req: true, max: 40 }, { n: 'emoji', l: 'Símbolo (emoji)', v: e.emoji || '✦', max: 8 },
       { n: 'lider', l: 'Líder', v: e.lider === '—' ? '' : e.lider, max: 40 }, { n: 'tipo', l: 'Tipo', v: e.tipo || 'Escuadrón', max: 30 },
-      { n: 'color', l: 'Color', t: 'color', v: e.color || '#f4d38b' }, { n: 'lore', l: 'Lore breve, sin spoilers', t: 'textarea', v: e.lore, max: 600, ancho: true }
+      { n: 'color', l: 'Color', t: 'color', v: e.color || '#f4d38b' }, { n: 'miembros', l: 'Miembros (cupo ' + Core.CUPO + ')', t: 'number', v: String(Core.cantidad(e.miembros)) },
+      { n: 'lore', l: 'Lore breve, sin spoilers', t: 'textarea', v: e.lore, max: 600, ancho: true }
     ],
     enviar: async v => { await accion('equipoGuardar', Object.assign({ id: e.id || '' }, v), e.id ? 'Team actualizado' : 'Team creado'); if (e.id) fichaTeam(e.id); }
   });
@@ -1253,9 +1283,10 @@ function panelAdmin() {
     <div class="dlg-cuerpo panel-g">
       <div class="panel-stats"><div><b>${ctrl}/${z.length}</b><span>zonas con dueño</span></div><div><b>${S.d.guerras.length}</b><span>partes de guerra</span></div><div><b>${S.d.noticias.length}</b><span>noticias</span></div><div><b>${ubic}</b><span>zonas en el mapa</span></div></div>
       <div><h3>Publicar</h3><div class="panel-btns">${b('nueva-noticia', 'Publicar noticia', 'Va a la portada')}${b('nueva-guerra', 'Registrar guerra', 'Conquista, defensa, disputa…')}${b('nuevo-torneo', 'Nuevo torneo', 'Aparece en el calendario')}${b('nuevo-combate', 'Registrar combate', 'Suma a la clasificación')}</div></div>
+      <div><h3>Miembros por team</h3><ul class="panel-miembros">${S.d.equipos.map(e => { const m = Core.cantidad(e.miembros); return `<li style="--c:${esc(e.color)}"><span><b>${esc(e.emoji || '')} ${esc(e.nombre)}</b><small>${m} de ${Core.CUPO}${m >= Core.CUPO ? ' · Lleno' : ''}</small></span><span class="contador"><button type="button" data-act="miembros-menos" data-id="${esc(e.id)}" data-panel="1" aria-label="Restar un miembro a ${esc(e.nombre)}">−</button><button type="button" data-act="miembros-mas" data-id="${esc(e.id)}" data-panel="1" aria-label="Sumar un miembro a ${esc(e.nombre)}">+</button></span></li>`; }).join('')}</ul></div>
       <div><h3>Mundo</h3><div class="panel-btns">${b('nuevo-team', 'Nuevo team', 'Nombre, color y lore')}${b('nueva-zona', 'Nueva zona', 'Se suma al atlas')}${b('mapa-subir', 'Cambiar mapa', 'Imagen nueva en tu Drive')}</div></div>
       <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
-      <p class="muted">Para editar un team o una zona, abrí su ficha: las opciones de admin aparecen ahí.</p>
+      <p class="muted">Para editar el nombre, líder o color de un team, o los datos de una zona, abrí su ficha: las opciones de admin aparecen ahí.</p>
     </div></div>`;
   abrir(d);
 }
@@ -1344,6 +1375,7 @@ document.addEventListener('click', async ev => {
       case 'editar-zona': formZona(S.d.territorios.find(x => x.id === id)); break;
       case 'borrar-zona': cerrar($('#dlgZona')); borrar('Borrar zona', 'Se borra la zona del atlas junto con su historial. No se puede deshacer.', 'zonaBorrar', 'Zona borrada'); break;
       case 'editar-team': formTeam(S.d.equipos.find(x => x.id === id)); break;
+      case 'miembros-mas': case 'miembros-menos': { const e0 = S.d.equipos.find(x => x.id === id); await accion('equipoMiembros', { id, delta: a === 'miembros-mas' ? 1 : -1 }); const e1 = S.d.equipos.find(x => x.id === id); if (el.dataset.panel) panelAdmin(); else fichaTeam(id); if (e1 && Core.cantidad(e1.miembros) >= Core.CUPO && Core.cantidad(e0 && e0.miembros) < Core.CUPO) toast(e1.nombre + ' quedó lleno.'); break; }
       case 'borrar-team': cerrar($('#dlgTeam')); borrar('Quitar team', 'El team deja de aparecer. Sus zonas conservan el nombre hasta que las edites.', 'equipoBorrar', 'Team quitado'); break;
       case 'borrar-guerra': borrar('Borrar del historial', 'Se borra este parte de la crónica. El estado actual de la zona no cambia.', 'guerraBorrar', 'Parte borrado'); break;
       case 'editar-noticia': formNoticia(S.d.noticias.find(x => x.id === id)); break;
