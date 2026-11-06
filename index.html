@@ -1,0 +1,1401 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#062634">
+<title>Pokémon Reloaded Online · Comunidad</title>
+<meta name="description" content="La comunidad de Pokémon Reloaded Edición Online: guerra de teams por la Región Star, atlas de zonas, Noticias Star, torneos y PvP.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="Reloaded Online">
+<meta property="og:title" content="¿Quién domina la Región Star? · Pokémon Reloaded Online">
+<meta property="og:description" content="Guerra de teams zona por zona, Noticias Star, torneos y PvP. Sumate a la comunidad de Pokémon Reloaded Edición Online.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://rodrigoguerrini.github.io/reloaded-online/">
+<meta property="og:image" content="https://rodrigoguerrini.github.io/reloaded-online/vista-previa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://rodrigoguerrini.github.io/reloaded-online/vista-previa.jpg">
+<link rel="canonical" href="https://rodrigoguerrini.github.io/reloaded-online/">
+<link rel="apple-touch-icon" href="icono.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' rx='3' fill='%23062634'/%3E%3Cpath fill='%23f4d38b' d='M7 1h2v4h1v1h1v1h4v2h-4v1h-1v1H9v4H7v-4H6v-1H5V9H1V7h4V6h1V5h1z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea-950:#041d28;--sea-900:#062634;--sea-850:#082e3e;--sea-800:#0a3445;--sea-700:#11475b;--sea-600:#1a5d74;--sea-400:#3d9ab8;
+  --foam:#eaf5f1;--mist:#93b9c3;--sand:#f4d38b;--sand-deep:#b8893a;--berry:#ef5a5f;--leaf:#7fcf7b;
+  --paper:#fbfbf6;--ink:#22313a;--ink-soft:#5a6b73;
+  --px:'Pixelify Sans','Rubik',system-ui,sans-serif;--sans:'Rubik',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:12px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--sea-900);color:var(--foam);font:400 16px/1.55 var(--sans);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--sand);text-underline-offset:3px}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--px);font-weight:600;line-height:1.02;margin:0;letter-spacing:.005em}
+p{margin:0}
+:focus-visible{outline:3px solid var(--sand);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.muted{color:var(--mist)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;border:2px solid var(--sea-600);background:transparent;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;color:var(--foam);white-space:nowrap}
+.btn:hover{border-color:var(--sand);color:var(--sand)}
+.btn.sand{background:var(--sand);border-color:var(--sand);color:#2b1e05;box-shadow:0 4px 0 var(--sand-deep)}
+.btn.sand:hover{background:#f8dea6;color:#2b1e05}
+.btn.sand:active{transform:translateY(2px);box-shadow:0 2px 0 var(--sand-deep)}
+.btn.sm{min-height:36px;padding:0 12px;font-size:14px;border-radius:8px}
+.btn.danger{border-color:#7d3a40;color:#ffb8ba}
+.btn.danger:hover{border-color:var(--berry);color:#ffd0d1}
+.btn[disabled]{opacity:.55;pointer-events:none}
+.link{background:none;border:0;padding:0;color:var(--sand);cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-weight:500}
+
+/* cabecera */
+.top{position:sticky;top:0;z-index:30;background:rgba(6,38,52,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--sea-700)}
+.top-in{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--foam);flex:none}
+.brand svg{width:34px;height:34px;flex:none}
+.brand b{display:block;font:600 19px/1 var(--px)}
+.brand small{display:block;color:var(--mist);font-size:12px;margin-top:3px}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{color:#c3dbe0;text-decoration:none;font-size:14px;font-weight:500;padding:8px 9px;border-radius:8px;white-space:nowrap}
+.nav a:hover{color:var(--sand);background:var(--sea-800)}
+.top-acc{display:flex;gap:8px;flex:none}
+.top-acc .btn{gap:0}
+.demo{background:#2b2410;color:#f8e2ad;font-size:13px;border-bottom:1px solid #5b4a1d}
+.demo .wrap{padding-top:9px;padding-bottom:9px}
+
+/* hero */
+.hero{position:relative;padding:56px 0 64px;background:radial-gradient(60% 70% at 78% 40%,#0e5268 0%,transparent 70%)}
+.hero-in{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:48px;align-items:start}
+.hero-sitio{color:var(--mist);font-size:15px;margin-bottom:18px}
+.hero h1{font-size:clamp(44px,5.1vw,68px);line-height:.96;font-weight:700;margin-bottom:22px;max-width:11em}
+.hero-lede{font-size:18px;color:#cfe3e6;max-width:30em;margin-bottom:28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+
+.dom{background:var(--sea-850);border:2px solid var(--sea-700);border-radius:var(--r);padding:18px 18px 16px}
+.dom-cab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px;font-size:15px}
+.dom-cab b{font:600 30px/1 var(--px);color:var(--sand);margin-right:4px}
+.dom-barra{display:flex;height:18px;border-radius:5px;overflow:hidden;background:#284f5c;gap:2px}
+.dom-barra span{min-width:8px;background:var(--c)}
+.dom-barra .neutral{background:#2d5562;min-width:0}
+.dom-lista{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:7px}
+.dom-lista li{display:grid;grid-template-columns:12px 1fr auto;align-items:center;gap:10px;font-size:15px}
+.dom-lista i{width:12px;height:12px;border-radius:3px;background:var(--c)}
+.dom-lista b{font:600 18px/1 var(--px);color:var(--c)}
+.dom-pie{margin-top:12px;padding-top:10px;border-top:1px solid var(--sea-700);font-size:13px;color:var(--mist);display:flex;gap:14px;flex-wrap:wrap}
+
+.carta{margin:0;position:relative}
+.carta-marco{background:var(--sea-950);border:2px solid var(--sea-600);border-radius:16px;padding:8px;box-shadow:0 10px 0 #031722}
+.escena{position:relative;border-radius:10px;overflow:hidden;background:#127fa3;line-height:0}
+.escena img{width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.pins{position:absolute;inset:0}
+.vacio-mapa{aspect-ratio:16/9;display:grid;place-items:center;text-align:center;padding:24px;line-height:1.5;background:repeating-linear-gradient(135deg,#0f6f90 0 14px,#137aa0 14px 28px);color:#eaf5f1}
+.vacio-mapa p{max-width:26em;font-size:15px}
+.pin{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--c);border:3px solid #062634;box-shadow:0 0 0 2px var(--c);cursor:pointer;padding:0}
+.pin.neutral{background:#eaf5f1;box-shadow:0 0 0 2px rgba(234,245,241,.5)}
+.pin.disputa{animation:latido 1.6s ease-in-out infinite}
+.pin.muerto{background:#6a8590;box-shadow:0 0 0 2px #6a8590}
+.pin-et{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:var(--paper);color:var(--ink);font:500 13px/1.2 var(--sans);padding:4px 7px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s}
+.pin:hover .pin-et,.pin:focus-visible .pin-et,.grande .pin-et{opacity:1}
+.pin.marcado{animation:marcar 1.2s ease-out 2}
+@keyframes latido{50%{box-shadow:0 0 0 7px rgba(239,90,95,.25)}}
+@keyframes marcar{0%{box-shadow:0 0 0 0 var(--sand)}100%{box-shadow:0 0 0 22px transparent}}
+
+.dialogo{position:relative;margin:-30px 18px 0;background:var(--paper);color:var(--ink);border:3px solid #3b4a52;border-radius:12px;box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 5px #c5d1d4,0 6px 0 #031722;padding:18px 22px 22px;cursor:pointer}
+.dialogo-meta{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--ink-soft);margin-bottom:8px}
+.dialogo-meta b{color:#b03b40;font-weight:600}
+.dialogo h2{font-size:24px;margin-bottom:8px;color:var(--ink)}
+.dialogo p{font:500 17px/1.5 var(--px);white-space:pre-line;min-height:3em}
+.flecha{position:absolute;right:18px;bottom:8px;font-size:13px;color:#b03b40;animation:parpadeo 1s steps(2) infinite}
+@keyframes parpadeo{50%{opacity:0}}
+.carta-pie{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;color:var(--mist);font-size:13px}
+
+/* secciones */
+main section{scroll-margin-top:72px}
+body.es-admin main section{scroll-margin-top:122px}
+.sec{padding:76px 0;border-top:1px solid var(--sea-800)}
+.sec-cab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:24px;align-items:end;margin-bottom:30px}
+.sec-cab h2{font-size:clamp(32px,4.4vw,50px)}
+.sec-cab p{color:var(--mist);font-size:16px}
+.sub{font-size:24px;margin-bottom:14px}
+
+/* teams */
+.teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.team{display:grid;grid-template-columns:56px 1fr;grid-template-rows:auto auto 1fr;column-gap:14px;text-align:left;background:var(--sea-800);border:2px solid color-mix(in srgb,var(--c) 30%,var(--sea-700));border-radius:var(--r);padding:16px;cursor:pointer;min-height:150px;position:relative;overflow:hidden}
+.team:hover{border-color:var(--c)}
+.team:before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--c)}
+.team-emb{grid-row:1/3;width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-size:28px;background:color-mix(in srgb,var(--c) 20%,transparent);border:2px solid color-mix(in srgb,var(--c) 45%,transparent)}
+.team-nom{font:600 22px/1.05 var(--px);align-self:end}
+.team-tipo{color:var(--mist);font-size:13px;margin-top:4px}
+.team-datos{grid-column:1/3;align-self:end;display:flex;gap:18px;margin-top:16px;padding-top:12px;border-top:1px solid var(--sea-700);font-size:14px;color:#c3dbe0}
+.team-datos b{font:600 20px/1 var(--px);color:var(--c);margin-right:4px}
+.team-datos span:last-child{margin-left:auto;color:var(--mist);white-space:nowrap}
+
+/* atlas */
+.herr{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.buscar{flex:1 1 260px;min-height:44px;padding:0 14px;background:var(--sea-950);border:2px solid var(--sea-700);border-radius:10px}
+.buscar:focus{border-color:var(--sand);outline:none}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-height:38px;padding:0 13px;border-radius:999px;border:2px solid var(--sea-700);background:transparent;cursor:pointer;font-size:14px;font-weight:500;color:#c3dbe0}
+.chip b{font-family:var(--px);margin-left:5px;color:var(--mist)}
+.chip[aria-pressed="true"]{background:var(--foam);border-color:var(--foam);color:var(--sea-900)}
+.chip[aria-pressed="true"] b{color:var(--sea-700)}
+.zonas{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:8px}
+.zona{display:grid;gap:2px;text-align:left;background:var(--sea-800);border:2px solid var(--sea-700);border-left:6px solid var(--c);border-radius:10px;padding:11px 12px;cursor:pointer;min-height:84px}
+.zona:hover{border-color:var(--c)}
+.zona-nom{font-weight:600;font-size:15px;line-height:1.25}
+.zona-tipo{font-size:12px;color:var(--mist)}
+.zona-est{margin-top:auto;padding-top:6px;font-size:13px;display:flex;align-items:center;gap:6px;color:var(--c);font-weight:500}
+.zona-est i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.zona-est small{margin-left:auto;color:var(--mist);font-weight:400}
+.vacio{border:2px dashed var(--sea-700);border-radius:var(--r);padding:22px;color:var(--mist);text-align:center}
+
+/* crónica */
+.cron{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px}
+.linea{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--sea-700)}
+.linea li{position:relative;padding:0 0 22px 8px}
+.linea li:before{content:"";position:absolute;left:-31px;top:4px;width:14px;height:14px;border-radius:4px;background:var(--c);border:3px solid var(--sea-900)}
+.linea time{display:block;font-size:13px;color:var(--mist);margin-bottom:3px}
+.linea p{font-size:16px}
+.linea .meta{display:flex;gap:12px;align-items:center;margin-top:5px;font-size:13px;color:var(--mist);flex-wrap:wrap}
+.eq{font-weight:600;color:var(--c)}
+.archivo{display:grid;gap:10px;align-content:start}
+.nota{background:var(--sea-800);border:2px solid var(--sea-700);border-radius:var(--r);padding:14px 16px}
+.nota summary{cursor:pointer;list-style:none;display:grid;gap:3px}
+.nota summary::-webkit-details-marker{display:none}
+.nota summary b{font-size:16px;font-weight:600}
+.nota summary small{color:var(--mist);font-size:13px}
+.nota p{margin-top:10px;color:#cfe3e6;font-size:15px;white-space:pre-line}
+.nota .acc{display:flex;gap:8px;margin-top:12px}
+
+/* torneos */
+.torneos-g{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px}
+.torneo{display:grid;grid-template-columns:120px 1fr;gap:18px;background:var(--sea-800);border:2px solid var(--sea-700);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.torneo-f{font:600 18px/1.15 var(--px);color:var(--sand);border-right:1px solid var(--sea-700);padding-right:14px}
+.torneo h3{font-size:22px;margin-bottom:4px}
+.torneo .fmt{color:var(--mist);font-size:14px;margin-bottom:8px}
+.torneo p{font-size:15px;color:#cfe3e6;white-space:pre-line}
+.torneo .acc{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.modos{list-style:none;padding:0;margin:0 0 26px;display:grid;gap:8px}
+.modos li{background:var(--sea-850);border:1px solid var(--sea-700);border-radius:10px;padding:12px 14px}
+.modos b{display:block;font-weight:600}
+.modos span{font-size:14px;color:var(--mist)}
+.combates{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.combates li{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:10px 12px;border-radius:10px;background:var(--sea-850);font-size:15px}
+.combates small{grid-column:1/3;color:var(--mist);font-size:13px}
+
+/* empezá a jugar */
+.pasos{list-style:none;counter-reset:p;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pasos li{counter-increment:p;background:var(--sea-800);border:2px solid var(--sea-700);border-radius:var(--r);padding:20px 20px 22px;display:flex;flex-direction:column;gap:8px}
+.pasos li:before{content:counter(p);font:700 42px/1 var(--px);color:var(--sand);margin-bottom:4px}
+.pasos h3{font-size:22px}
+.pasos p{color:#cfe3e6;font-size:15px;flex:1}
+.pasos .btn{align-self:flex-start;margin-top:8px}
+
+/* clasificación */
+.tabla-box{overflow-x:auto;border:2px solid var(--sea-700);border-radius:var(--r);margin-bottom:30px}
+.clasif{width:100%;border-collapse:collapse;background:var(--sea-850)}
+.clasif th,.clasif td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--sea-700);font-size:15px}
+.clasif th{font-size:13px;color:var(--mist);font-weight:500;background:var(--sea-800)}
+.clasif tr:last-child td{border-bottom:0}
+.clasif .n{font:600 17px/1 var(--px);color:var(--mist);width:34px}
+.clasif .num{font:600 18px/1 var(--px);text-align:right;width:76px}
+.clasif tbody tr:first-child .n{color:var(--sand)}
+
+/* menú y extras */
+.menu-btn{display:none}
+.menu-lista{display:grid;gap:6px}
+.menu-lista a{display:block;padding:13px 14px;border-radius:10px;color:var(--foam);text-decoration:none;font-weight:500;background:var(--sea-900);border:1px solid var(--sea-700)}
+.menu-lista a:hover{color:var(--sand);border-color:var(--sand)}
+.menu-acc{display:grid;gap:8px;margin-top:16px}
+.dm-der{display:flex;gap:12px;align-items:center}
+.compartir{color:#1d7a4c;font-weight:600;text-decoration:none}
+.compartir:hover{text-decoration:underline}
+
+/* comunidad */
+.com{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.com-intro{font-size:20px;line-height:1.5;color:#d6e8ea}
+.fechas{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.fechas div{background:var(--sea-850);border:2px solid var(--sea-700);border-radius:var(--r);padding:14px}
+.fechas small{display:block;color:var(--mist);font-size:13px}
+.fechas strong{display:block;font:600 26px/1.1 var(--px);color:var(--sand);margin:6px 0 2px}
+.fechas span{font-size:13px;color:#c3dbe0}
+.enlaces{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.enlace{display:grid;gap:3px;text-decoration:none;color:var(--foam);background:var(--sea-800);border:2px solid var(--sea-700);border-radius:var(--r);padding:14px}
+.enlace:hover{border-color:var(--sand)}
+.enlace span{font-size:13px;color:var(--mist)}
+.enlace b{font-size:16px;font-weight:600}
+.convivencia{margin-top:48px}
+.normas{list-style:none;counter-reset:n;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.normas li{counter-increment:n;display:grid;grid-template-columns:30px 1fr;gap:8px;background:var(--sea-850);border:1px solid var(--sea-700);border-radius:10px;padding:12px;font-size:14px;color:#cfe3e6}
+.normas li:before{content:counter(n);font:600 18px/1.2 var(--px);color:var(--sand)}
+
+/* reglas */
+.reglas{list-style:none;counter-reset:r;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.reglas li{counter-increment:r;display:grid;grid-template-columns:44px 1fr;gap:12px;background:var(--sea-800);border:2px solid var(--sea-700);border-radius:var(--r);padding:16px}
+.reglas li:before{content:counter(r);font:700 30px/1 var(--px);color:var(--sand)}
+.reglas h3{font-size:20px;margin-bottom:6px}
+.reglas p{font-size:15px;color:#cfe3e6}
+.reglas .elite{border-color:#6d6a2e;background:#1c3a3a}
+.reglas small{display:block;margin-top:6px;color:var(--sand);font-size:13px}
+.prueba{margin-top:12px;display:flex;gap:14px;align-items:center;background:var(--sea-850);border-left:4px solid var(--sand);border-radius:8px;padding:14px 16px;font-size:15px}
+.prueba b{color:var(--sand);white-space:nowrap}
+
+/* el juego */
+.juego{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}
+.juego-txt p{font-size:17px;color:#d6e8ea;margin-bottom:16px}
+.rasgos{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:8px}
+.rasgos li{padding-left:22px;position:relative;font-size:15px;color:#cfe3e6}
+.rasgos li:before{content:"";position:absolute;left:2px;top:.55em;width:9px;height:9px;background:var(--sand);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.hitos{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--sea-700)}
+.hitos li{position:relative;padding:0 0 18px 8px}
+.hitos li:before{content:"";position:absolute;left:-30px;top:5px;width:12px;height:12px;border-radius:3px;background:var(--sea-400);border:3px solid var(--sea-900)}
+.hitos li.comunidad:before{background:var(--sand)}
+.hitos li.futuro:before{background:transparent;border:2px dashed var(--mist)}
+.hitos time{display:block;font:600 15px/1.2 var(--px);color:var(--sand)}
+.hitos span{font-size:15px;color:#cfe3e6}
+.fuentes{margin-top:26px;font-size:13px;color:var(--mist)}
+.fuentes a{color:var(--mist)}
+
+footer{border-top:1px solid var(--sea-800);padding:40px 0 48px;color:var(--mist);font-size:14px;background:var(--sea-950)}
+.pie{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:28px;align-items:start}
+.pie-marca b{display:block;font:600 20px var(--px);color:var(--foam);margin-bottom:6px}
+.pie-marca span{display:block;max-width:34em}
+.pie-links{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.pie-links a{color:#c3dbe0;text-decoration:none}
+.pie-links a:hover{color:var(--sand)}
+.estado{display:inline-flex;align-items:center;gap:8px}
+.estado i{width:9px;height:9px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 3px rgba(127,207,123,.2)}
+.estado.demo-e i{background:var(--sand);box-shadow:0 0 0 3px rgba(244,211,139,.2)}
+
+/* admin */
+/* barra de administración */
+.adminbar{position:sticky;top:0;z-index:35;background:var(--paper);color:var(--ink);border-bottom:3px solid #3b4a52}
+.adminbar-in{display:flex;align-items:center;gap:8px;height:50px}
+.adminbar-t{display:flex;align-items:center;gap:8px;font:700 15px var(--px);color:#b03b40;white-space:nowrap;margin-right:6px}
+.adminbar-t i{width:9px;height:9px;border-radius:50%;background:#b03b40;box-shadow:0 0 0 3px rgba(176,59,64,.18)}
+.adminbar button{flex:none;min-height:34px;padding:0 12px;border-radius:8px;border:2px solid #c5d1d4;background:#fff;color:var(--ink);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+.adminbar button:hover{border-color:#3b4a52}
+.adminbar-acc{display:flex;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.adminbar-fin{margin-left:auto;display:flex;gap:6px}
+.adminbar .oscuro{background:#22313a;border-color:#22313a;color:#fff}
+body.es-admin .top{top:50px}
+.panel-g{display:grid;gap:20px}
+.panel-g h3{font:600 16px var(--sans);margin-bottom:8px;color:var(--mist)}
+.panel-btns{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.panel-btns button{text-align:left;min-height:62px;padding:10px 14px;border-radius:12px;border:2px solid var(--sea-700);background:var(--sea-900);cursor:pointer;display:grid;gap:3px;align-content:center}
+.panel-btns button:hover{border-color:var(--sand)}
+.panel-btns b{font-weight:600}
+.panel-btns span{font-size:13px;color:var(--mist)}
+.panel-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.panel-stats div{background:var(--sea-900);border:1px solid var(--sea-700);border-radius:10px;padding:10px 12px}
+.panel-stats b{display:block;font:600 26px/1 var(--px);color:var(--sand);margin-bottom:4px}
+.panel-stats span{font-size:12px;color:var(--mist)}
+.ubicando-aviso{position:sticky;top:0;z-index:5;margin-bottom:10px;background:var(--sand);color:#2b1e05;border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:500}
+.ubicando .escena{cursor:crosshair}
+.ubicando .pin{pointer-events:none}
+
+/* diálogos */
+dialog{border:0;padding:0;background:transparent;color:var(--foam);max-width:min(720px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 32px)}
+dialog::backdrop{background:rgba(2,16,22,.78)}
+.dlg{background:var(--sea-850);border:2px solid var(--sea-600);border-radius:16px;overflow:hidden;max-height:calc(100dvh - 32px);display:flex;flex-direction:column}
+.dlg-cab{padding:22px 24px 18px;border-bottom:1px solid var(--sea-700);position:relative;background:linear-gradient(180deg,color-mix(in srgb,var(--c,#1a5d74) 26%,transparent),transparent)}
+.dlg-cab h2{font-size:32px;margin-top:4px}
+.dlg-cab .x{position:absolute;right:12px;top:12px;width:40px;height:40px;border-radius:10px;border:2px solid var(--sea-600);background:var(--sea-900);cursor:pointer;font-size:18px}
+.dlg-cuerpo{padding:20px 24px 24px;overflow:auto}
+.dlg-cuerpo>*+*{margin-top:16px}
+.dlg-acc{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;padding-top:6px}
+.campos{display:grid;gap:12px}
+.campos.dos{grid-template-columns:1fr 1fr}
+.campo{display:grid;gap:6px;font-size:14px;color:#c3dbe0}
+.campo input,.campo select,.campo textarea{width:100%;min-height:44px;padding:10px 12px;background:var(--sea-950);border:2px solid var(--sea-700);border-radius:10px;color:var(--foam)}
+.campo textarea{min-height:110px;resize:vertical}
+.campo input[type=color]{padding:4px;height:44px}
+.campo input:focus,.campo select:focus,.campo textarea:focus{border-color:var(--sand);outline:none}
+.campo small{color:var(--mist);font-size:12px}
+.form-error{color:#ffb8ba;font-size:14px;min-height:1px}
+.ficha{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:0}
+.ficha div{background:var(--sea-900);border:1px solid var(--sea-700);border-radius:10px;padding:10px 12px}
+.ficha dt{font-size:12px;color:var(--mist)}
+.ficha dd{margin:2px 0 0;font-weight:500}
+.lore{font-size:16px;color:#d6e8ea;white-space:pre-line}
+.zchips{display:flex;flex-wrap:wrap;gap:6px}
+.zchips button{border:1px solid var(--c);color:var(--c);background:transparent;border-radius:999px;padding:4px 10px;font-size:13px;cursor:pointer}
+.hist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.hist li{background:var(--sea-900);border-left:4px solid var(--c);border-radius:8px;padding:10px 12px;font-size:15px}
+.hist time{display:block;font-size:12px;color:var(--mist)}
+.caja-admin{border:2px dashed var(--sand-deep);border-radius:12px;padding:16px;background:rgba(244,211,139,.04)}
+.caja-admin h3{font-size:20px;margin-bottom:12px;color:var(--sand)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:500;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c);border:1px solid var(--c)}
+.zoom{overflow:auto;max-height:calc(100dvh - 150px);border-radius:10px;overscroll-behavior:contain}
+.grande{width:max(1400px,100%)}
+#dlgMapa{max-width:calc(100vw - 24px)}
+.toasts{position:fixed;top:80px;right:16px;z-index:60;display:grid;gap:8px;max-width:min(380px,calc(100vw - 32px))}
+.toast{background:var(--paper);color:var(--ink);border:3px solid #3b4a52;border-radius:12px;padding:12px 14px;font-size:15px;box-shadow:0 5px 0 #031722;animation:entrar .25s ease-out}
+.toast.error{border-color:#b03b40}
+@keyframes entrar{from{transform:translateY(-8px);opacity:0}}
+.cargando{color:var(--mist);font-family:var(--px)}
+
+@media (max-width:1320px){.brand small{display:none}}
+@media (max-width:1180px){.nav{display:none}.top-acc{margin-left:auto}.top-in{height:62px}.menu-btn{display:inline-flex}}
+@media (max-width:900px){.adminbar-acc{display:none}.pasos{grid-template-columns:1fr}.pie{grid-template-columns:1fr}}
+@media (max-width:980px){
+  .hero-in,.cron,.torneos-g,.com,.juego{grid-template-columns:minmax(0,1fr)}
+  .hero{padding:36px 0 48px}
+  .sec-cab{grid-template-columns:1fr;align-items:start}
+  .normas{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .brand small{display:none}
+  .top-acc .btn{min-height:38px;padding:0 12px;font-size:14px}
+  .hero h1{font-size:46px}
+  .hero-lede{font-size:16px}
+  .sec{padding:56px 0}
+  .dialogo{margin:-20px 8px 0;padding:16px 16px 20px}
+  .dialogo p{font-size:16px}
+  .teams{grid-template-columns:1fr}
+  .zonas{grid-template-columns:1fr 1fr}
+  .reglas,.normas,.enlaces,.campos.dos{grid-template-columns:1fr}
+  .torneo{grid-template-columns:1fr;gap:8px}
+  .torneo-f{border-right:0;padding-right:0}
+  .prueba{flex-direction:column;align-items:flex-start;gap:4px}
+  .dlg-cab,.dlg-cuerpo{padding-left:16px;padding-right:16px}
+  .dlg-cab h2{font-size:26px;padding-right:44px}
+  .carta-pie{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:460px){.solo-ancho{display:none}.top-in{gap:12px}.clasif .num{width:auto;padding-left:4px;padding-right:10px}.clasif th,.clasif td{font-size:14px;padding-left:8px}.clasif th{font-size:12px}.clasif .n{width:26px;padding-right:0}}
+@media (max-width:400px){.zonas{grid-template-columns:1fr}.brand b{font-size:16px}.brand svg{width:28px;height:28px}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+<!--DATOS_INICIALES-->
+</head>
+<body>
+<div class="adminbar" id="adminbar" hidden>
+  <div class="wrap adminbar-in">
+    <span class="adminbar-t"><i></i>Administración</span>
+    <div class="adminbar-acc" role="toolbar" aria-label="Acciones rápidas">
+      <button type="button" data-act="nueva-noticia">Publicar noticia</button>
+      <button type="button" data-act="nueva-guerra">Registrar guerra</button>
+      <button type="button" data-act="nuevo-torneo">Nuevo torneo</button>
+      <button type="button" data-act="nuevo-combate">Registrar combate</button>
+    </div>
+    <div class="adminbar-fin"><button type="button" class="oscuro" data-act="panel">Panel</button><button type="button" data-act="salir">Salir</button></div>
+  </div>
+</div>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#inicio" data-ir="inicio" aria-label="Pokémon Reloaded Online, inicio">
+      <svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path fill="#f4d38b" d="M7 0h2v4h1v2h2v1h4v2h-4v1h-2v2H9v4H7v-4H6v-2H4V9H0V7h4V6h2V4h1z"/><path fill="#fff7dc" d="M7 6h2v4H7z"/></svg>
+      <span><b>Reloaded Online</b><small>Comunidad de Pokémon Reloaded</small></span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#sumate" data-ir="sumate">Empezá</a><a href="#teams" data-ir="teams">Teams</a><a href="#atlas" data-ir="atlas">Atlas</a><a href="#cronica" data-ir="cronica">Crónica</a><a href="#torneos" data-ir="torneos">Torneos</a><a href="#comunidad" data-ir="comunidad">Comunidad</a><a href="#reglas" data-ir="reglas">Reglas</a><a href="#juego" data-ir="juego">El juego</a>
+    </nav>
+    <div class="top-acc">
+      <button class="btn sm menu-btn" id="btnMenu" type="button" aria-haspopup="dialog">Menú</button>
+      <a class="btn sm sand" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar<span class="solo-ancho">&nbsp;online</span></a>
+    </div>
+  </div>
+</header>
+<div class="demo" id="avisoDemo" hidden><div class="wrap">Vista de demostración: lo que cambies queda solo en este navegador. Publicada desde tu Drive, todo se guarda para toda la comunidad.</div></div>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="wrap hero-in">
+    <div>
+      <p class="hero-sitio">Pokémon Reloaded · Edición Online</p>
+      <h1>¿Quién domina la Región Star?</h1>
+      <p class="hero-lede">Seguí la guerra de teams zona por zona, sumate a un escuadrón y anotate en los torneos. Cada resultado queda registrado para toda la comunidad.</p>
+      <div class="dom" id="dominio"><p class="cargando">Cargando la región…</p></div>
+      <div class="cta"><a class="btn sand" href="#teams" data-ir="teams">Elegí tu team</a><a class="btn" href="#atlas" data-ir="atlas">Ver el atlas</a></div>
+    </div>
+    <figure class="carta" id="mapa">
+      <div class="ubicando-aviso" id="avisoUbicar" hidden><span>Tocá el mapa donde está <b id="ubicarNombre"></b></span><button class="btn sm" type="button" data-act="cancelar-ubicar" style="border-color:#2b1e05;color:#2b1e05">Cancelar</button></div>
+      <div class="carta-marco">
+        <div class="escena" data-escena>
+          <img class="mapa-img" alt="Mapa territorial de la Región Star con los emblemas de cada team">
+          <div class="pins"></div>
+          <div class="vacio-mapa" hidden><p>El mapa territorial todavía no está cargado.<span class="solo-admin" hidden> Subilo desde el Panel → Cambiar mapa.</span></p></div>
+        </div>
+      </div>
+      <div class="dialogo" id="dialogo" role="article" aria-labelledby="notTitulo" title="Tocá para leer completo">
+        <div class="dialogo-meta"><b>Noticias Star</b><span class="dm-der"><span id="notFecha"></span><a id="notCompartir" class="compartir" target="_blank" rel="noopener" hidden>Compartir</a></span></div>
+        <h2 id="notTitulo">Cargando…</h2>
+        <p id="notCuerpo"></p>
+        <span class="flecha" aria-hidden="true">▼</span>
+      </div>
+      <figcaption class="carta-pie"><span id="pinsInfo">Los puntos marcan zonas registradas en el atlas.</span><span><button class="link" type="button" data-act="ampliar">Ampliar mapa</button> · <button class="link" type="button" data-ir="cronica">Archivo de noticias</button></span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="sumate">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Empezá a jugar</h2><p>Tres pasos para entrar a la Región Star con la comunidad.</p></div>
+    <ol class="pasos">
+      <li><h3>Descargá el juego</h3><p>Pokémon Reloaded Online está para PC y Android. Explorá el mundo con otros entrenadores, combatí e intercambiá Pokémon.</p><a class="btn sand" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Descargar Reloaded Online</a></li>
+      <li><h3>Entrá al grupo de Online</h3><p>Ahí se coordinan las guerras de teams, los torneos y los ingresos. También es el lugar para consultas sobre el juego.</p><a class="btn" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Unirme por WhatsApp</a></li>
+      <li><h3>Elegí tu team</h3><p>Mirá la ficha de cada team, qué zonas controla y quién lo lidera. Después escribile al líder o a un admin en el grupo.</p><a class="btn" href="#teams" data-ir="teams">Ver los teams</a></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="teams">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Elegí tu team</h2><p>Cada team tiene su identidad y su liderazgo. Tocá uno para ver su ficha. Para sumarte, pedí el ingreso en el grupo de WhatsApp de Online.</p></div>
+    <div class="teams" id="gridTeams"></div>
+  </div>
+</section>
+
+<section class="sec" id="atlas">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Atlas de la Región Star</h2><p>Todas las zonas y quién las controla. Tocá una para ver su historial de guerras y dónde queda en el mapa.</p></div>
+    <div class="herr">
+      <input class="buscar" id="buscarZona" type="search" placeholder="Buscar ciudad, isla, cueva o team" aria-label="Buscar zonas">
+      <div class="chips" id="filtros" role="group" aria-label="Filtrar por estado"></div>
+    </div>
+    <div class="zonas" id="gridZonas"></div>
+    <p class="vacio" id="zonasVacio" hidden>Ninguna zona coincide con la búsqueda.</p>
+  </div>
+</section>
+
+<section class="sec" id="cronica">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Crónica de la guerra</h2><p>Cada conquista, defensa y disputa queda registrada acá, junto con los partes de Noticias Star.</p></div>
+    <div class="cron">
+      <div><h3 class="sub">Partes de guerra</h3><ol class="linea" id="linea"></ol><div id="lineaMas"></div></div>
+      <div><h3 class="sub">Clasificación de teams</h3><div class="tabla-box"><table class="clasif"><thead><tr><th class="n">#</th><th>Team</th><th class="num">Zonas</th><th class="num" title="Partes de guerra ganados">Guerras</th><th class="num" title="Combates PvP ganados">PvP</th></tr></thead><tbody id="clasif"></tbody></table></div><p class="muted" style="font-size:13px;margin:-20px 0 28px">Guerras y PvP cuentan victorias registradas por la administración.</p><h3 class="sub">Noticias Star</h3><div class="archivo" id="archivo"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="torneos">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Torneos y PvP</h2><p>Fechas, formatos e inscripciones en un solo lugar. Para un desafío casual, coordiná con tu rival en el grupo y después reportá el resultado.</p></div>
+    <div class="torneos-g">
+      <div><h3 class="sub">Calendario</h3><div id="listaTorneos"></div></div>
+      <div>
+        <h3 class="sub">Zona PvP</h3>
+        <ul class="modos">
+          <li><b>Desafío amistoso</b><span>Combate casual para probar estrategias y conocer jugadores.</span></li>
+          <li><b>Duelo entre teams</b><span>Representá a tu escuadrón en un enfrentamiento pactado.</span></li>
+          <li><b>Reporte de resultados</b><span>Pasale ganador, rival y formato a un admin y el combate queda en el registro de abajo.</span></li>
+        </ul>
+        <h3 class="sub">Últimos combates</h3>
+        <ul class="combates" id="listaCombates"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="comunidad">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Un refugio para entrenadores</h2><p>Veteranos, nuevos jugadores y curiosos: compartimos experiencia, preguntas y aventuras de Pokémon.</p></div>
+    <div class="com">
+      <div>
+        <p class="com-intro">Este grupo es un refugio para la comunidad de los juegos de Pokémon, en especial Pokémon Reloaded. No importa si sos veterano o recién llegás buscando experiencia: acá compartimos saberes.</p>
+        <div class="fechas">
+          <div><small>Salida de la beta final</small><strong>11 abr 2024</strong><span>Pokémon Reloaded · The Last Beta</span></div>
+          <div><small>Inicio de la Edición Online</small><strong>29 oct 2026</strong><span>Comunidad y roleo online</span></div>
+        </div>
+      </div>
+      <div class="enlaces">
+        <a class="enlace" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener"><span>Jugar · PC o Android</span><b>Pokémon Reloaded Online ↗</b></a>
+        <a class="enlace" href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener"><span>Noticias y desarrollo</span><b>Blog de The Last Beta ↗</b></a>
+        <a class="enlace" href="https://www.facebook.com/groups/680476122770975/?ref=share" target="_blank" rel="noopener"><span>Facebook · más de 10.000 miembros</span><b>Grupo de la comunidad ↗</b></a>
+        <a class="enlace" href="https://chat.whatsapp.com/Hqtn0jtL4vuBE4dfQVrHj5" target="_blank" rel="noopener"><span>WhatsApp</span><b>Grupo general ↗</b></a>
+        <a class="enlace" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener"><span>WhatsApp · Online</span><b>Grupo reservado a Online ↗</b></a>
+        <a class="enlace" href="https://mega.nz/file/Um0UVABI#HxpgjQ5wXSZUvq3K2OgNMT3TibxphscAb31USpVaE2A" target="_blank" rel="noopener"><span>Descarga</span><b>The Last Beta ↗</b></a>
+      </div>
+    </div>
+    <div class="convivencia">
+      <h3 class="sub">Convivencia en el grupo</h3>
+      <ol class="normas">
+        <li>Sin lenguaje obsceno usado para ofender, ni contenido para mayores de 18.</li>
+        <li>No a las peleas serias, el maltrato o el acoso.</li>
+        <li>Evitar contenido de K-pop, reggaetón y reparto en el grupo.</li>
+        <li>No enviar spam.</li>
+        <li>Evitar spoilers de Pokémon Reloaded: The Last Beta; no todos avanzan al mismo ritmo.</li>
+        <li>No se permiten hacks ni trucos del juego. Los mods del port Android tienen una excepción parcial según el criterio del grupo.</li>
+        <li>No durakos.</li>
+        <li>La administración puede destacar en su estado videos o memes compartidos en el grupo.</li>
+        <li>Las consultas sobre el port Android y Reloaded Online van ordenadas: esperá respuesta para no saturar el grupo.</li>
+      </ol>
+      <p class="muted" style="margin-top:14px">¿Necesitás ayuda? Etiquetá a un admin o escribile por privado.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="reglas">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Reglas de la guerra de teams</h2><p>Conquista y defensa para el roleo PvP. El atlas y el mapa se actualizan con los reportes y las capturas de victoria.</p></div>
+    <ol class="reglas">
+      <li><div><h3>Reunir y anunciar</h3><p>Para reclamar una zona enemiga tienen que llegar 4 o 5 integrantes y anunciar su llegada en el grupo.</p></div></li>
+      <li><div><h3>Zona sin defensores</h3><p>Si revisan la ciudad y no hay nadie defendiéndola, el team atacante puede tomarla.</p></div></li>
+      <li><div><h3>Batalla por la ciudad</h3><p>Si hay defensores, se resuelve con una batalla Pokémon. El bando derrotado se retira.</p></div></li>
+      <li><div><h3>Estado de vagabundo</h3><p>Quienes pierdan defendiendo no pueden volver a pelear por esa ciudad durante 24 horas. Sí pueden atacar otra ciudad enemiga.</p></div></li>
+      <li><div><h3>Prueba del resultado</h3><p>Compartan una captura de la victoria para confirmar el resultado y evitar malentendidos.</p></div></li>
+      <li><div><h3>Puntos muertos</h3><p>Una ciudad sin miembros reclutados de un team queda como Punto Muerto hasta que alguien la reclame. El primer team que llegue puede hacerlo.</p></div></li>
+      <li><div><h3>Recuperar territorio</h3><p>Si un team vuelve a reclutar miembros y su ciudad está ocupada, tiene que luchar para recuperarla.</p></div></li>
+      <li class="elite"><div><h3>Intervención del Escuadrón Élite</h3><p>Si el Escuadrón Élite derrota a 4 o 5 miembros de un team en guerra, el castigo previsto es que todo ese team quede preso por 4 días.</p><small>La aplicación de esta sanción todavía está en construcción.</small></div></li>
+    </ol>
+    <div class="prueba"><b>Fase de prueba</b><span>Todavía no hay horario fijo para las batallas. Coordinen los desafíos en el grupo y disfruten el roleo.</span></div>
+  </div>
+</section>
+
+<section class="sec" id="juego">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Sobre Pokémon Reloaded</h2><p>Lo básico del juego, sin spoilers de la historia.</p></div>
+    <div class="juego">
+      <div class="juego-txt">
+        <p>Pokémon Reloaded (también conocido como Pokémon Edición Reloaded) es un fangame en español desarrollado por F3R y ambientado en la Región Star. Se publica por etapas: The Last Beta es la fase previa a la versión final, y cada actualización suma contenido y correcciones.</p>
+        <p>La versión de PC corre en Windows (se recomiendan 7, 10 u 11). En noviembre de 2026 se anunció una versión oficial para Android. Reloaded Online, la edición que juega esta comunidad, está para PC y Android: explorás el mundo con otros entrenadores, combatís, intercambiás y regalás Pokémon.</p>
+        <ul class="rasgos">
+          <li>Pokédex de casi todas las primeras ocho generaciones; algunos legendarios y Pokémon únicos quedan afuera.</li>
+          <li>Pokémon exclusivos de Reloaded, con créditos para The Patathan.</li>
+          <li>Medallas y ligas de Star, Kanto, Johto, Hoenn, Sinnoh, Teselia y Kalos.</li>
+          <li>Megaevoluciones y movimientos Z, con la mayoría de los cristales Z.</li>
+          <li>Edificios del Frente Batalla.</li>
+          <li>Dificultad Fácil, Normal o Extrema, y dos modos de música: Reloaded y Pokémon.</li>
+          <li>Controles configurables.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub">Cómo viene el desarrollo</h3>
+        <ol class="hitos">
+          <li><time>11 abr 2024</time><span>Sale The Last Beta, versión completa para PC.</span></li>
+          <li><time>30 dic 2025</time><span>Se extiende la vida de la beta 1.8.5; en marzo de 2026 llega una segunda ampliación.</span></li>
+          <li><time>30 abr 2026</time><span>The Last Beta 1.9, nueva versión jugable.</span></li>
+          <li><time>8 may 2026</time><span>The Last Beta 1.9.1.</span></li>
+          <li><time>1 ago 2026</time><span>The Last Beta 1.9.2, con arreglos de estabilidad y novedades.</span></li>
+          <li><time>18 oct 2026</time><span>Concurso oficial para crear un Pokémon exclusivo de la Región Star. Se mandan ideas, no sprites, y no se permite usar IA.</span></li>
+          <li class="comunidad"><time>29 oct 2026</time><span>Arranca la Edición Online de esta comunidad.</span></li>
+          <li><time>2 nov 2026</time><span>Se anuncia Pokémon Reloaded para Android.</span></li>
+          <li class="futuro"><time>Próximamente</time><span>The Last Beta 1.9.3, en desarrollo.</span></li>
+        </ol>
+      </div>
+    </div>
+    <p class="fuentes">Fuentes: <a href="https://pokemon-reloaded.blogspot.com/2024/04/pokemon-reloaded-last-beta.html" target="_blank" rel="noopener">Pokémon Reloaded The Last Beta</a> · <a href="http://pokemon-reloaded.blogspot.com/2026/10/the-last-fakemon.html" target="_blank" rel="noopener">The Last Fakemon</a> · <a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog de Pokémon Edición Reloaded</a> · <a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Pokémon Reloaded Online</a></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap pie">
+    <div class="pie-marca"><b>Reloaded Online</b><span>Sitio comunitario no oficial de Pokémon Reloaded Edición Online, hecho por y para la comunidad. Pokémon es marca de sus respectivos dueños.</span></div>
+    <nav class="pie-links" aria-label="Enlaces de la comunidad">
+      <a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar online</a>
+      <a href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Grupo de Online</a>
+      <a href="https://chat.whatsapp.com/Hqtn0jtL4vuBE4dfQVrHj5" target="_blank" rel="noopener">Grupo general</a>
+      <a href="https://www.facebook.com/groups/680476122770975/?ref=share" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog del juego</a>
+      <a href="#reglas" data-ir="reglas">Reglas</a>
+    </nav>
+    <span class="estado" id="estado"><i></i><span>Conectando…</span></span>
+  </div>
+</footer>
+
+
+<dialog id="dlgMenu">
+  <div class="dlg"><div class="dlg-cab"><h2>Menú</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+    <div class="dlg-cuerpo">
+      <nav class="menu-lista" aria-label="Secciones">
+        <a href="#inicio" data-ir="inicio">Inicio</a><a href="#sumate" data-ir="sumate">Empezá a jugar</a><a href="#teams" data-ir="teams">Teams</a><a href="#atlas" data-ir="atlas">Atlas de la Región Star</a><a href="#cronica" data-ir="cronica">Crónica y clasificación</a><a href="#torneos" data-ir="torneos">Torneos y PvP</a><a href="#comunidad" data-ir="comunidad">Comunidad</a><a href="#reglas" data-ir="reglas">Reglas</a><a href="#juego" data-ir="juego">Sobre el juego</a>
+      </nav>
+      <div class="menu-acc"><a class="btn sand" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar online</a><a class="btn" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Grupo de WhatsApp de Online</a></div>
+    </div>
+  </div>
+</dialog>
+<dialog id="dlgPanel"></dialog>
+<dialog id="dlgTeam"></dialog>
+<dialog id="dlgZona"></dialog>
+<dialog id="dlgForm"></dialog>
+<dialog id="dlgLista"></dialog>
+<dialog id="dlgMapa">
+  <div class="dlg">
+    <div class="dlg-cab"><h2>Mapa de la Región Star</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+    <div class="dlg-cuerpo">
+      <div class="ubicando-aviso" id="avisoUbicar2" hidden style="top:0"><span>Tocá el mapa donde está <b id="ubicarNombre2"></b></span><button class="btn sm" type="button" data-act="cancelar-ubicar" style="border-color:#2b1e05;color:#2b1e05">Cancelar</button></div>
+      <div class="zoom"><div class="escena grande" data-escena><img class="mapa-img" alt="Mapa territorial de la Región Star ampliado"><div class="pins"></div><div class="vacio-mapa" hidden><p>El mapa territorial todavía no está cargado.</p></div></div></div>
+    </div>
+  </div>
+</dialog>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script>
+// ===== NÚCLEO COMPARTIDO (idéntico en Codigo.gs y en index.html) =====
+var Core = (function () {
+  var ACCIONES = {
+    conquista: 'Conquista', toma: 'Toma de zona libre', defensa: 'Defensa',
+    disputa: 'Disputa', liberacion: 'Liberación', muerto: 'Punto Muerto', resguardo: 'Resguardo'
+  };
+  var ESTADOS = ['Neutral', 'Controlada', 'En disputa', 'Punto Muerto'];
+  var TABLAS = {
+    equipos: ['id', 'nombre', 'emoji', 'lider', 'tipo', 'color', 'lore', 'orden'],
+    territorios: ['id', 'nombre', 'tipo', 'estado', 'equipo', 'retador', 'ultimo', 'referencia', 'x', 'y', 'actualizado'],
+    guerras: ['id', 'fecha', 'territorioId', 'territorio', 'accion', 'ganador', 'perdedor', 'resumen', 'nota'],
+    torneos: ['id', 'nombre', 'fecha', 'formato', 'info', 'enlace', 'creado'],
+    noticias: ['id', 'fecha', 'titulo', 'cuerpo'],
+    combates: ['id', 'fecha', 'ganador', 'rival', 'equipoGanador', 'equipoRival', 'formato', 'nota']
+  };
+
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function txt(v, max) {
+    v = (v == null ? '' : String(v)).replace(/[\u0000-\u001f\u007f]+/g, ' ').replace(/\s+/g, ' ').trim();
+    return max ? v.slice(0, max) : v;
+  }
+  function largo(v, max) {
+    v = (v == null ? '' : String(v)).replace(/\r\n?/g, '\n').replace(/[\u0000-\u0009\u000b-\u001f\u007f]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+    return max ? v.slice(0, max) : v;
+  }
+  function slug(s) {
+    return txt(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+  function igual(a, b) { return txt(a).toLowerCase() === txt(b).toLowerCase(); }
+  function porId(lista, id) { for (var i = 0; i < lista.length; i++) if (lista[i].id === id) return lista[i]; return null; }
+  function falla(m) { throw new Error(m); }
+  function color(c, def) { c = txt(c); return /^#[0-9a-f]{6}$/i.test(c) ? c : def; }
+  function enlace(u) { u = txt(u, 300); return /^https?:\/\//i.test(u) ? u : ''; }
+  function equipoValido(db, nombre) {
+    nombre = txt(nombre, 60); if (!nombre) return '';
+    for (var i = 0; i < db.equipos.length; i++) if (igual(db.equipos[i].nombre, nombre)) return db.equipos[i].nombre;
+    return falla('No existe el team "' + nombre + '".');
+  }
+  function quitar(lista, id) {
+    for (var i = 0; i < lista.length; i++) if (lista[i].id === id) { lista.splice(i, 1); return true; }
+    return falla('Ese registro ya no existe. Recargá la página.');
+  }
+
+  function semilla() {
+    var equipos = [
+      ['rocket', 'Team Rocket', '🚀', '#ff815b', 'Estrategas de movimientos rápidos: valoran la astucia, la coordinación y saber cuándo dar el siguiente paso.'],
+      ['magma', 'Team Magma', '🌋', '#ff9d58', 'Un clan de voluntad firme que apuesta por la disciplina, la resistencia y avanzar unido.'],
+      ['aqua', 'Team Aqua', '🌊', '#73c9f1', 'Exploradores flexibles: se adaptan al terreno y prefieren ganar con paciencia y cooperación.'],
+      ['galaxia', 'Team Galaxia', '🌌', '#c591ff', 'Un equipo metódico que busca orden, precisión y una visión compartida para cada desafío.'],
+      ['plasma', 'Team Plasma', '⚡', '#a4d6f5', 'Entrenadores idealistas que ponen sus convicciones y el compañerismo en el centro.'],
+      ['flare', 'Team Flare', '🔥', '#fd6955', 'Un grupo de presencia fuerte, enfocado en la estrategia, el estilo y el control de sus zonas.'],
+      ['rekiem', 'Team Rekiem', '👁️', '#d6a6ff', 'Organización reservada y decidida; sus objetivos y motivaciones quedan en misterio, sin revelar la trama.'],
+      ['elite', 'Escuadrón Élite', '⭐', '#c8f169', 'Fuerza de protección de la Región Star: prioriza el resguardo de civiles, el orden y la respuesta ante conflictos.'],
+      ['delta', 'Team Delta', '🟢', '#8eea66', 'Clan emergente de origen desconocido. Su identidad y sus motivos se irán revelando en el roleo de la comunidad.']
+    ].map(function (e, i) {
+      return { id: e[0], nombre: e[1], emoji: e[2], lider: '—', tipo: e[1] === 'Team Delta' ? 'Clan nuevo' : 'Escuadrón', color: e[3], lore: e[4], orden: String(i + 1) };
+    });
+    var zonas = [
+      ['Pueblo Alba', 'Pueblo'], ['Pueblo Valde', 'Pueblo'], ['Ciudad Spica', 'Ciudad'], ['Bosque Spica', 'Bosque'], ['Pueblo Talo', 'Pueblo'],
+      ['Ciudad Naos', 'Ciudad', 'Noroeste de la Región Star'], ['Ciudad Sirio', 'Ciudad', 'Centro de la Región Star'], ['Ciudad Deneb', 'Ciudad'],
+      ['Bosque Místico', 'Bosque'], ['Ciudad Vega', 'Ciudad', 'Al norte de Playa Vega'], ['Playa Vega', 'Playa'], ['Ciudad Polar', 'Ciudad'],
+      ['Ciudad Rigel', 'Ciudad'], ['Ciudad Antares', 'Ciudad'], ['Pueblo Kena', 'Pueblo'], ['Pueblo Luna', 'Pueblo'], ['Pueblo Arcturus', 'Pueblo'],
+      ['Pueblo Wezen', 'Pueblo'], ['Pueblo Régulo', 'Pueblo'], ['Pueblo Procyon', 'Pueblo'], ['Pueblo Niza', 'Pueblo'], ['Puerto Luz', 'Puerto'],
+      ['Playa Naos', 'Playa'], ['Isla Sol', 'Isla'], ['Isla Urano', 'Isla'], ['Isla Venus', 'Isla'], ['Isla Terra', 'Isla'], ['Isla Marte', 'Isla'],
+      ['Isla Júpiter', 'Isla'], ['Isla Saturno', 'Isla'], ['Isla Neptuno', 'Isla'], ['Islas Cometa', 'Archipiélago'], ['Archipiélago Solar', 'Archipiélago'],
+      ['Gran Isla Estelar', 'Región'], ['Zona Safari', 'Zona natural'], ['La Jungla', 'Zona natural'], ['Paraíso Floral', 'Zona natural'],
+      ['Pantano Swamp', 'Pantano'], ['Desierto de Gaara', 'Desierto'], ['Ruinas Omega', 'Ruinas'], ['Cueva Helada', 'Cueva'], ['Cueva Neith', 'Cueva'],
+      ['Cueva Rocosa', 'Cueva'], ['Cueva Moonlight', 'Cueva'], ['Cueva Roja', 'Cueva'], ['Banco Star', 'Edificio'],
+      ['Centro de Investigación y Tecnología', 'Edificio'], ['Edificio Scorpio', 'Edificio'], ['Liga Star', 'Liga']
+    ];
+    var control = {
+      'Ciudad Sirio': ['Team Rekiem', 'Team Rekiem conquistó Ciudad Sirio.', 'conquista', '—'],
+      'Ciudad Deneb': ['Team Delta', 'Team Delta tomó Ciudad Deneb después de que quedara libre del Team Flare.', 'toma', 'Zona libre'],
+      'Bosque Místico': ['Escuadrón Élite', 'Escuadrón Élite tomó y resguardó Bosque Místico de futuras amenazas.', 'resguardo', '—']
+    };
+    var territorios = [], guerras = [];
+    zonas.forEach(function (z) {
+      var c = control[z[0]], id = 'z-' + slug(z[0]);
+      territorios.push({ id: id, nombre: z[0], tipo: z[1], estado: c ? 'Controlada' : 'Neutral', equipo: c ? c[0] : '', retador: '',
+        ultimo: c ? c[1] : 'Zona neutral', referencia: z[2] || '', x: '', y: '', actualizado: '' });
+      if (c) guerras.push({ id: 'g-' + slug(z[0]), fecha: 'Parte inicial', territorioId: id, territorio: z[0], accion: c[2], ganador: c[0], perdedor: c[3], resumen: c[1], nota: '' });
+    });
+    return {
+      equipos: equipos, territorios: territorios, guerras: guerras, torneos: [], combates: [],
+      noticias: [{ id: 'n-inicial', fecha: 'Parte territorial', titulo: 'La disputa por Star se intensifica',
+        cuerpo: 'La Comisaría confirmó nuevos movimientos: Team Rekiem controla Ciudad Sirio; Team Delta tomó Ciudad Deneb, recuperada previamente del Team Flare; y el Escuadrón Élite resguarda el Bosque Místico. Tras los reportes de policías heridos, las autoridades piden mantener la calma y no involucrarse con organizaciones enemigas. El origen de Team Delta sigue sin esclarecerse.' }]
+    };
+  }
+
+  function renombrarEquipo(db, viejo, nuevo) {
+    if (viejo === nuevo) return;
+    db.territorios.forEach(function (t) { if (t.equipo === viejo) t.equipo = nuevo; if (t.retador === viejo) t.retador = nuevo; });
+    db.guerras.forEach(function (g) { if (g.ganador === viejo) g.ganador = nuevo; if (g.perdedor === viejo) g.perdedor = nuevo; });
+    db.combates.forEach(function (c) { if (c.equipoGanador === viejo) c.equipoGanador = nuevo; if (c.equipoRival === viejo) c.equipoRival = nuevo; });
+  }
+
+  function aplicar(db, op, p, ctx) {
+    p = p || {};
+    var ahora = ctx.ahora, x, t, i;
+    if (!ctx.admin) falla('Esta acción es solo para admins.');
+    switch (op) {
+      case 'equipoGuardar': {
+        var n = txt(p.nombre, 40); if (!n) falla('Escribí el nombre del team.');
+        for (i = 0; i < db.equipos.length; i++) if (db.equipos[i].id !== p.id && igual(db.equipos[i].nombre, n)) falla('Ya existe un team con ese nombre.');
+        x = p.id ? porId(db.equipos, p.id) : null;
+        if (p.id && !x) falla('Ese team ya no existe.');
+        if (!x) { x = { id: uid(), orden: String(db.equipos.length + 1) }; db.equipos.push(x); }
+        var viejo = x.nombre;
+        x.nombre = n; x.emoji = txt(p.emoji, 8) || '✦'; x.lider = txt(p.lider, 40) || '—'; x.tipo = txt(p.tipo, 30) || 'Equipo comunitario';
+        x.color = color(p.color, x.color || '#f4d38b'); x.lore = largo(p.lore, 600);
+        if (viejo) renombrarEquipo(db, viejo, n);
+        return { cambios: ['equipos', 'territorios', 'guerras', 'combates'] };
+      }
+      case 'equipoBorrar': quitar(db.equipos, p.id); return { cambios: ['equipos'] };
+      case 'equiposRestaurar': {
+        semilla().equipos.forEach(function (e) {
+          var ya = db.equipos.filter(function (q) { return igual(q.nombre, e.nombre); })[0];
+          if (!ya) db.equipos.push(e); else { ya.color = ya.color || e.color; ya.lore = ya.lore || e.lore; ya.emoji = ya.emoji || e.emoji; }
+        });
+        return { cambios: ['equipos'] };
+      }
+      case 'torneoGuardar': {
+        if (!txt(p.nombre)) falla('Escribí el nombre del torneo.');
+        x = p.id ? porId(db.torneos, p.id) : null;
+        if (!x) { x = { id: uid(), creado: ahora }; db.torneos.unshift(x); }
+        x.nombre = txt(p.nombre, 80); x.fecha = txt(p.fecha, 60) || 'Fecha por definir'; x.formato = txt(p.formato, 60) || 'Formato por definir';
+        x.info = largo(p.info, 500); x.enlace = enlace(p.enlace);
+        return { cambios: ['torneos'] };
+      }
+      case 'torneoBorrar': quitar(db.torneos, p.id); return { cambios: ['torneos'] };
+      case 'noticiaGuardar': {
+        if (!txt(p.titulo)) falla('La noticia necesita un título.');
+        x = p.id ? porId(db.noticias, p.id) : null;
+        if (!x) { x = { id: uid(), fecha: ahora }; db.noticias.unshift(x); }
+        x.titulo = txt(p.titulo, 90); x.cuerpo = largo(p.cuerpo, 900);
+        return { cambios: ['noticias'] };
+      }
+      case 'noticiaBorrar': quitar(db.noticias, p.id); return { cambios: ['noticias'] };
+      case 'combateGuardar': {
+        var gan = txt(p.ganador, 40), riv = txt(p.rival, 40);
+        if (!gan || !riv) falla('Completá ganador y rival.');
+        db.combates.unshift({ id: uid(), fecha: ahora, ganador: gan, rival: riv, equipoGanador: equipoValido(db, p.equipoGanador),
+          equipoRival: equipoValido(db, p.equipoRival), formato: txt(p.formato, 50) || 'Combate', nota: txt(p.nota, 160) });
+        return { cambios: ['combates'] };
+      }
+      case 'combateBorrar': quitar(db.combates, p.id); return { cambios: ['combates'] };
+      case 'zonaGuardar': {
+        var zn = txt(p.nombre, 60); if (!zn) falla('Escribí el nombre de la zona.');
+        for (i = 0; i < db.territorios.length; i++) if (db.territorios[i].id !== p.id && igual(db.territorios[i].nombre, zn)) falla('Esa zona ya está en el atlas.');
+        x = p.id ? porId(db.territorios, p.id) : null;
+        if (!x) { x = { id: 'z-' + slug(zn) + '-' + uid().slice(-3), estado: 'Neutral', equipo: '', retador: '', ultimo: 'Zona neutral', x: '', y: '', actualizado: ahora }; db.territorios.push(x); }
+        var antes = x.nombre;
+        x.nombre = zn; x.tipo = txt(p.tipo, 30) || 'Zona'; x.referencia = txt(p.referencia, 120);
+        if (antes && antes !== zn) db.guerras.forEach(function (g) { if (g.territorioId === x.id) g.territorio = zn; });
+        return { cambios: ['territorios', 'guerras'], resultado: { id: x.id } };
+      }
+      case 'zonaBorrar': {
+        quitar(db.territorios, p.id);
+        db.guerras = db.guerras.filter(function (g) { return g.territorioId !== p.id; });
+        return { cambios: ['territorios', 'guerras'] };
+      }
+      case 'zonaUbicar': {
+        t = porId(db.territorios, p.id) || falla('Esa zona ya no existe.');
+        if (p.x === '' || p.x == null) { t.x = ''; t.y = ''; }
+        else {
+          var px = Number(p.x), py = Number(p.y);
+          if (!(px >= 0 && px <= 100 && py >= 0 && py <= 100)) falla('Posición fuera del mapa.');
+          t.x = px.toFixed(2); t.y = py.toFixed(2);
+        }
+        return { cambios: ['territorios'] };
+      }
+      case 'guerraRegistrar': {
+        t = porId(db.territorios, p.territorio) || falla('No encontré esa zona.');
+        var ac = p.accion; if (!ACCIONES[ac]) falla('Elegí qué pasó en la zona.');
+        var g = equipoValido(db, p.ganador), l = p.perdedor ? equipoValido(db, p.perdedor) : '', r = '';
+        if (['conquista', 'toma', 'defensa', 'resguardo'].indexOf(ac) >= 0 && !g) falla('Elegí el team que ganó o tomó la zona.');
+        if (g && l && g === l) falla('El ganador y el rival no pueden ser el mismo team.');
+        if (ac === 'conquista') { l = l || t.equipo; t.estado = 'Controlada'; t.equipo = g; t.retador = ''; r = g + ' conquistó ' + t.nombre + (l && l !== g ? ' a ' + l : ''); }
+        else if (ac === 'toma') { t.estado = 'Controlada'; t.equipo = g; t.retador = ''; l = 'Zona libre'; r = g + ' tomó ' + t.nombre + ' (zona libre)'; }
+        else if (ac === 'defensa') { l = l || t.retador; t.estado = 'Controlada'; t.equipo = g; t.retador = ''; r = g + ' defendió ' + t.nombre + (l ? ' ante ' + l : ''); }
+        else if (ac === 'disputa') { t.estado = 'En disputa'; t.retador = (g && g !== t.equipo) ? g : l; r = 'Disputa abierta en ' + t.nombre + (g ? ': ' + g : '') + (l ? ' contra ' + l : ''); }
+        else if (ac === 'liberacion') { l = l || t.equipo; t.estado = 'Neutral'; t.equipo = ''; t.retador = ''; r = t.nombre + ' quedó liberada y neutral' + (l ? ' tras dejar el control de ' + l : ''); }
+        else if (ac === 'muerto') { l = l || t.equipo; t.estado = 'Punto Muerto'; t.equipo = ''; t.retador = ''; r = t.nombre + ' quedó como Punto Muerto' + (l ? ' al quedar sin miembros de ' + l : ''); }
+        else if (ac === 'resguardo') { t.estado = 'Controlada'; t.equipo = g; t.retador = ''; r = g + ' resguardó ' + t.nombre + (l ? ' ante ' + l : ''); }
+        if (txt(p.referencia)) t.referencia = txt(p.referencia, 120);
+        t.ultimo = r; t.actualizado = ahora;
+        db.guerras.unshift({ id: uid(), fecha: ahora, territorioId: t.id, territorio: t.nombre, accion: ac, ganador: g || '', perdedor: l || '', resumen: r, nota: txt(p.nota, 200) });
+        return { cambios: ['territorios', 'guerras'] };
+      }
+      case 'guerraBorrar': quitar(db.guerras, p.id); return { cambios: ['guerras'] };
+    }
+    return falla('Acción desconocida: ' + op);
+  }
+
+  function vista(db, admin) {
+    var equipos = db.equipos.slice().sort(function (a, b) { return (Number(a.orden) || 999) - (Number(b.orden) || 999); });
+    return {
+      equipos: equipos,
+      territorios: db.territorios, guerras: admin ? db.guerras : db.guerras.slice(0, 250),
+      torneos: db.torneos, noticias: db.noticias.slice(0, admin ? 500 : 60), combates: db.combates.slice(0, admin ? 500 : 60)
+    };
+  }
+
+  return { aplicar: aplicar, vista: vista, semilla: semilla, TABLAS: TABLAS, ACCIONES: ACCIONES, ESTADOS: ESTADOS, txt: txt };
+})();
+// ===== FIN DEL NÚCLEO =====
+</script>
+<script>
+// Si alojás este HTML fuera de Google (GitHub Pages, etc.), pegá acá la URL /exec de tu Apps Script.
+const API_URL = 'https://script.google.com/macros/s/AKfycbw3y8HEUodf4NRaMdMQy8s4Fa6GcQJAjFVaNaSTveDPZ6MGtiTBMfGJPnFrq_YYtFyAcw/exec';
+// Dirección pública de la página (para compartir noticias). Si queda vacía se usa la actual.
+const SITIO_URL = 'https://rodrigoguerrini.github.io/reloaded-online/';
+const WPP_ONLINE = 'https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH';
+
+const MODO = (window.google && google.script && google.script.run) ? 'drive' : (API_URL ? 'remoto' : 'demo');
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const vacio = () => ({ equipos: [], territorios: [], guerras: [], torneos: [], noticias: [], combates: [], config: {} });
+const S = { d: vacio(), token: '', cargando: true, filtro: 'Todos', q: '', ubicando: null, verGuerras: 12, tipeado: false, mapaKey: '' };
+const almacen = { get(k) { try { return sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }, set(k, v) { try { v ? sessionStorage.setItem(k, v) : sessionStorage.removeItem(k); } catch (e) { } } };
+
+// ---------- Datos de demostración (solo cuando no hay Drive) ----------
+const Demo = {
+  k: 'reloaded-online-demo-v1', mem: null, mapa: '',
+  db() { if (this.mem) return this.mem; try { const r = localStorage.getItem(this.k); if (r) return (this.mem = JSON.parse(r)); } catch (e) { } return (this.mem = Core.semilla()); },
+  guardar() { try { localStorage.setItem(this.k, JSON.stringify(this.mem)); } catch (e) { } },
+  vista(admin) {
+    const v = JSON.parse(JSON.stringify(Core.vista(this.db(), admin)));
+    v.config = { modo: 'demo', mapa: { url: this.mapa || 'mapa-territorial-reloaded-online.png' }, ahora: new Date().toISOString() };
+    return v;
+  },
+  api(a, p, tok) {
+    const ctx = { ahora: new Date().toISOString(), admin: true };
+    if (a === 'datos') return this.vista(false);
+    if (a === 'login') { if (p.clave !== 'demo') throw new Error('Clave incorrecta. En la demostración la clave es "demo".'); return { token: 'demo-token' }; }
+    if (a === 'imagen') throw new Error('Sin imagen');
+    if (tok !== 'demo-token') throw new Error('Tu sesión de admin venció. Volvé a ingresar.');
+    if (a === 'logout') return true;
+    if (a === 'adminDatos') return this.vista(true);
+    if (a === 'clave') throw new Error('En la demostración la clave siempre es "demo". Con Drive conectado se cambia de verdad.');
+    if (a === 'mapaSubir') { this.mapa = 'data:' + p.mime + ';base64,' + p.base64; return this.vista(true); }
+    Core.aplicar(this.db(), a, p, ctx); this.guardar(); return this.vista(true);
+  }
+};
+
+function llamar(action, payload = {}) {
+  if (MODO === 'drive') return new Promise((ok, ko) => google.script.run
+    .withSuccessHandler(r => r && r.ok ? ok(r.data) : ko(new Error((r && r.error) || 'El servidor no respondió bien.')))
+    .withFailureHandler(e => ko(new Error((e && e.message) || 'No hubo conexión con Drive.')))
+    .api(action, payload, S.token));
+  if (MODO === 'remoto') return fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action, payload, token: S.token }) })
+    .then(r => r.json()).then(r => { if (!r.ok) throw new Error(r.error); return r.data; });
+  return new Promise((ok, ko) => setTimeout(() => { try { ok(Demo.api(action, payload, S.token)); } catch (e) { ko(e); } }, 150));
+}
+
+async function accion(action, payload, msg) {
+  try {
+    const r = await llamar(action, payload);
+    if (r && r.equipos) S.d = r;
+    render();
+    if (msg) toast(msg);
+    return r;
+  } catch (e) {
+    if (/sesión de admin venció/i.test(e.message)) salirAdmin(true);
+    throw e;
+  }
+}
+
+async function cargar(silencioso) {
+  try {
+    S.d = await llamar(S.token ? 'adminDatos' : 'datos');
+    if (!S.token && MODO !== 'demo') try { localStorage.setItem('rlo-cache-v1', JSON.stringify(S.d)); } catch (e) { }
+  }
+  catch (e) {
+    if (S.token) { salirAdmin(true); try { S.d = await llamar('datos'); } catch (_) { } }
+    else if (!silencioso) toast('No pude cargar los datos: ' + e.message, 'error');
+  }
+  S.cargando = false; render();
+}
+
+// ---------- Utilidades de presentación ----------
+const esAdmin = () => !!S.token;
+const equipo = n => S.d.equipos.find(e => e.nombre === n);
+const colorEq = n => (equipo(n) || {}).color || '#93b9c3';
+function colorZona(t) {
+  if (t.estado === 'Controlada') return colorEq(t.equipo);
+  if (t.estado === 'En disputa') return '#ef5a5f';
+  if (t.estado === 'Punto Muerto') return '#7d97a1';
+  return '#c7d6da';
+}
+function fecha(s, conHora = true) {
+  const d = new Date(s);
+  if (!s || isNaN(d)) return esc(s || '');
+  const o = conHora ? { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: 'numeric', month: 'short', year: 'numeric' };
+  return esc(new Intl.DateTimeFormat('es-AR', o).format(d));
+}
+function pintar(texto) {
+  const h = esc(texto), nombres = S.d.equipos.map(e => e.nombre).filter(Boolean).sort((a, b) => b.length - a.length);
+  if (!nombres.length) return h;
+  const re = new RegExp(nombres.map(n => esc(n).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g');
+  return h.replace(re, m => {
+    const t = S.d.equipos.find(e => esc(e.nombre) === m);
+    return '<span class="eq" style="--c:' + esc(t ? t.color : '#eaf5f1') + '">' + m + '</span>';
+  });
+}
+const plural = (n, s) => n === 1 ? s : s + 's';
+function toast(msg, tipo) {
+  const t = document.createElement('div');
+  t.className = 'toast' + (tipo ? ' ' + tipo : ''); t.textContent = msg;
+  $('#toasts').appendChild(t);
+  setTimeout(() => t.remove(), tipo === 'error' ? 7000 : 4200);
+}
+function ir(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }
+
+// ---------- Render ----------
+function render() {
+  document.body.classList.toggle('es-admin', esAdmin());
+  renderDominio(); renderNoticia(); renderMapa(); renderTeams(); renderAtlas(); renderCronica(); renderTorneos(); renderEstado();
+  $('#adminbar').hidden = !esAdmin();
+  renderClasif();
+  $$('.solo-admin').forEach(e => e.hidden = !esAdmin());
+}
+
+function renderDominio() {
+  const z = S.d.territorios;
+  if (!z.length) { $('#dominio').innerHTML = '<p class="cargando">' + (S.cargando ? 'Cargando la región…' : 'Todavía no hay zonas en el atlas.') + '</p>'; return; }
+  const ctrl = z.filter(t => t.estado === 'Controlada'), disp = z.filter(t => t.estado === 'En disputa').length, muertos = z.filter(t => t.estado === 'Punto Muerto').length;
+  const neutras = z.length - ctrl.length - disp - muertos, cuenta = {};
+  ctrl.forEach(t => { cuenta[t.equipo] = (cuenta[t.equipo] || 0) + 1; });
+  const ranking = Object.keys(cuenta).sort((a, b) => cuenta[b] - cuenta[a] || a.localeCompare(b));
+  const barra = ranking.map(n => `<span style="--c:${esc(colorEq(n))};flex:${cuenta[n]}" title="${esc(n)}: ${cuenta[n]}"></span>`).join('')
+    + (disp ? `<span style="--c:#ef5a5f;flex:${disp}" title="En disputa: ${disp}"></span>` : '')
+    + (muertos ? `<span style="--c:#7d97a1;flex:${muertos}" title="Puntos muertos: ${muertos}"></span>` : '')
+    + `<span class="neutral" style="flex:${neutras}" title="Neutrales: ${neutras}"></span>`;
+  $('#dominio').innerHTML = `
+    <div class="dom-cab"><span><b>${ctrl.length}</b>de ${z.length} zonas ${ctrl.length === 1 ? 'tiene' : 'tienen'} dueño</span></div>
+    <div class="dom-barra" role="img" aria-label="${ctrl.length} zonas controladas, ${disp} en disputa, ${neutras} neutrales">${barra}</div>
+    ${ranking.length ? `<ol class="dom-lista">${ranking.slice(0, 6).map(n => `<li style="--c:${esc(colorEq(n))}"><i></i><span>${esc(n)}</span><b>${cuenta[n]}</b></li>`).join('')}</ol>` : '<p class="muted" style="margin-top:12px">Todas las zonas están libres. El primer team que llegue puede reclamarlas.</p>'}
+    <div class="dom-pie"><span>${neutras} ${neutras === 1 ? 'neutral' : 'neutrales'}</span><span>${disp} en disputa</span><span>${muertos} ${muertos === 1 ? 'punto muerto' : 'puntos muertos'}</span></div>`;
+}
+
+function renderNoticia() {
+  const n = S.d.noticias[0];
+  if (n && S.notId && n.id !== S.notId) S.tipeado = false;
+  if (n) S.notId = n.id;
+  const titulo = n ? n.titulo : (S.cargando ? 'Cargando…' : 'Sin novedades por ahora');
+  const cuerpo = n ? n.cuerpo : (S.cargando ? '' : 'Cuando la Comisaría publique un parte, va a aparecer acá.');
+  $('#notTitulo').textContent = titulo;
+  $('#notFecha').innerHTML = n ? fecha(n.fecha) : '';
+  const comp = $('#notCompartir');
+  comp.hidden = !n;
+  if (n) comp.href = 'https://wa.me/?text=' + encodeURIComponent('📰 Noticias Star: ' + n.titulo + '\n' + (SITIO_URL || location.href.split('#')[0]));
+  const p = $('#notCuerpo');
+  if (p.dataset.texto === cuerpo) return;
+  p.dataset.texto = cuerpo;
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (S.tipeado || reducido || !cuerpo || S.cargando) { p.textContent = cuerpo; if (cuerpo && !S.cargando) S.tipeado = true; return; }
+  S.tipeado = true; delete p.dataset.saltar;
+  let i = 0; const total = Math.min(2400, cuerpo.length * 16), inicio = performance.now();
+  p.textContent = '';
+  const paso = ahora => {
+    if (p.dataset.texto !== cuerpo) return;
+    i = Math.min(cuerpo.length, Math.ceil((ahora - inicio) / total * cuerpo.length));
+    p.textContent = cuerpo.slice(0, i);
+    if (i < cuerpo.length && !p.dataset.saltar) requestAnimationFrame(paso); else p.textContent = cuerpo;
+  };
+  requestAnimationFrame(paso);
+}
+
+function fuentesMapa() { const m = S.d.config && S.d.config.mapa; return m ? [m.url, m.alt].filter(Boolean) : []; }
+function renderMapa() {
+  const fuentes = fuentesMapa(), m = (S.d.config && S.d.config.mapa) || {}, key = fuentes.join('|');
+  $$('[data-escena]').forEach(esc_ => {
+    const img = $('.mapa-img', esc_), vacioEl = $('.vacio-mapa', esc_);
+    if (S.mapaKey !== key || !img.getAttribute('src')) {
+      if (!fuentes.length) { img.hidden = true; vacioEl.hidden = false; img.removeAttribute('src'); }
+      else {
+        let i = 0; img.hidden = false; vacioEl.hidden = true;
+        img.onerror = () => {
+          i++;
+          if (i < fuentes.length) img.src = fuentes[i];
+          else if (MODO !== 'demo' && m.id) llamar('imagen', { id: m.id }).then(src => { img.onerror = () => { img.hidden = true; vacioEl.hidden = false; }; img.src = src; }).catch(() => { img.hidden = true; vacioEl.hidden = false; });
+          else { img.hidden = true; vacioEl.hidden = false; }
+        };
+        img.src = fuentes[0];
+      }
+    }
+    const pins = S.d.territorios.filter(t => t.x !== '' && t.x != null && !isNaN(parseFloat(t.x)));
+    $('.pins', esc_).innerHTML = img.hidden ? '' : pins.map(t => {
+      const cl = t.estado === 'Controlada' ? '' : t.estado === 'En disputa' ? 'disputa' : t.estado === 'Punto Muerto' ? 'muerto' : 'neutral';
+      return `<button type="button" class="pin ${cl}" data-act="zona" data-id="${esc(t.id)}" style="left:${parseFloat(t.x)}%;top:${parseFloat(t.y)}%;--c:${esc(colorZona(t))}" aria-label="${esc(t.nombre)}: ${esc(t.estado === 'Controlada' ? t.equipo : t.estado)}"><span class="pin-et">${esc(t.nombre)}</span></button>`;
+    }).join('');
+  });
+  S.mapaKey = key;
+  const ubicadas = S.d.territorios.filter(t => t.x !== '' && t.x != null).length;
+  $('#pinsInfo').textContent = ubicadas ? `${ubicadas} ${ubicadas === 1 ? 'zona marcada' : 'zonas marcadas'} en el mapa. Tocá un punto para ver quién la controla.` : (esAdmin() ? 'Todavía no hay zonas marcadas. Abrí una zona del atlas y elegí “Ubicar en el mapa”.' : 'Los emblemas muestran qué team controla cada parte de la región.');
+}
+
+function renderTeams() {
+  const zonas = {};
+  S.d.territorios.forEach(t => { if (t.estado === 'Controlada') zonas[t.equipo] = (zonas[t.equipo] || 0) + 1; });
+  $('#gridTeams').innerHTML = S.d.equipos.length ? S.d.equipos.map(e => `
+    <button type="button" class="team" data-act="team" data-id="${esc(e.id)}" style="--c:${esc(e.color || '#f4d38b')}">
+      <span class="team-emb" aria-hidden="true">${esc(e.emoji || '✦')}</span>
+      <span class="team-nom">${esc(e.nombre)}</span>
+      <span class="team-tipo">${esc(e.tipo || 'Equipo comunitario')} · líder ${esc(e.lider && e.lider !== '—' ? e.lider : 'sin asignar')}</span>
+      <span class="team-datos"><span><b>${zonas[e.nombre] || 0}</b>${plural(zonas[e.nombre] || 0, 'zona')}</span><span>Ver ficha</span></span>
+    </button>`).join('') : `<p class="vacio">${S.cargando ? 'Cargando teams…' : 'No hay teams cargados.'}</p>`;
+}
+
+function renderAtlas() {
+  const z = S.d.territorios, cuenta = { Todos: z.length };
+  Core.ESTADOS.forEach(e => cuenta[e] = z.filter(t => t.estado === e).length);
+  const nombres = { Todos: 'Todas', Controlada: 'Controladas', 'En disputa': 'En disputa', 'Punto Muerto': 'Puntos muertos', Neutral: 'Neutrales' };
+  $('#filtros').innerHTML = ['Todos', 'Controlada', 'En disputa', 'Punto Muerto', 'Neutral'].map(k => `<button type="button" class="chip" data-act="filtro" data-f="${k}" aria-pressed="${S.filtro === k}">${nombres[k]}<b>${cuenta[k] || 0}</b></button>`).join('');
+  const q = S.q.trim().toLocaleLowerCase('es');
+  const orden = { Controlada: 0, 'En disputa': 1, 'Punto Muerto': 2, Neutral: 3 };
+  const vis = z.filter(t => (S.filtro === 'Todos' || t.estado === S.filtro) && (!q || (t.nombre + ' ' + t.tipo + ' ' + t.equipo + ' ' + t.retador).toLocaleLowerCase('es').includes(q)))
+    .sort((a, b) => (orden[a.estado] - orden[b.estado]) || a.nombre.localeCompare(b.nombre, 'es'));
+  $('#gridZonas').innerHTML = vis.map(t => `
+    <button type="button" class="zona" data-act="zona" data-id="${esc(t.id)}" style="--c:${esc(colorZona(t))}">
+      <span class="zona-nom">${esc(t.nombre)}</span><span class="zona-tipo">${esc(t.tipo)}</span>
+      <span class="zona-est"><i></i>${esc(t.estado === 'Controlada' ? t.equipo : t.estado)}${t.x !== '' && t.x != null ? '<small>en el mapa</small>' : ''}</span>
+    </button>`).join('');
+  $('#zonasVacio').hidden = vis.length > 0 || S.cargando;
+}
+
+function renderCronica() {
+  const g = S.d.guerras;
+  $('#linea').innerHTML = g.length ? g.slice(0, S.verGuerras).map(x => `
+    <li style="--c:${esc(x.ganador ? colorEq(x.ganador) : '#93b9c3')}">
+      <time>${fecha(x.fecha)}</time><p>${pintar(x.resumen)}</p>
+      <div class="meta"><button class="link" type="button" data-act="zona" data-id="${esc(x.territorioId)}">${esc(x.territorio)}</button>${x.nota ? `<span>${esc(x.nota)}</span>` : ''}${esAdmin() ? `<button class="link" type="button" data-act="borrar-guerra" data-id="${esc(x.id)}" style="color:#ffb8ba">Borrar del historial</button>` : ''}</div>
+    </li>`).join('') : `<li style="--c:#93b9c3"><p class="muted">${S.cargando ? 'Cargando…' : 'Todavía no hay partes de guerra.'}</p></li>`;
+  $('#lineaMas').innerHTML = g.length > S.verGuerras ? `<button class="btn sm" type="button" data-act="mas-guerras">Ver ${Math.min(20, g.length - S.verGuerras)} partes más</button>` : '';
+  $('#archivo').innerHTML = S.d.noticias.length ? S.d.noticias.map((n, i) => `
+    <details class="nota"${i === 0 ? ' open' : ''}><summary><small>${fecha(n.fecha)}</small><b>${esc(n.titulo)}</b></summary><p>${pintar(n.cuerpo)}</p>
+    ${esAdmin() ? `<div class="acc"><button class="btn sm" type="button" data-act="editar-noticia" data-id="${esc(n.id)}">Editar</button><button class="btn sm danger" type="button" data-act="borrar-noticia" data-id="${esc(n.id)}">Borrar</button></div>` : ''}</details>`).join('')
+    : `<p class="vacio">${S.cargando ? 'Cargando…' : 'Sin noticias publicadas.'}</p>`;
+}
+
+function renderTorneos() {
+  $('#listaTorneos').innerHTML = S.d.torneos.length ? S.d.torneos.map(t => `
+    <article class="torneo"><div class="torneo-f">${esc(t.fecha)}</div><div><h3>${esc(t.nombre)}</h3><p class="fmt">${esc(t.formato)}</p>${t.info ? `<p>${esc(t.info)}</p>` : ''}
+      <div class="acc">${t.enlace ? `<a class="btn sm sand" href="${esc(t.enlace)}" target="_blank" rel="noopener">Inscribirme</a>` : ''}${esAdmin() ? `<button class="btn sm" type="button" data-act="editar-torneo" data-id="${esc(t.id)}">Editar</button><button class="btn sm danger" type="button" data-act="borrar-torneo" data-id="${esc(t.id)}">Quitar</button>` : ''}</div></div></article>`).join('')
+    : `<p class="vacio">${S.cargando ? 'Cargando…' : 'Todavía no hay torneos publicados. Volvé pronto para conocer la próxima competencia.'}</p>`;
+  $('#listaCombates').innerHTML = S.d.combates.length ? S.d.combates.slice(0, 12).map(c => `
+    <li><span><b class="eq" style="--c:${esc(c.equipoGanador ? colorEq(c.equipoGanador) : '#eaf5f1')}">${esc(c.ganador)}</b> venció a <span class="eq" style="--c:${esc(c.equipoRival ? colorEq(c.equipoRival) : '#c3dbe0')}">${esc(c.rival)}</span></span>
+    ${esAdmin() ? `<button class="link" type="button" data-act="borrar-combate" data-id="${esc(c.id)}" style="color:#ffb8ba">Borrar</button>` : '<span></span>'}
+    <small>${esc(c.formato)} · ${fecha(c.fecha, false)}${c.nota ? ' · ' + esc(c.nota) : ''}</small></li>`).join('')
+    : `<li><small>Todavía no hay combates registrados.</small></li>`;
+}
+
+function renderClasif() {
+  const gana = ['conquista', 'toma', 'defensa', 'resguardo'];
+  const filas = S.d.equipos.map(e => ({
+    e, zonas: S.d.territorios.filter(t => t.estado === 'Controlada' && t.equipo === e.nombre).length,
+    vict: S.d.guerras.filter(g => g.ganador === e.nombre && gana.indexOf(g.accion) >= 0).length,
+    comb: S.d.combates.filter(c => c.equipoGanador === e.nombre).length
+  })).sort((a, b) => b.zonas - a.zonas || b.vict - a.vict || b.comb - a.comb || a.e.nombre.localeCompare(b.e.nombre, 'es'));
+  $('#clasif').innerHTML = filas.length ? filas.map((f, i) => `<tr><td class="n">${i + 1}</td><td><button class="link eq" type="button" data-act="team" data-id="${esc(f.e.id)}" style="--c:${esc(f.e.color)};text-decoration:none">${esc(f.e.emoji || '')} ${esc(f.e.nombre)}</button></td><td class="num">${f.zonas}</td><td class="num">${f.vict}</td><td class="num">${f.comb}</td></tr>`).join('')
+    : `<tr><td colspan="5" class="muted">${S.cargando ? 'Cargando…' : 'Sin teams cargados.'}</td></tr>`;
+}
+
+function renderEstado() {
+  const e = $('#estado');
+  e.classList.toggle('demo-e', MODO === 'demo');
+  const hora = S.d.config && S.d.config.ahora ? new Intl.DateTimeFormat('es-AR', { hour: '2-digit', minute: '2-digit' }).format(new Date(S.d.config.ahora)) : '';
+  e.lastElementChild.textContent = MODO === 'demo' ? 'Demostración con datos locales' : (S.cargando ? 'Conectando…' : 'En vivo' + (hora ? ' · actualizado ' + hora : ''));
+  $('#avisoDemo').hidden = MODO !== 'demo';
+}
+
+// ---------- Diálogos ----------
+function abrir(d) { if (!d.open) d.showModal(); }
+function cerrar(d) { if (d.open) d.close(); }
+function campo(c, pre = 'f') {
+  const id = pre + '-' + c.n, req = c.req ? ' required' : '', max = c.max ? ` maxlength="${c.max}"` : '';
+  let ctrl;
+  if (c.t === 'select') ctrl = `<select id="${id}" name="${c.n}"${req}>${c.opc.map(o => { const v = typeof o === 'string' ? o : o.v, l = typeof o === 'string' ? o : o.l; return `<option value="${esc(v)}"${String(v) === String(c.v ?? '') ? ' selected' : ''}>${esc(l)}</option>`; }).join('')}</select>`;
+  else if (c.t === 'textarea') ctrl = `<textarea id="${id}" name="${c.n}"${req}${max} placeholder="${esc(c.ph || '')}">${esc(c.v || '')}</textarea>`;
+  else ctrl = `<input id="${id}" name="${c.n}" type="${c.t || 'text'}"${req}${max} value="${esc(c.v || '')}" placeholder="${esc(c.ph || '')}"${c.t === 'file' ? ' accept="image/png,image/jpeg,image/webp,image/gif"' : ''}${c.t === 'password' ? ' autocomplete="current-password"' : ''}>`;
+  return `<label class="campo" for="${id}"${c.ancho ? ' style="grid-column:1/-1"' : ''}>${esc(c.l)}${ctrl}${c.ayuda ? `<small>${esc(c.ayuda)}</small>` : ''}</label>`;
+}
+/** Formulario genérico: se queda abierto si enviar() falla y muestra el error. */
+function formulario({ titulo, texto, campos = [], boton = 'Guardar', peligro = false, dos = false, enviar }) {
+  const d = $('#dlgForm');
+  d.innerHTML = `<form class="dlg" novalidate><div class="dlg-cab"><h2>${esc(titulo)}</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+    <div class="dlg-cuerpo">${texto ? `<p class="muted">${esc(texto)}</p>` : ''}${campos.length ? `<div class="campos${dos ? ' dos' : ''}">${campos.map(c => campo(c)).join('')}</div>` : ''}
+    <p class="form-error" role="alert"></p><div class="dlg-acc"><button class="btn" type="button" data-cerrar>Cancelar</button><button class="btn ${peligro ? 'danger' : 'sand'}" type="submit">${esc(boton)}</button></div></div></form>`;
+  const f = $('form', d), err = $('.form-error', d), b = $('[type=submit]', d);
+  f.onsubmit = async ev => {
+    ev.preventDefault(); err.textContent = '';
+    const falta = campos.find(c => c.req && !String(f.elements[c.n].value || '').trim());
+    if (falta) { err.textContent = 'Completá “' + falta.l + '”.'; f.elements[falta.n].focus(); return; }
+    const vals = {}; campos.forEach(c => { vals[c.n] = c.t === 'file' ? f.elements[c.n].files[0] : f.elements[c.n].value; });
+    const txt = b.textContent; b.disabled = true; b.textContent = 'Guardando…';
+    try { await enviar(vals); if (f.isConnected) cerrar(d); }
+    catch (e) { err.textContent = e.message; }
+    finally { b.disabled = false; b.textContent = txt; }
+  };
+  abrir(d);
+  const primero = $('input,select,textarea', d); if (primero) setTimeout(() => primero.focus(), 30);
+}
+const confirmar = (titulo, texto, boton, enviar) => formulario({ titulo, texto, boton, peligro: true, enviar });
+
+function fichaTeam(id) {
+  const e = S.d.equipos.find(x => x.id === id); if (!e) return;
+  const zonas = S.d.territorios.filter(t => t.estado === 'Controlada' && t.equipo === e.nombre);
+  const d = $('#dlgTeam');
+  d.innerHTML = `<div class="dlg" style="--c:${esc(e.color)}"><div class="dlg-cab"><span style="font-size:34px" aria-hidden="true">${esc(e.emoji || '✦')}</span><h2>${esc(e.nombre)}</h2><p class="muted">${esc(e.tipo || 'Equipo comunitario')}</p><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+    <div class="dlg-cuerpo">
+      <p class="lore">${esc(e.lore || 'Este team está escribiendo su historia en la comunidad.')}</p>
+      <p class="muted">Para sumarte a ${esc(e.nombre)}, escribile al líder o a un admin en el grupo de WhatsApp de Online.</p>
+      <dl class="ficha"><div><dt>Líder</dt><dd>${esc(e.lider && e.lider !== '—' ? e.lider : 'Sin asignar')}</dd></div><div><dt>Zonas controladas</dt><dd>${zonas.length}</dd></div></dl>
+      ${zonas.length ? `<div><h3 style="font-size:18px;margin-bottom:8px">Territorio</h3><div class="zchips">${zonas.map(z => `<button type="button" data-act="zona" data-id="${esc(z.id)}" style="--c:${esc(e.color)}">${esc(z.nombre)}</button>`).join('')}</div></div>` : ''}
+      <div class="dlg-acc">${esAdmin() ? `<button class="btn danger" type="button" data-act="borrar-team" data-id="${esc(e.id)}">Quitar team</button><button class="btn" type="button" data-act="editar-team" data-id="${esc(e.id)}">Editar</button>` : ''}<a class="btn sand" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener">Pedir ingreso por WhatsApp</a></div>
+    </div></div>`;
+  abrir(d);
+}
+
+function fichaZona(id) {
+  const t = S.d.territorios.find(x => x.id === id); if (!t) return;
+  const hist = S.d.guerras.filter(g => g.territorioId === t.id), c = colorZona(t), adm = esAdmin();
+  const opcEq = [{ v: '', l: 'Elegí un team…' }].concat(S.d.equipos.map(e => ({ v: e.nombre, l: e.nombre })));
+  const opcRiv = [{ v: '', l: 'Sin rival / zona libre' }].concat(S.d.equipos.map(e => ({ v: e.nombre, l: e.nombre })));
+  const enMapa = t.x !== '' && t.x != null;
+  const d = $('#dlgZona');
+  d.innerHTML = `<div class="dlg" style="--c:${esc(c)}"><div class="dlg-cab"><p class="muted">${esc(t.tipo)}</p><h2>${esc(t.nombre)}</h2><p style="margin-top:10px"><span class="pill" style="--c:${esc(c)}">${esc(t.estado === 'Controlada' ? 'Controlada por ' + t.equipo : t.estado)}</span></p><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+    <div class="dlg-cuerpo">
+      <dl class="ficha"><div><dt>Último parte</dt><dd>${pintar(t.ultimo || 'Zona neutral')}</dd></div>${t.retador ? `<div><dt>Retador</dt><dd>${pintar(t.retador)}</dd></div>` : ''}<div><dt>Referencia en el mapa</dt><dd>${esc(t.referencia || 'Por confirmar')}</dd></div></dl>
+      ${enMapa ? `<button class="btn sm" type="button" data-act="ver-en-mapa" data-id="${esc(t.id)}">Ver en el mapa</button>` : ''}
+      <div><h3 style="font-size:18px;margin-bottom:8px">Historial de guerras</h3>${hist.length ? `<ol class="hist">${hist.slice(0, 25).map(g => `<li style="--c:${esc(g.ganador ? colorEq(g.ganador) : '#93b9c3')}"><time>${fecha(g.fecha)}</time>${pintar(g.resumen)}${g.nota ? `<br><small class="muted">${esc(g.nota)}</small>` : ''}</li>`).join('')}</ol>` : '<p class="muted">Sin batallas registradas en esta zona.</p>'}</div>
+      ${adm ? `<form class="caja-admin" id="formGuerra"><h3>Registrar resultado</h3>
+        <div class="campos dos">
+          ${campo({ n: 'accion', l: 'Qué pasó', t: 'select', ancho: true, opc: [{ v: 'conquista', l: 'Conquista: venció al team que la tenía' }, { v: 'toma', l: 'Tomó la zona libre' }, { v: 'defensa', l: 'Defendió y ganó' }, { v: 'disputa', l: 'Quedó en disputa' }, { v: 'resguardo', l: 'Resguardo del Escuadrón Élite' }, { v: 'liberacion', l: 'Liberada / neutral' }, { v: 'muerto', l: 'Marcar como Punto Muerto' }] }, 'z')}
+          ${campo({ n: 'ganador', l: 'Team ganador', t: 'select', opc: opcEq }, 'z')}
+          ${campo({ n: 'perdedor', l: 'Team derrotado o rival', t: 'select', opc: opcRiv }, 'z')}
+          ${campo({ n: 'nota', l: 'Nota (opcional)', ph: 'Ej.: captura compartida en el grupo', max: 200, ancho: true }, 'z')}
+          ${campo({ n: 'referencia', l: 'Referencia en el mapa', v: t.referencia, ph: 'Ej.: costa sur, junto a la Ruta 10', max: 120, ancho: true }, 'z')}
+        </div><p class="form-error" role="alert"></p>
+        <div class="dlg-acc"><button class="btn sand" type="submit">Guardar resultado</button></div></form>
+        <div class="dlg-acc" style="justify-content:flex-start"><button class="btn sm" type="button" data-act="ubicar" data-id="${esc(t.id)}">${enMapa ? 'Mover en el mapa' : 'Ubicar en el mapa'}</button>${enMapa ? `<button class="btn sm" type="button" data-act="desubicar" data-id="${esc(t.id)}">Quitar del mapa</button>` : ''}<button class="btn sm" type="button" data-act="editar-zona" data-id="${esc(t.id)}">Editar zona</button><button class="btn sm danger" type="button" data-act="borrar-zona" data-id="${esc(t.id)}">Borrar zona</button></div>` : ''}
+    </div></div>`;
+  const f = $('#formGuerra', d);
+  if (f) f.onsubmit = async ev => {
+    ev.preventDefault();
+    const b = $('[type=submit]', f), err = $('.form-error', f);
+    const p = { territorio: t.id, accion: f.elements.accion.value, ganador: f.elements.ganador.value, perdedor: f.elements.perdedor.value, nota: f.elements.nota.value, referencia: f.elements.referencia.value };
+    b.disabled = true; b.textContent = 'Guardando…'; err.textContent = '';
+    try { await accion('guerraRegistrar', p, 'Resultado guardado en ' + t.nombre); fichaZona(t.id); }
+    catch (e) { err.textContent = e.message; b.disabled = false; b.textContent = 'Guardar resultado'; }
+  };
+  abrir(d);
+}
+
+function formTeam(e) {
+  e = e || {};
+  formulario({
+    titulo: e.id ? 'Editar ' + e.nombre : 'Nuevo team', boton: e.id ? 'Guardar cambios' : 'Crear team', dos: true,
+    campos: [
+      { n: 'nombre', l: 'Nombre', v: e.nombre, req: true, max: 40 }, { n: 'emoji', l: 'Símbolo (emoji)', v: e.emoji || '✦', max: 8 },
+      { n: 'lider', l: 'Líder', v: e.lider === '—' ? '' : e.lider, max: 40 }, { n: 'tipo', l: 'Tipo', v: e.tipo || 'Escuadrón', max: 30 },
+      { n: 'color', l: 'Color', t: 'color', v: e.color || '#f4d38b' }, { n: 'lore', l: 'Lore breve, sin spoilers', t: 'textarea', v: e.lore, max: 600, ancho: true }
+    ],
+    enviar: async v => { await accion('equipoGuardar', Object.assign({ id: e.id || '' }, v), e.id ? 'Team actualizado' : 'Team creado'); if (e.id) fichaTeam(e.id); }
+  });
+}
+
+function formZona(t) {
+  t = t || {};
+  formulario({
+    titulo: t.id ? 'Editar ' + t.nombre : 'Nueva zona', texto: t.id ? '' : 'La zona entra como neutral. Después podés ubicarla en el mapa y registrar resultados.', boton: t.id ? 'Guardar cambios' : 'Agregar al atlas',
+    campos: [{ n: 'nombre', l: 'Nombre de la ciudad, isla o zona', v: t.nombre, req: true, max: 60 }, { n: 'tipo', l: 'Tipo de lugar', v: t.tipo, ph: 'Ciudad, ruta, isla, cueva…', max: 30 }, { n: 'referencia', l: 'Referencia en el mapa', v: t.referencia, ph: 'Ej.: norte, costa sur', max: 120 }],
+    enviar: async v => { const r = await llamar('zonaGuardar', Object.assign({ id: t.id || '' }, v)); if (r && r.equipos) S.d = r; render(); toast(t.id ? 'Zona actualizada' : 'Zona agregada al atlas'); fichaZona(t.id || (S.d.territorios.find(x => x.nombre === Core.txt(v.nombre, 60)) || {}).id); }
+  });
+}
+
+function formNoticia(n) {
+  n = n || {};
+  formulario({
+    titulo: n.id ? 'Editar noticia' : 'Publicar en Noticias Star', texto: n.id ? '' : 'La última noticia aparece arriba de todo, en el cuadro de diálogo del mapa.', boton: n.id ? 'Guardar cambios' : 'Publicar',
+    campos: [{ n: 'titulo', l: 'Titular', v: n.titulo, req: true, max: 90 }, { n: 'cuerpo', l: 'Parte', t: 'textarea', v: n.cuerpo, max: 900, ph: 'Qué pasó, quién está involucrado, qué recomienda la Comisaría…' }],
+    enviar: v => accion('noticiaGuardar', Object.assign({ id: n.id || '' }, v), n.id ? 'Noticia actualizada' : 'Noticia publicada').then(() => { S.tipeado = false; $('#notCuerpo').dataset.texto = ''; renderNoticia(); })
+  });
+}
+
+function formTorneo(t) {
+  t = t || {};
+  formulario({
+    titulo: t.id ? 'Editar torneo' : 'Nuevo torneo', boton: t.id ? 'Guardar cambios' : 'Publicar torneo', dos: true,
+    campos: [{ n: 'nombre', l: 'Nombre del torneo', v: t.nombre, req: true, max: 80, ancho: true }, { n: 'fecha', l: 'Fecha y hora', v: t.fecha, ph: 'Sáb 14 nov · 20 h (ARG)', max: 60 }, { n: 'formato', l: 'Formato', v: t.formato, ph: 'Individual 6v6, nivel 50', max: 60 },
+      { n: 'info', l: 'Inscripción e información', t: 'textarea', v: t.info, max: 500, ancho: true }, { n: 'enlace', l: 'Enlace de inscripción (opcional)', t: 'url', v: t.enlace, ph: 'https://…', ancho: true }],
+    enviar: v => accion('torneoGuardar', Object.assign({ id: t.id || '' }, v), t.id ? 'Torneo actualizado' : 'Torneo publicado')
+  });
+}
+
+function formCombate() {
+  const opc = [{ v: '', l: 'Sin team' }].concat(S.d.equipos.map(e => ({ v: e.nombre, l: e.nombre })));
+  formulario({
+    titulo: 'Registrar combate', boton: 'Registrar', dos: true,
+    campos: [{ n: 'ganador', l: 'Ganador', req: true, max: 40 }, { n: 'equipoGanador', l: 'Team del ganador', t: 'select', opc }, { n: 'rival', l: 'Rival', req: true, max: 40 }, { n: 'equipoRival', l: 'Team del rival', t: 'select', opc },
+      { n: 'formato', l: 'Formato', ph: 'Amistoso, duelo entre teams…', max: 50 }, { n: 'nota', l: 'Nota (opcional)', max: 160 }],
+    enviar: v => accion('combateGuardar', v, 'Combate registrado')
+  });
+}
+
+function leerArchivo(file) {
+  return new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = () => ko(new Error('No pude leer el archivo.')); r.readAsDataURL(file); });
+}
+
+// ---------- Admin ----------
+function panelAdmin() {
+  const z = S.d.territorios, ctrl = z.filter(t => t.estado === 'Controlada').length;
+  const ubic = z.filter(t => t.x !== '' && t.x != null).length;
+  const b = (act, titulo, sub) => `<button type="button" data-act="${act}"><b>${titulo}</b><span>${sub}</span></button>`;
+  const d = $('#dlgPanel');
+  d.innerHTML = `<div class="dlg"><div class="dlg-cab"><p class="muted">Reloaded Online</p><h2>Panel de administración</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+    <div class="dlg-cuerpo panel-g">
+      <div class="panel-stats"><div><b>${ctrl}/${z.length}</b><span>zonas con dueño</span></div><div><b>${S.d.guerras.length}</b><span>partes de guerra</span></div><div><b>${S.d.noticias.length}</b><span>noticias</span></div><div><b>${ubic}</b><span>zonas en el mapa</span></div></div>
+      <div><h3>Publicar</h3><div class="panel-btns">${b('nueva-noticia', 'Publicar noticia', 'Va a la portada')}${b('nueva-guerra', 'Registrar guerra', 'Conquista, defensa, disputa…')}${b('nuevo-torneo', 'Nuevo torneo', 'Aparece en el calendario')}${b('nuevo-combate', 'Registrar combate', 'Suma a la clasificación')}</div></div>
+      <div><h3>Mundo</h3><div class="panel-btns">${b('nuevo-team', 'Nuevo team', 'Nombre, color y lore')}${b('nueva-zona', 'Nueva zona', 'Se suma al atlas')}${b('mapa-subir', 'Cambiar mapa', 'Imagen nueva en tu Drive')}</div></div>
+      <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
+      <p class="muted">Para editar un team o una zona, abrí su ficha: las opciones de admin aparecen ahí.</p>
+    </div></div>`;
+  abrir(d);
+}
+
+function formGuerra() {
+  const zonas = S.d.territorios.slice().sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+  const eqs = S.d.equipos.map(e => ({ v: e.nombre, l: e.nombre }));
+  formulario({
+    titulo: 'Registrar guerra', texto: 'El resultado actualiza la zona, el mapa, la crónica y la clasificación.', boton: 'Guardar resultado', dos: true,
+    campos: [
+      { n: 'territorio', l: 'Zona', t: 'select', req: true, ancho: true, opc: [{ v: '', l: 'Elegí una zona…' }].concat(zonas.map(t => ({ v: t.id, l: t.nombre + (t.estado === 'Controlada' ? ' · ' + t.equipo : ' · ' + t.estado) }))) },
+      { n: 'accion', l: 'Qué pasó', t: 'select', ancho: true, opc: [{ v: 'conquista', l: 'Conquista: venció al team que la tenía' }, { v: 'toma', l: 'Tomó la zona libre' }, { v: 'defensa', l: 'Defendió y ganó' }, { v: 'disputa', l: 'Quedó en disputa' }, { v: 'resguardo', l: 'Resguardo del Escuadrón Élite' }, { v: 'liberacion', l: 'Liberada / neutral' }, { v: 'muerto', l: 'Marcar como Punto Muerto' }] },
+      { n: 'ganador', l: 'Team ganador', t: 'select', opc: [{ v: '', l: 'Elegí un team…' }].concat(eqs) },
+      { n: 'perdedor', l: 'Team derrotado o rival', t: 'select', opc: [{ v: '', l: 'Sin rival / zona libre' }].concat(eqs) },
+      { n: 'nota', l: 'Nota (opcional)', ph: 'Ej.: captura compartida en el grupo', max: 200, ancho: true }
+    ],
+    enviar: async v => { const t = S.d.territorios.find(x => x.id === v.territorio); await accion('guerraRegistrar', v, 'Resultado guardado' + (t ? ' en ' + t.nombre : '')); }
+  });
+}
+
+function entrarAdmin() {
+  formulario({
+    titulo: 'Entrar como admin', texto: MODO === 'demo' ? 'Estás en la demostración: la clave es demo.' : 'La clave se valida en tu Drive; nunca viaja guardada en la página.', boton: 'Entrar',
+    campos: [{ n: 'clave', l: 'Clave de admin', t: 'password', req: true }],
+    enviar: async v => {
+      const r = await llamar('login', { clave: v.clave });
+      S.token = r.token; almacen.set('rlo-token', S.token);
+      await cargar(); toast('Sesión de admin iniciada.');
+    }
+  });
+}
+function salirAdmin(vencida) {
+  if (S.token && !vencida) llamar('logout').catch(() => { });
+  S.token = ''; almacen.set('rlo-token', ''); cancelarUbicar();
+  if (vencida) toast('Tu sesión de admin venció. Volvé a ingresar.', 'error');
+  if (!vencida) cargar(true); else render();
+}
+
+function ubicar(id) {
+  const t = S.d.territorios.find(x => x.id === id); if (!t) return;
+  S.ubicando = id; document.body.classList.add('ubicando');
+  $('#ubicarNombre').textContent = t.nombre; $('#ubicarNombre2').textContent = t.nombre;
+  $('#avisoUbicar').hidden = false; $('#avisoUbicar2').hidden = false;
+  cerrar($('#dlgZona')); abrir($('#dlgMapa'));
+}
+function cancelarUbicar() {
+  S.ubicando = null; document.body.classList.remove('ubicando');
+  $('#avisoUbicar').hidden = true; $('#avisoUbicar2').hidden = true;
+}
+function marcarPin(id) {
+  cerrar($('#dlgZona')); cerrar($('#dlgTeam')); ir('mapa');
+  setTimeout(() => { const p = $(`#mapa .pin[data-id="${CSS.escape(id)}"]`); if (p) { p.classList.remove('marcado'); void p.offsetWidth; p.classList.add('marcado'); p.focus({ preventScroll: true }); } }, 450);
+}
+
+// ---------- Eventos ----------
+document.addEventListener('click', async ev => {
+  const cerrarBtn = ev.target.closest('[data-cerrar]');
+  if (cerrarBtn) { const d = cerrarBtn.closest('dialog'); if (d) { if (d.id === 'dlgMapa') cancelarUbicar(); cerrar(d); } return; }
+  const destino = ev.target.closest('[data-ir]');
+  if (destino) { ev.preventDefault(); $$('dialog[open]').forEach(cerrar); ir(destino.dataset.ir); return; }
+  const escena = ev.target.closest('[data-escena]');
+  if (escena && S.ubicando) {
+    const img = $('.mapa-img', escena); if (!img || img.hidden) return;
+    const r = img.getBoundingClientRect();
+    const x = (ev.clientX - r.left) / r.width * 100, y = (ev.clientY - r.top) / r.height * 100;
+    if (x < 0 || x > 100 || y < 0 || y > 100) return;
+    const id = S.ubicando, t = S.d.territorios.find(z => z.id === id);
+    cancelarUbicar();
+    try { await accion('zonaUbicar', { id, x, y }, (t ? t.nombre : 'La zona') + ' quedó marcada en el mapa'); cerrar($('#dlgMapa')); marcarPin(id); } catch (e) { toast(e.message, 'error'); }
+    return;
+  }
+  const el = ev.target.closest('[data-act]'); if (!el) return;
+  const id = el.dataset.id, a = el.dataset.act;
+  const borrar = (titulo, texto, op, msg) => confirmar(titulo, texto, 'Borrar', () => accion(op, { id }, msg));
+  try {
+    switch (a) {
+      case 'team': fichaTeam(id); break;
+      case 'zona': cerrar($('#dlgTeam')); cerrar($('#dlgMapa')); fichaZona(id); break;
+      case 'filtro': S.filtro = el.dataset.f; renderAtlas(); break;
+      case 'mas-guerras': S.verGuerras += 20; renderCronica(); break;
+      case 'ampliar': abrir($('#dlgMapa')); break;
+      case 'ver-en-mapa': marcarPin(id); break;
+      case 'cancelar-ubicar': cancelarUbicar(); break;
+      case 'ubicar': ubicar(id); break;
+      case 'desubicar': await accion('zonaUbicar', { id, x: '' }, 'Zona quitada del mapa'); fichaZona(id); break;
+      case 'editar-zona': formZona(S.d.territorios.find(x => x.id === id)); break;
+      case 'borrar-zona': cerrar($('#dlgZona')); borrar('Borrar zona', 'Se borra la zona del atlas junto con su historial. No se puede deshacer.', 'zonaBorrar', 'Zona borrada'); break;
+      case 'editar-team': formTeam(S.d.equipos.find(x => x.id === id)); break;
+      case 'borrar-team': cerrar($('#dlgTeam')); borrar('Quitar team', 'El team deja de aparecer. Sus zonas conservan el nombre hasta que las edites.', 'equipoBorrar', 'Team quitado'); break;
+      case 'borrar-guerra': borrar('Borrar del historial', 'Se borra este parte de la crónica. El estado actual de la zona no cambia.', 'guerraBorrar', 'Parte borrado'); break;
+      case 'editar-noticia': formNoticia(S.d.noticias.find(x => x.id === id)); break;
+      case 'borrar-noticia': borrar('Borrar noticia', 'La noticia se borra del archivo.', 'noticiaBorrar', 'Noticia borrada'); break;
+      case 'editar-torneo': formTorneo(S.d.torneos.find(x => x.id === id)); break;
+      case 'borrar-torneo': borrar('Quitar torneo', 'El torneo deja de aparecer en el calendario.', 'torneoBorrar', 'Torneo quitado'); break;
+      case 'borrar-combate': borrar('Borrar combate', 'El combate se borra del registro.', 'combateBorrar', 'Combate borrado'); break;
+      case 'panel': panelAdmin(); break;
+      case 'nueva-guerra': cerrar($('#dlgPanel')); formGuerra(); break;
+      case 'nueva-noticia': cerrar($('#dlgPanel')); formNoticia(); break;
+      case 'nuevo-torneo': cerrar($('#dlgPanel')); formTorneo(); break;
+      case 'nuevo-combate': cerrar($('#dlgPanel')); formCombate(); break;
+      case 'nuevo-team': cerrar($('#dlgPanel')); formTeam(); break;
+      case 'nueva-zona': cerrar($('#dlgPanel')); formZona(); break;
+      case 'mapa-subir': cerrar($('#dlgPanel')); formulario({
+        titulo: 'Cambiar el mapa territorial', texto: 'La imagen se guarda en tu carpeta de Drive y reemplaza al mapa actual. Las zonas ya marcadas mantienen su posición.', boton: 'Subir mapa',
+        campos: [{ n: 'archivo', l: 'Imagen del mapa (PNG, JPG o WEBP, hasta 10 MB)', t: 'file', req: true }],
+        enviar: async v => { const f = v.archivo; if (!f) throw new Error('Elegí una imagen.'); if (f.size > 10 * 1024 * 1024) throw new Error('La imagen pesa más de 10 MB.'); S.mapaKey = ''; await accion('mapaSubir', { nombre: f.name, mime: f.type, base64: await leerArchivo(f) }, 'Mapa actualizado'); }
+      }); break;
+      case 'planilla': {
+        const u = S.d.config && S.d.config.hojaUrl;
+        if (!u) { toast(MODO === 'demo' ? 'En la demostración no hay planilla: los datos están en este navegador.' : 'No encontré el enlace de la planilla.', 'error'); break; }
+        const l = document.createElement('a'); l.href = u; l.target = '_blank'; l.rel = 'noopener'; document.body.appendChild(l); l.click(); l.remove(); break;
+      }
+      case 'clave': cerrar($('#dlgPanel')); formulario({
+        titulo: 'Cambiar clave de admin', boton: 'Cambiar clave',
+        campos: [{ n: 'actual', l: 'Clave actual', t: 'password', req: true }, { n: 'nueva', l: 'Clave nueva (mínimo 8 caracteres)', t: 'password', req: true }, { n: 'repetir', l: 'Repetí la clave nueva', t: 'password', req: true }],
+        enviar: async v => { if (v.nueva !== v.repetir) throw new Error('Las claves nuevas no coinciden.'); await llamar('clave', { actual: v.actual, nueva: v.nueva }); toast('Clave cambiada. Usala la próxima vez que entres.'); }
+      }); break;
+      case 'salir': cerrar($('#dlgPanel')); salirAdmin(); break;
+    }
+  } catch (e) { toast(e.message, 'error'); }
+});
+
+$('#btnMenu').addEventListener('click', () => abrir($('#dlgMenu')));
+$('#buscarZona').addEventListener('input', e => { S.q = e.target.value; renderAtlas(); });
+$('#dialogo').addEventListener('click', ev => { if (ev.target.closest('a')) return; const p = $('#notCuerpo'); if (p.textContent !== p.dataset.texto) { p.dataset.saltar = '1'; p.textContent = p.dataset.texto; } else ir('cronica'); });
+$('#dlgMapa').addEventListener('close', cancelarUbicar);
+$$('dialog').forEach(d => d.addEventListener('click', ev => { if (ev.target === d) { if (d.id === 'dlgMapa') cancelarUbicar(); cerrar(d); } }));
+
+// ---------- Arranque ----------
+S.token = almacen.get('rlo-token');
+if (MODO === 'demo' && S.token !== 'demo-token') S.token = '';
+const quiereAdmin = /(^|[?&#])admin\b/.test(location.search + location.hash) || /\/admin\/?$/.test(location.pathname) || window.__ADMIN__;
+let guardado = null;
+if (MODO !== 'demo') try { guardado = JSON.parse(localStorage.getItem('rlo-cache-v1') || 'null'); } catch (e) { }
+if (window.__INICIAL__ && window.__INICIAL__.equipos) { S.d = window.__INICIAL__; S.cargando = false; render(); if (S.token) cargar(true); }
+else if (guardado && guardado.equipos && !S.token) { S.d = guardado; S.cargando = false; render(); cargar(true); }
+else { render(); cargar(); }
+if (quiereAdmin && !S.token) setTimeout(entrarAdmin, 300);
+window.addEventListener('hashchange', () => { if (/^#admin\b/.test(location.hash) && !S.token) entrarAdmin(); });
+if (MODO !== 'demo') setInterval(() => { if (!document.hidden && !$('dialog[open]') && !S.ubicando) cargar(true); }, 90000);
+</script>
+</body>
+</html>
