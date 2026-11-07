@@ -338,6 +338,17 @@ body.es-admin main section{scroll-margin-top:122px}
 .hitos li.futuro:before{background:transparent;border:2px dashed var(--mist)}
 .hitos time{display:block;font:600 15px/1.2 var(--px);color:var(--sand)}
 .hitos span{font-size:15px;color:#cfe3e6}
+.creditos{margin-top:44px;padding-top:28px;border-top:2px solid var(--sea-700)}
+.creditos>p{color:var(--mist);font-size:15px;margin:-6px 0 18px;max-width:720px}
+.creditos-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.credito{display:grid;gap:6px;align-content:start;background:var(--sea-800);border:2px solid var(--sea-700);border-radius:var(--r);padding:16px}
+.credito small{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sand)}
+.credito b{font-size:17px;font-weight:600}
+.credito p{font-size:14px;color:#cfe3e6;margin:0}
+.credito-l{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:4px}
+.credito-l a{font-size:14px;color:var(--sand)}
+@media (max-width:1100px){.creditos-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.creditos-g{grid-template-columns:minmax(0,1fr)}}
 .fuentes{margin-top:26px;font-size:13px;color:var(--mist)}
 .fuentes a{color:var(--mist)}
 
@@ -611,6 +622,8 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
         <a class="enlace" href="https://chat.whatsapp.com/Fqqo0nNf4CW9fMEpXaeVr6" target="_blank" rel="noopener"><span>WhatsApp</span><b>Grupo general ↗</b></a>
         <a class="enlace" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener"><span>WhatsApp · Online</span><b>Grupo reservado a Online ↗</b></a>
         <a class="enlace" href="https://mega.nz/file/Um0UVABI#HxpgjQ5wXSZUvq3K2OgNMT3TibxphscAb31USpVaE2A" target="_blank" rel="noopener"><span>Descarga</span><b>The Last Beta ↗</b></a>
+        <a class="enlace" href="https://discord.com/invite/Yz46C9uBtU" target="_blank" rel="noopener"><span>Discord · comunidad del juego</span><b>Pokémon Reloaded ↗</b></a>
+        <a class="enlace" href="https://discord.gg/ZpN99eUtR" target="_blank" rel="noopener"><span>Discord · creador de Reloaded Online</span><b>Rebelión Celestial ↗</b></a>
       </div>
     </div>
     <div class="convivencia">
@@ -680,6 +693,16 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
         </ol>
       </div>
     </div>
+    <div class="creditos" id="creditos">
+      <h3 class="sub">Créditos</h3>
+      <p>Esta comunidad existe gracias al trabajo de mucha gente. Si disfrutás el juego, pasá por sus canales y apoyalos.</p>
+      <div class="creditos-g">
+        <div class="credito"><small>El juego</small><b>Pokémon Reloaded</b><p>Fangame creado por F3R y su equipo. Años de desarrollo para darle vida a la Región Star.</p><div class="credito-l"><a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog</a><a href="https://discord.com/invite/Yz46C9uBtU" target="_blank" rel="noopener">Discord</a></div></div>
+        <div class="credito"><small>La edición online</small><b>Reloaded Online</b><p>Obra de su creador y la gente de Rebelión Celestial, que hicieron posible jugar Reloaded con otros entrenadores.</p><div class="credito-l"><a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar</a><a href="https://discord.gg/ZpN99eUtR" target="_blank" rel="noopener">Discord</a></div></div>
+        <div class="credito"><small>Pokémon exclusivos</small><b>The Patathan</b><p>Créditos por los Pokémon propios de Reloaded que pueblan la región.</p></div>
+        <div class="credito"><small>Este sitio</small><b>La comunidad</b><p>Teams, guerras, torneos y carnets los arma y los cuida la comunidad. Es un espacio no oficial que acompaña al juego, no lo reemplaza.</p></div>
+      </div>
+    </div>
     <p class="fuentes">Fuentes: <a href="https://pokemon-reloaded.blogspot.com/2024/04/pokemon-reloaded-last-beta.html" target="_blank" rel="noopener">Pokémon Reloaded The Last Beta</a> · <a href="http://pokemon-reloaded.blogspot.com/2026/10/the-last-fakemon.html" target="_blank" rel="noopener">The Last Fakemon</a> · <a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog de Pokémon Edición Reloaded</a> · <a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Pokémon Reloaded Online</a></p>
   </div>
 </section>
@@ -687,13 +710,16 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
 
 <footer>
   <div class="wrap pie">
-    <div class="pie-marca"><b>Reloaded Online</b><span>Sitio comunitario no oficial de Pokémon Reloaded Edición Online, hecho por y para la comunidad. Pokémon es marca de sus respectivos dueños.</span></div>
+    <div class="pie-marca"><b>Reloaded Online</b><span>Sitio comunitario no oficial de Pokémon Reloaded Edición Online, hecho por y para la comunidad. Pokémon Reloaded es obra de F3R y su equipo; Reloaded Online, de su creador y Rebelión Celestial. Pokémon es marca de sus respectivos dueños.</span></div>
     <nav class="pie-links" aria-label="Enlaces de la comunidad">
       <a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar online</a>
       <a href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Grupo de Online</a>
       <a href="https://chat.whatsapp.com/Fqqo0nNf4CW9fMEpXaeVr6" target="_blank" rel="noopener">Grupo general</a>
       <a href="https://www.facebook.com/groups/680476122770975/?ref=share" target="_blank" rel="noopener">Facebook</a>
       <a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog del juego</a>
+      <a href="https://discord.com/invite/Yz46C9uBtU" target="_blank" rel="noopener">Discord de Reloaded</a>
+      <a href="https://discord.gg/ZpN99eUtR" target="_blank" rel="noopener">Discord de Online</a>
+      <a href="#creditos" data-ir="creditos">Créditos</a>
       <a href="#reglas" data-ir="reglas">Reglas</a>
     </nav>
     <span class="estado" id="estado"><i></i><span>Conectando…</span></span>
