@@ -387,6 +387,26 @@ body.es-admin main section{scroll-margin-top:122px}
 @media (max-width:1100px){.creditos-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.creditos-g{grid-template-columns:minmax(0,1fr)}}
 .fuentes{margin-top:26px;font-size:13px;color:var(--mist)}
+/* aviso legal y contacto */
+.legal-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.legal-c{background:var(--sea-850);border:2px solid var(--sea-700);border-radius:var(--r);padding:18px}
+.legal-c h3{font-size:17px;margin:0 0 8px}
+.legal-c p{font-size:14.5px;line-height:1.6;color:#cfe3e6;margin:0}
+.contacto{margin-top:16px;background:var(--sea-850);border:2px solid var(--sea-700);border-radius:var(--r);padding:20px;display:grid;gap:12px}
+.contacto-cab h3{font-size:18px;margin:0 0 6px}
+.contacto-cab p{font-size:15px;color:var(--mist);margin:0;max-width:760px}
+.contacto textarea{min-height:120px}
+.contacto.enviado .campos,.contacto.enviado .dlg-acc{display:none}
+.contacto-ok{background:#0f3b2c;border:2px solid #2f8a5b;border-radius:10px;padding:14px 16px;color:#d9fbe6}
+.mensajes{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mensajes li{background:var(--sea-850);border:2px solid var(--sea-700);border-radius:var(--r);padding:14px;display:grid;gap:6px}
+.msj-cab{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.msj-cab time{font-size:13px;color:var(--mist)}
+.msj-de{font-size:14px;color:var(--sand);margin:0;overflow-wrap:anywhere}
+.msj-t{font-size:15px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.carnet-aviso{font-size:13.5px;color:var(--mist);margin:2px 0 0;grid-column:1/-1}
+@media (max-width:640px){.contacto{padding:16px}.contacto .campos.dos{grid-template-columns:minmax(0,1fr)}}
+
 .fuentes a{color:var(--mist)}
 
 footer{border-top:1px solid var(--sea-800);padding:40px 0 48px;color:var(--mist);font-size:14px;background:var(--sea-950)}
@@ -574,7 +594,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
   <div class="wrap">
     <div class="sec-cab"><h2>Empezá a jugar</h2><p>Tres pasos para entrar a la Región Star con la comunidad.</p></div>
     <ol class="pasos">
-      <li><h3>Descargá el juego</h3><p>Pokémon Reloaded Online está para PC y Android. Explorá el mundo con otros entrenadores, combatí e intercambiá Pokémon.</p><a class="btn sand" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Descargar Reloaded Online</a></li>
+      <li><h3>Descargá el juego</h3><p>Pokémon Reloaded Online está para PC y Android. Explorá el mundo con otros entrenadores, combatí e intercambiá Pokémon. La descarga está en su página oficial.</p><a class="btn sand" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Ir a la página oficial</a></li>
       <li><h3>Entrá al grupo de Online</h3><p>Ahí se coordinan las guerras de teams y los torneos. También es el lugar para consultas sobre el juego.</p><a class="btn" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Unirme por WhatsApp</a></li>
       <li><h3>Elegí tu team</h3><p>Mirá la ficha de cada team, qué zonas controla y quién lo lidera. Después pedí el ingreso en el grupo general de WhatsApp.</p><a class="btn" href="#teams" data-ir="teams">Ver los teams</a></li>
     </ol>
@@ -661,7 +681,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
         <a class="enlace" href="https://www.facebook.com/groups/680476122770975/?ref=share" target="_blank" rel="noopener"><span>Facebook · más de 10.000 miembros</span><b>Grupo de la comunidad ↗</b></a>
         <a class="enlace" href="https://chat.whatsapp.com/Fqqo0nNf4CW9fMEpXaeVr6" target="_blank" rel="noopener"><span>WhatsApp</span><b>Grupo general ↗</b></a>
         <a class="enlace" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener"><span>WhatsApp · Online</span><b>Grupo reservado a Online ↗</b></a>
-        <a class="enlace" href="https://mega.nz/file/Um0UVABI#HxpgjQ5wXSZUvq3K2OgNMT3TibxphscAb31USpVaE2A" target="_blank" rel="noopener"><span>Descarga</span><b>The Last Beta ↗</b></a>
+        <a class="enlace" href="https://pokemon-reloaded.blogspot.com/2024/04/pokemon-reloaded-last-beta.html" target="_blank" rel="noopener"><span>Descarga oficial · blog de F3R</span><b>The Last Beta ↗</b></a>
         <a class="enlace" href="https://discord.com/invite/Yz46C9uBtU" target="_blank" rel="noopener"><span>Discord · comunidad del juego</span><b>Pokémon Reloaded ↗</b></a>
         <a class="enlace" href="https://discord.gg/ZpN99eUtR" target="_blank" rel="noopener"><span>Discord · creador de Reloaded Online</span><b>Rebelión Celestial ↗</b></a>
       </div>
@@ -749,20 +769,44 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
       <h3 class="sub">Créditos</h3>
       <p>Esta comunidad existe gracias al trabajo de mucha gente. Si disfrutás el juego, pasá por sus canales y apoyalos.</p>
       <div class="creditos-g">
-        <div class="credito"><small>El juego</small><b>Pokémon Reloaded</b><p>Fangame creado por F3R y su equipo. Años de desarrollo para darle vida a la Región Star.</p><div class="credito-l"><a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog</a><a href="https://discord.com/invite/Yz46C9uBtU" target="_blank" rel="noopener">Discord</a></div></div>
-        <div class="credito"><small>La edición online</small><b>Reloaded Online</b><p>Obra de su creador y la gente de Rebelión Celestial, que hicieron posible jugar Reloaded con otros entrenadores.</p><div class="credito-l"><a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar</a><a href="https://discord.gg/ZpN99eUtR" target="_blank" rel="noopener">Discord</a></div></div>
+        <div class="credito"><small>El juego</small><b>Pokémon Reloaded</b><p>Le pertenece a Fer (F3R) y su equipo. Un juego de fans para fans, sin fines de lucro, con años de desarrollo para darle vida a la Región Star.</p><div class="credito-l"><a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog</a><a href="https://discord.com/invite/Yz46C9uBtU" target="_blank" rel="noopener">Discord</a></div></div>
+        <div class="credito"><small>La edición online</small><b>Reloaded Online</b><p>Creación aparte de su autor y la gente de Rebelión Celestial, para jugar Reloaded con otros entrenadores. Es un proyecto propio de ellos, independiente de esta web.</p><div class="credito-l"><a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar</a><a href="https://discord.gg/ZpN99eUtR" target="_blank" rel="noopener">Discord</a></div></div>
         <div class="credito"><small>Pokémon exclusivos</small><b>The Patathan</b><p>Créditos por los Pokémon propios de Reloaded que pueblan la región.</p></div>
-        <div class="credito"><small>Este sitio</small><b>La comunidad</b><p>Teams, guerras, torneos y carnets los arma y los cuida la comunidad. Es un espacio no oficial que acompaña al juego, no lo reemplaza.</p></div>
+        <div class="credito"><small>Este sitio</small><b>La comunidad</b><p>Teams, guerras, torneos y carnets los arma y los cuida la comunidad. Es un espacio no oficial que junta la información para que todos la tengan a mano. <a href="#legal" data-ir="legal">Aviso legal</a></p></div>
       </div>
     </div>
     <p class="fuentes">Fuentes: <a href="https://pokemon-reloaded.blogspot.com/2024/04/pokemon-reloaded-last-beta.html" target="_blank" rel="noopener">Pokémon Reloaded The Last Beta</a> · <a href="http://pokemon-reloaded.blogspot.com/2026/10/the-last-fakemon.html" target="_blank" rel="noopener">The Last Fakemon</a> · <a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog de Pokémon Edición Reloaded</a> · <a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Pokémon Reloaded Online</a></p>
+  </div>
+</section>
+<section class="sec" id="legal">
+  <div class="wrap">
+    <div class="sec-cab"><h2>Aviso legal y privacidad</h2><p>Qué es este espacio, de quién es cada cosa, qué datos se guardan y cómo pedirnos que saquemos algo.</p></div>
+    <div class="legal-g">
+      <article class="legal-c"><h3>Un espacio de la comunidad</h3><p>Esta web junta en un solo lugar la información que la comunidad usa todos los días: teams, zonas, torneos, carnets y enlaces útiles. Es un proyecto de fans, gratuito y sin fines de lucro: no vende nada, no tiene publicidad y no acepta donaciones.</p></article>
+      <article class="legal-c"><h3>De quién es cada cosa</h3><p>Pokémon Reloaded le pertenece a Fer (F3R) y su equipo: es un juego hecho por fans y para fans, sin fines de lucro. Reloaded Online es una creación aparte de su propio autor. Esta web es independiente de los dos y no habla en su nombre. Los enlaces al online están para que tengas la información a mano: no lo promocionamos ni lo respaldamos, y no participamos en su desarrollo.</p></article>
+      <article class="legal-c"><h3>Marcas y derechos</h3><p>Pokémon y los nombres de sus personajes, especies y movimientos son marcas de Nintendo, Game Freak, Creatures Inc. y The Pokémon Company. Este sitio no está afiliado, patrocinado ni aprobado por ellas. Acá no se aloja ni se comparte ningún juego, ROM ni archivo del juego: para descargar, te mandamos a la página oficial de cada creador. El diseño, los textos y los íconos de la web son de la comunidad; no usamos sprites ni arte oficial.</p></article>
+      <article class="legal-c"><h3>Tus datos</h3><p>Solo se guarda lo que cargás en tu carnet (nombre de entrenador, team, usuario del juego, lema, equipo Pokémon y si aceptás PvP) y lo que envíes por el formulario de contacto. Queda en una planilla de Google Drive de la administración. El carnet es público y su clave se guarda cifrada. No pedimos nombre real, teléfono ni dirección: no los pongas. Podés borrar tu carnet cuando quieras desde “Editar carnet”. Según la Ley 25.326, podés pedir acceso, corrección o eliminación de tus datos con el formulario de abajo.</p></article>
+      <article class="legal-c"><h3>Lo que publica la comunidad</h3><p>Noticias, partes de guerra y carnets los cargan miembros de la comunidad. La administración puede corregir o borrar lo que rompa las reglas o afecte derechos de otros. Tu navegador solo recuerda cosas tuyas, como cuál es tu carnet, y no se comparten con nadie.</p></article>
+    </div>
+    <form class="contacto" id="formContacto" novalidate>
+      <div class="contacto-cab"><h3>Contacto y pedidos de retiro</h3><p>Si tenés derechos sobre algo que aparece acá y querés que lo saquemos, si querés borrar tus datos o si encontraste un error, escribinos. Llega directo a la administración y lo resolvemos lo antes posible.</p></div>
+      <div class="campos dos">
+        <label class="campo" for="c-motivo">Motivo<select id="c-motivo" name="motivo"><option value="derechos">Pedido de retiro por derechos</option><option value="datos">Mis datos personales</option><option value="error">Error o dato equivocado</option><option value="consulta" selected>Consulta</option></select></label>
+        <label class="campo" for="c-nombre">Tu nombre o alias<input id="c-nombre" name="nombre" maxlength="60" autocomplete="off"></label>
+        <label class="campo" for="c-contacto" style="grid-column:1/-1">Cómo te respondemos (opcional)<input id="c-contacto" name="contacto" maxlength="120" placeholder="Mail, usuario de Discord o lo que prefieras" autocomplete="off"></label>
+        <label class="campo" for="c-mensaje" style="grid-column:1/-1">Mensaje<textarea id="c-mensaje" name="mensaje" maxlength="2000" placeholder="Contanos qué querés que revisemos. Si es un pedido de retiro, indicá qué contenido es y por qué."></textarea></label>
+      </div>
+      <input class="sr" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="form-error" role="alert"></p>
+      <div class="dlg-acc"><button class="btn sand" type="submit">Enviar mensaje</button></div>
+    </form>
   </div>
 </section>
 </main>
 
 <footer>
   <div class="wrap pie">
-    <div class="pie-marca"><b>Reloaded Online</b><span>Sitio comunitario no oficial de Pokémon Reloaded Edición Online, hecho por y para la comunidad. Pokémon Reloaded es obra de F3R y su equipo; Reloaded Online, de su creador y Rebelión Celestial. Pokémon es marca de sus respectivos dueños.</span></div>
+    <div class="pie-marca"><b>Reloaded Online</b><span>Espacio de fans, no oficial y sin fines de lucro, que junta la información de la comunidad. Pokémon Reloaded le pertenece a Fer (F3R) y su equipo; Reloaded Online es una creación aparte de su autor, y esta web no lo promociona ni lo respalda. Pokémon es marca de Nintendo, Game Freak, Creatures Inc. y The Pokémon Company; este sitio no está afiliado ni aprobado por ellas.</span></div>
     <nav class="pie-links" aria-label="Enlaces de la comunidad">
       <a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar online</a>
       <a href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Grupo de Online</a>
@@ -773,6 +817,8 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
       <a href="https://discord.gg/ZpN99eUtR" target="_blank" rel="noopener">Discord de Online</a>
       <a href="#creditos" data-ir="creditos">Créditos</a>
       <a href="#reglas" data-ir="reglas">Reglas</a>
+      <a href="#legal" data-ir="legal">Aviso legal y privacidad</a>
+      <a href="#legal" data-ir="legal" data-contacto>Contacto</a>
     </nav>
     <span class="estado" id="estado"><i></i><span>Conectando…</span></span>
   </div>
@@ -784,6 +830,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
     <div class="dlg-cuerpo">
       <nav class="menu-lista" aria-label="Secciones">
         <a href="#inicio" data-ir="inicio">Inicio</a><a href="#sumate" data-ir="sumate">Empezá a jugar</a><a href="#teams" data-ir="teams">Teams</a><a href="#entrenadores" data-ir="entrenadores">Carnets de entrenador</a><a href="#atlas" data-ir="atlas">Atlas de la Región Star</a><a href="#cronica" data-ir="cronica">Crónica y clasificación</a><a href="#torneos" data-ir="torneos">Torneos y PvP</a><a href="#comunidad" data-ir="comunidad">Comunidad</a><a href="#reglas" data-ir="reglas">Reglas</a><a href="#juego" data-ir="juego">Sobre el juego</a>
+      <a href="#legal" data-ir="legal">Aviso legal y contacto</a>
       </nav>
       <div class="menu-acc"><a class="btn sand" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar online</a><a class="btn" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Grupo de WhatsApp de Online</a></div>
     </div>
@@ -1115,12 +1162,15 @@ const Demo = {
       Object.assign(c, d, { actualizado: ctx.ahora }); if (p.nuevaClave) c.clave = p.nuevaClave;
       DemoC.guardar(dc); return pub(c);
     }
+    if (a === 'carnetBorrarPropio') { const c = dbusca(p.id); if (c.clave !== p.clave) throw new Error('Clave incorrecta.'); DemoC.guardar(dc.filter(x => x.id !== c.id)); return { borrado: true }; }
+    if (a === 'contacto') { if (String(p.mensaje || '').trim().length < 10) throw new Error('Contanos un poco más en el mensaje (mínimo 10 caracteres).'); return { enviado: true }; }
     if (a === 'login') { if (p.clave !== 'demo') throw new Error('Clave incorrecta. En la demostración la clave es "demo".'); return { token: 'demo-token' }; }
     if (a === 'imagen') throw new Error('Sin imagen');
     if (tok !== 'demo-token') throw new Error('Tu sesión de admin venció. Volvé a ingresar.');
     if (a === 'logout') return true;
     if (a === 'adminDatos') return this.vista(true);
     if (a === 'carnetBorrar') { DemoC.guardar(dc.filter(x => x.id !== p.id)); return { borrado: true }; }
+    if (a === 'mensajes' || a === 'mensajeBorrar') return [];
     if (a === 'carnetClave') { const c = dbusca(p.id); c.clave = Math.random().toString(36).slice(2, 8); DemoC.guardar(dc); return { clave: c.clave }; }
     if (a === 'clave') throw new Error('En la demostración la clave siempre es "demo". Con Drive conectado se cambia de verdad.');
     if (a === 'mapaSubir') { this.mapa = 'data:' + p.mime + ';base64,' + p.base64; return this.vista(true); }
@@ -1559,7 +1609,8 @@ const numCarnet = n => 'N.º ' + String(n || 0).padStart(4, '0');
 const DEX_URL = 'https://rodrigoguerrini.github.io/reloaded-online/pokedex.json';
 const MI = {
   get() { try { return JSON.parse(localStorage.getItem('rlo-mi-carnet') || 'null'); } catch (e) { return null; } },
-  set(v) { try { localStorage.setItem('rlo-mi-carnet', JSON.stringify(v)); } catch (e) { } }
+  set(v) { try { localStorage.setItem('rlo-mi-carnet', JSON.stringify(v)); } catch (e) { } },
+  borrar() { try { localStorage.removeItem('rlo-mi-carnet'); } catch (e) { } }
 };
 S.carnets = null; S.qc = ''; S.fc = ''; S.pvp = false; S.dex = null;
 
@@ -1702,13 +1753,14 @@ function formCarnet(c, clave) {
         <label class="campo">Usuario en Reloaded Online<input name="usuario" maxlength="24" value="${esc(c.usuario || '')}"><small>Para que te encuentren y te desafíen.</small></label>
         <label class="campo">Lema<input name="lema" maxlength="90" value="${esc(c.lema || '')}" placeholder="Ej.: Ningún gimnasio me queda grande"></label>
         <label class="chk" style="grid-column:1/-1"><input type="checkbox" name="pvp"${c.pvp ? ' checked' : ''}> Acepto desafíos PvP</label>
+        <p class="carnet-aviso">El carnet es público: no pongas tu nombre real, teléfono ni dirección.</p>
       </div></fieldset>
       <fieldset class="grupo"><legend>Equipo Pokémon</legend><p class="muted" style="font-size:14px;margin-bottom:10px">Hasta 6. Si dejás vacío el nombre, el espacio queda libre.</p><div class="slots">${[0, 1, 2, 3, 4, 5].map(slot).join('')}</div></fieldset>
       <fieldset class="grupo"><legend>${nuevo ? 'Tu clave' : 'Cambiar clave (opcional)'}</legend><p class="muted" style="font-size:14px">${nuevo ? 'La vas a usar para editar tu carnet. Guardala: después no se puede ver.' : 'Si no la querés cambiar, dejalo vacío.'}</p>
         <div class="campos dos"><label class="campo">${nuevo ? 'Clave *' : 'Clave nueva'}<input name="clave1" type="password" autocomplete="new-password"></label><label class="campo">Repetí la clave<input name="clave2" type="password" autocomplete="new-password"></label></div></fieldset>
       <input class="sr" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
       <p class="form-error" role="alert"></p>
-      <div class="dlg-acc"><button class="btn" type="button" data-cerrar>Cancelar</button><button class="btn sand" type="submit">${nuevo ? 'Crear carnet' : 'Guardar cambios'}</button></div>
+      <div class="dlg-acc">${nuevo ? '' : '<button class="btn danger" type="button" data-borrar-carnet style="margin-right:auto">Borrar carnet</button>'}<button class="btn" type="button" data-cerrar>Cancelar</button><button class="btn sand" type="submit">${nuevo ? 'Crear carnet' : 'Guardar cambios'}</button></div>
     </div></form>`;
   const f = $('form', d), err = $('.form-error', d), b = $('[type=submit]', d);
   const completarEspecie = (i, auto) => {
@@ -1720,6 +1772,13 @@ function formCarnet(c, clave) {
     if (e && auto) { f.elements['p' + i + '-tipo1'].value = e[1]; f.elements['p' + i + '-tipo2'].value = e[2]; if (e[3].length === 1 && !f.elements['p' + i + '-habilidad'].value) f.elements['p' + i + '-habilidad'].value = e[3][0]; }
   };
   cargarDex().then(() => { for (let i = 0; i < 6; i++) completarEspecie(i, false); });
+  const bb = $('[data-borrar-carnet]', f);
+  if (bb) bb.onclick = () => confirmar('Borrar el carnet de ' + c.nombre, 'Se borra para siempre de la web y de la planilla. No se puede deshacer.', 'Borrar carnet', async () => {
+    await llamar(clave || !esAdmin() ? 'carnetBorrarPropio' : 'carnetBorrar', { id: c.id, clave: clave || '' });
+    const mi = MI.get(); if (mi && mi.id === c.id) MI.borrar();
+    if (location.hash.indexOf(c.id) >= 0) history.replaceState(null, '', location.pathname + location.search);
+    cerrar(d); toast('Carnet borrado.'); cargarCarnets();
+  });
   f.addEventListener('input', ev => { const m = ev.target.name && ev.target.name.match(/^p(\d)-especie$/); if (m) completarEspecie(Number(m[1]), true); });
   f.onsubmit = async ev => {
     ev.preventDefault(); err.textContent = '';
@@ -1811,6 +1870,7 @@ function panelAdmin() {
       <div><h3>Publicar</h3><div class="panel-btns">${b('nueva-noticia', 'Publicar noticia', 'Va a la portada')}${b('nueva-guerra', 'Registrar guerra', 'Conquista, defensa, disputa…')}${b('nuevo-torneo', 'Nuevo torneo', 'Aparece en el calendario')}${b('nuevo-combate', 'Registrar combate', 'Suma a la clasificación')}</div></div>
       <div><h3>Miembros por team</h3><ul class="panel-miembros">${S.d.equipos.map(e => `<li style="--c:${esc(e.color)}"><span><b>${esc(e.emoji || '')} ${esc(e.nombre)}</b><small class="mm-estado" data-mm-estado="${esc(e.id)}">${textoCupo(Core.cantidad(e.miembros))}</small></span>${controlMiembros(e)}</li>`).join('')}</ul><p class="muted" style="font-size:13px;margin-top:8px">Escribí el número o usá − y +: se guarda solo.</p></div>
       <div><h3>Mundo</h3><div class="panel-btns">${b('nuevo-team', 'Nuevo team', 'Nombre, color y lore')}${b('nueva-zona', 'Nueva zona', 'Se suma al atlas')}${b('mapa-subir', 'Cambiar mapa', 'Imagen nueva en tu Drive')}</div></div>
+      <div><h3>Comunidad</h3><div class="panel-btns">${b('mensajes', 'Mensajes' + (S.d.config && S.d.config.mensajes ? ' (' + S.d.config.mensajes + ')' : ''), S.d.config && S.d.config.mensajes ? 'Contacto y pedidos de retiro' : 'No hay mensajes nuevos')}</div></div>
       <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('clave-editor', 'Clave del noticiero', S.d.config && S.d.config.editor ? 'Activa · cambiarla' : 'Noticias, zonas y crónica')}${S.d.config && S.d.config.editor ? b('quitar-editor', 'Quitar noticiero', 'Su clave deja de andar') : ''}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
       <p class="muted">Para editar un team, una zona o un carnet, abrí su ficha: las opciones de admin aparecen ahí.</p>
     </div></div>`;
@@ -1945,6 +2005,8 @@ document.addEventListener('click', async ev => {
         enviar: async v => { if (v.nueva !== v.repetir) throw new Error('Las claves no coinciden.'); await llamar('claveEditor', { nueva: v.nueva }); await cargar(true); toast('Clave del noticiero guardada. Pasásela por privado a quien lleve las noticias.'); }
       }); break;
       case 'quitar-editor': cerrar($('#dlgPanel')); confirmar('Quitar noticiero', 'La clave del noticiero deja de funcionar y su sesión se cierra.', 'Quitar', async () => { await llamar('claveEditor', { quitar: true }); await cargar(true); toast('Acceso del noticiero quitado.'); }); break;
+      case 'mensajes': cerrar($('#dlgPanel')); verMensajes(); break;
+      case 'borrar-mensaje': confirmar('Borrar mensaje', 'Se borra de la web y de la pestaña Contacto de la planilla.', 'Borrar', async () => { pintarMensajes(await llamar('mensajeBorrar', { id })); cargar(true); }); break;
       case 'salir': cerrar($('#dlgPanel')); salirAdmin(); break;
     }
   } catch (e) { toast(e.message, 'error'); }
@@ -1964,6 +2026,41 @@ $('#buscarZona').addEventListener('input', e => { S.q = e.target.value; renderAt
 $('#dialogo').addEventListener('click', ev => { if (ev.target.closest('a')) return; const p = $('#notCuerpo'); if (p.textContent !== p.dataset.texto) { p.dataset.saltar = '1'; p.textContent = p.dataset.texto; } else ir('cronica'); });
 $('#dlgMapa').addEventListener('close', cancelarUbicar);
 $$('dialog').forEach(d => d.addEventListener('click', ev => { if (ev.target === d) { if (d.id === 'dlgMapa') cancelarUbicar(); cerrar(d); } }));
+
+// ---------- Contacto y mensajes ----------
+function pintarMensajes(lista) {
+  const d = $('#dlgLista');
+  d.innerHTML = `<div class="dlg"><div class="dlg-cab"><p class="muted">Panel</p><h2>Mensajes de contacto</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+    <div class="dlg-cuerpo">${lista.length ? `<ul class="mensajes">${lista.map(m => `<li><div class="msj-cab"><span class="pill">${esc(m.motivo || 'Consulta')}</span><time>${esc(fecha(m.fecha))}</time></div>
+      <p class="msj-de">${esc(m.nombre || 'Sin nombre')}${m.contacto ? ' · ' + esc(m.contacto) : ''}</p><p class="msj-t">${esc(m.mensaje)}</p>
+      <div class="acc"><button class="btn sm danger" type="button" data-act="borrar-mensaje" data-id="${esc(m.id)}">Borrar</button></div></li>`).join('')}</ul>`
+      : '<p class="muted">No hay mensajes. Cuando alguien escriba desde “Aviso legal y privacidad”, aparece acá y en la pestaña Contacto de la planilla.</p>'}</div></div>`;
+  abrir(d);
+}
+async function verMensajes() {
+  const d = $('#dlgLista');
+  d.innerHTML = '<div class="dlg"><div class="dlg-cuerpo"><p class="muted">Cargando mensajes…</p></div></div>'; abrir(d);
+  try { pintarMensajes(await llamar('mensajes')); } catch (e) { cerrar(d); toast(e.message, 'error'); }
+}
+(() => {
+  const f = $('#formContacto'); if (!f) return;
+  const err = $('.form-error', f), b = $('[type=submit]', f);
+  f.onsubmit = async ev => {
+    ev.preventDefault(); err.textContent = '';
+    const v = n => f.elements[n].value;
+    if (v('mensaje').trim().length < 10) { err.textContent = 'Contanos un poco más en el mensaje.'; f.elements.mensaje.focus(); return; }
+    b.disabled = true; const t0 = b.textContent; b.textContent = 'Enviando…';
+    try {
+      await llamar('contacto', { motivo: v('motivo'), nombre: v('nombre'), contacto: v('contacto'), mensaje: v('mensaje'), web: v('web') });
+      f.classList.add('enviado');
+      const ok = document.createElement('p'); ok.className = 'contacto-ok'; ok.setAttribute('role', 'status');
+      ok.textContent = 'Mensaje enviado. Gracias: la administración lo va a revisar' + (v('contacto').trim() ? ' y te responde por el medio que dejaste.' : '.');
+      err.before(ok);
+    } catch (e) { err.textContent = e.message; }
+    finally { b.disabled = false; b.textContent = t0; }
+  };
+  document.addEventListener('click', ev => { if (ev.target.closest('[data-contacto]')) setTimeout(() => f.elements.mensaje.focus({ preventScroll: true }), 450); });
+})();
 
 // ---------- Horario de conquistas (referencia: hora de Cuba) ----------
 const HORARIO = {
