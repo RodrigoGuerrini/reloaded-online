@@ -411,6 +411,8 @@ footer{border-top:1px solid var(--sea-800);padding:40px 0 48px;color:var(--mist)
 .adminbar-acc{display:flex;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none}
 .adminbar-fin{margin-left:auto;display:flex;gap:6px}
 .adminbar .oscuro{background:#22313a;border-color:#22313a;color:#fff}
+.adminbar .ab-c{display:none}
+@media (max-width:560px){.adminbar .ab-l{display:none}.adminbar .ab-c{display:inline}.adminbar-t{font-size:14px}}
 body.es-admin .top{top:50px}
 .panel-g{display:grid;gap:20px}
 .panel-g h3{font:600 16px var(--sans);margin-bottom:8px;color:var(--mist)}
@@ -517,7 +519,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
       <button type="button" data-act="nuevo-torneo">Nuevo torneo</button>
       <button type="button" data-act="nuevo-combate">Registrar combate</button>
     </div>
-    <div class="adminbar-fin"><button type="button" class="oscuro" data-act="nueva-noticia" data-solo-rol="editor" hidden>Publicar noticia</button><button type="button" class="oscuro" data-act="panel" data-solo-rol="admin">Panel</button><button type="button" data-act="salir">Salir</button></div>
+    <div class="adminbar-fin"><button type="button" class="oscuro" data-act="nueva-noticia" data-solo-rol="editor" hidden><span class="ab-l">Publicar noticia</span><span class="ab-c">+ Noticia</span></button><button type="button" data-act="nueva-guerra" data-solo-rol="editor" hidden><span class="ab-l">Registrar guerra</span><span class="ab-c">+ Guerra</span></button><button type="button" class="oscuro" data-act="panel" data-solo-rol="admin">Panel</button><button type="button" data-act="salir">Salir</button></div>
   </div>
 </div>
 <header class="top">
@@ -986,10 +988,13 @@ var Core = (function () {
       case 'torneoBorrar': quitar(db.torneos, p.id); return { cambios: ['torneos'] };
       case 'noticiaGuardar': {
         if (!txt(p.titulo)) falla('La noticia necesita un título.');
+        // La noticia puede traer el cambio de una zona: se registra en la crónica y en el atlas al mismo tiempo.
+        var zonaCambios = [];
+        if (p.zona && p.zona.territorio) zonaCambios = aplicar(db, 'guerraRegistrar', p.zona, ctx).cambios;
         x = p.id ? porId(db.noticias, p.id) : null;
         if (!x) { x = { id: uid(), fecha: ahora }; db.noticias.unshift(x); }
         x.titulo = txt(p.titulo, 90); x.cuerpo = largo(p.cuerpo, 900);
-        return { cambios: ['noticias'] };
+        return { cambios: ['noticias'].concat(zonaCambios) };
       }
       case 'noticiaBorrar': quitar(db.noticias, p.id); return { cambios: ['noticias'] };
       case 'combateGuardar': {
@@ -1169,6 +1174,7 @@ async function cargar(silencioso) {
 const esAdmin = () => !!S.token && S.rol !== 'editor';
 const esEditor = () => !!S.token && S.rol === 'editor';
 const puedeNoticias = () => !!S.token;
+const puedeGuerra = () => !!S.token; // admin y noticiero
 const equipo = n => S.d.equipos.find(e => e.nombre === n);
 const colorEq = n => (equipo(n) || {}).color || '#93b9c3';
 function colorZona(t) {
@@ -1209,7 +1215,7 @@ function render() {
   document.body.classList.toggle('es-admin', !!S.token);
   renderDominio(); renderNoticia(); renderMapa(); renderTeams(); renderAtlas(); renderCronica(); renderTorneos(); renderEstado();
   $('#adminbar').hidden = !S.token;
-  $('#adminbarTitulo').textContent = esEditor() ? 'Editor de noticias' : 'Administración';
+  $('#adminbarTitulo').textContent = esEditor() ? 'Noticiero' : 'Administración';
   $$('#adminbar [data-solo-rol]').forEach(e => { e.hidden = (e.dataset.soloRol === 'editor') !== esEditor(); });
   renderClasif();
   renderCarnets();
@@ -1288,7 +1294,7 @@ function renderMapa() {
   });
   S.mapaKey = key;
   const ubicadas = S.d.territorios.filter(t => t.x !== '' && t.x != null).length;
-  $('#pinsInfo').textContent = ubicadas ? `${ubicadas} ${ubicadas === 1 ? 'zona marcada' : 'zonas marcadas'} en el mapa. Tocá un punto para ver quién la controla.` : (esAdmin() ? 'Todavía no hay zonas marcadas. Abrí una zona del atlas y elegí “Ubicar en el mapa”.' : 'Los emblemas muestran qué team controla cada parte de la región.');
+  $('#pinsInfo').textContent = ubicadas ? `${ubicadas} ${ubicadas === 1 ? 'zona marcada' : 'zonas marcadas'} en el mapa. Tocá un punto para ver quién la controla.` : (puedeGuerra() ? 'Todavía no hay zonas marcadas. Abrí una zona del atlas y elegí “Ubicar en el mapa”.' : 'Los emblemas muestran qué team controla cada parte de la región.');
 }
 
 function renderTeams() {
@@ -1327,7 +1333,7 @@ function renderCronica() {
   $('#linea').innerHTML = g.length ? g.slice(0, S.verGuerras).map(x => `
     <li style="--c:${esc(x.ganador ? colorEq(x.ganador) : '#93b9c3')}">
       <time>${fecha(x.fecha)}</time><p>${pintar(x.resumen)}</p>
-      <div class="meta"><button class="link" type="button" data-act="zona" data-id="${esc(x.territorioId)}">${esc(x.territorio)}</button>${x.nota ? `<span>${esc(x.nota)}</span>` : ''}${esAdmin() ? `<button class="link" type="button" data-act="borrar-guerra" data-id="${esc(x.id)}" style="color:#ffb8ba">Borrar del historial</button>` : ''}</div>
+      <div class="meta"><button class="link" type="button" data-act="zona" data-id="${esc(x.territorioId)}">${esc(x.territorio)}</button>${x.nota ? `<span>${esc(x.nota)}</span>` : ''}${puedeGuerra() ? `<button class="link" type="button" data-act="borrar-guerra" data-id="${esc(x.id)}" style="color:#ffb8ba">Borrar del historial</button>` : ''}</div>
     </li>`).join('') : `<li style="--c:#93b9c3"><p class="muted">${S.cargando ? 'Cargando…' : 'Todavía no hay partes de guerra.'}</p></li>`;
   $('#lineaMas').innerHTML = g.length > S.verGuerras ? `<button class="btn sm" type="button" data-act="mas-guerras">Ver ${Math.min(20, g.length - S.verGuerras)} partes más</button>` : '';
   $('#archivo').innerHTML = S.d.noticias.length ? S.d.noticias.map((n, i) => `
@@ -1420,7 +1426,7 @@ function fichaTeam(id) {
 
 function fichaZona(id) {
   const t = S.d.territorios.find(x => x.id === id); if (!t) return;
-  const hist = S.d.guerras.filter(g => g.territorioId === t.id), c = colorZona(t), adm = esAdmin();
+  const hist = S.d.guerras.filter(g => g.territorioId === t.id), c = colorZona(t), adm = puedeGuerra();
   const opcEq = [{ v: '', l: 'Elegí un team…' }].concat(S.d.equipos.map(e => ({ v: e.nombre, l: e.nombre })));
   const opcRiv = [{ v: '', l: 'Sin rival / zona libre' }].concat(S.d.equipos.map(e => ({ v: e.nombre, l: e.nombre })));
   const enMapa = t.x !== '' && t.x != null;
@@ -1439,7 +1445,7 @@ function fichaZona(id) {
           ${campo({ n: 'referencia', l: 'Referencia en el mapa', v: t.referencia, ph: 'Ej.: costa sur, junto a la Ruta 10', max: 120, ancho: true }, 'z')}
         </div><p class="form-error" role="alert"></p>
         <div class="dlg-acc"><button class="btn sand" type="submit">Guardar resultado</button></div></form>
-        <div class="dlg-acc" style="justify-content:flex-start"><button class="btn sm" type="button" data-act="ubicar" data-id="${esc(t.id)}">${enMapa ? 'Mover en el mapa' : 'Ubicar en el mapa'}</button>${enMapa ? `<button class="btn sm" type="button" data-act="desubicar" data-id="${esc(t.id)}">Quitar del mapa</button>` : ''}<button class="btn sm" type="button" data-act="editar-zona" data-id="${esc(t.id)}">Editar zona</button><button class="btn sm danger" type="button" data-act="borrar-zona" data-id="${esc(t.id)}">Borrar zona</button></div>` : ''}
+        <div class="dlg-acc" style="justify-content:flex-start"><button class="btn sm" type="button" data-act="ubicar" data-id="${esc(t.id)}">${enMapa ? 'Mover en el mapa' : 'Ubicar en el mapa'}</button>${enMapa ? `<button class="btn sm" type="button" data-act="desubicar" data-id="${esc(t.id)}">Quitar del mapa</button>` : ''}<button class="btn sm" type="button" data-act="editar-zona" data-id="${esc(t.id)}">Editar zona</button>${esAdmin() ? `<button class="btn sm danger" type="button" data-act="borrar-zona" data-id="${esc(t.id)}">Borrar zona</button>` : ''}</div>` : ''}
     </div></div>`;
   const f = $('#formGuerra', d);
   if (f) f.onsubmit = async ev => {
@@ -1476,13 +1482,49 @@ function formZona(t) {
   });
 }
 
+const ACCIONES_ZONA = [{ v: 'conquista', l: 'Conquista: venció al team que la tenía' }, { v: 'toma', l: 'Tomó la zona libre' }, { v: 'defensa', l: 'Defendió y ganó' }, { v: 'disputa', l: 'Quedó en disputa' }, { v: 'resguardo', l: 'Resguardo del Escuadrón Élite' }, { v: 'liberacion', l: 'Liberada / neutral' }, { v: 'muerto', l: 'Marcar como Punto Muerto' }];
+function titularZona(z, ac, g) {
+  if (!z) return '';
+  return ({ conquista: g ? g + ' conquista ' + z : '', toma: g ? g + ' toma ' + z : '', defensa: g ? g + ' defiende ' + z : '', resguardo: g ? g + ' resguarda ' + z : '', disputa: 'Disputa abierta en ' + z, liberacion: z + ' queda liberada', muerto: z + ' queda como Punto Muerto' })[ac] || '';
+}
 function formNoticia(n) {
   n = n || {};
+  const nueva = !n.id;
+  const zonas = S.d.territorios.slice().sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+  const eqs = S.d.equipos.map(e => ({ v: e.nombre, l: e.nombre }));
+  const campos = [{ n: 'titulo', l: 'Titular', v: n.titulo, req: true, max: 90, ancho: true }, { n: 'cuerpo', l: 'Parte', t: 'textarea', v: n.cuerpo, max: 900, ancho: true, ph: 'Qué pasó, quién está involucrado, qué recomienda la Comisaría…' }];
+  if (nueva && zonas.length) campos.push(
+    { n: 'zona', l: 'Zona afectada (opcional)', t: 'select', ancho: true, ayuda: 'Si la noticia cambia quién tiene una zona, elegila: el atlas, el mapa y la crónica se actualizan junto con la noticia.', opc: [{ v: '', l: 'Ninguna: solo publicar la noticia' }].concat(zonas.map(z => ({ v: z.id, l: z.nombre + ' · ' + (z.estado === 'Controlada' ? z.equipo : z.estado) }))) },
+    { n: 'accion', l: 'Qué pasó en la zona', t: 'select', ancho: true, opc: ACCIONES_ZONA },
+    { n: 'ganador', l: 'Team ganador', t: 'select', opc: [{ v: '', l: 'Elegí un team…' }].concat(eqs) },
+    { n: 'perdedor', l: 'Team derrotado o rival', t: 'select', opc: [{ v: '', l: 'Sin rival / zona libre' }].concat(eqs) }
+  );
   formulario({
-    titulo: n.id ? 'Editar noticia' : 'Publicar en Noticias Star', texto: n.id ? '' : 'La última noticia aparece arriba de todo, en el cuadro de diálogo del mapa.', boton: n.id ? 'Guardar cambios' : 'Publicar',
-    campos: [{ n: 'titulo', l: 'Titular', v: n.titulo, req: true, max: 90 }, { n: 'cuerpo', l: 'Parte', t: 'textarea', v: n.cuerpo, max: 900, ph: 'Qué pasó, quién está involucrado, qué recomienda la Comisaría…' }],
-    enviar: v => accion('noticiaGuardar', Object.assign({ id: n.id || '' }, v), n.id ? 'Noticia actualizada' : 'Noticia publicada').then(() => { S.tipeado = false; $('#notCuerpo').dataset.texto = ''; renderNoticia(); })
+    titulo: n.id ? 'Editar noticia' : 'Publicar en Noticias Star', texto: n.id ? '' : 'La última noticia aparece arriba de todo, en el cuadro de diálogo del mapa.', boton: n.id ? 'Guardar cambios' : 'Publicar', dos: true,
+    campos,
+    enviar: async v => {
+      const p = { id: n.id || '', titulo: v.titulo, cuerpo: v.cuerpo };
+      if (v.zona) {
+        if (['conquista', 'toma', 'defensa', 'resguardo'].includes(v.accion) && !v.ganador) throw new Error('Elegí el team que ganó o tomó la zona.');
+        if (v.ganador && v.ganador === v.perdedor) throw new Error('El ganador y el rival no pueden ser el mismo team.');
+        p.zona = { territorio: v.zona, accion: v.accion, ganador: v.ganador, perdedor: v.perdedor, nota: Core.txt('Noticia: ' + v.titulo, 200) };
+      }
+      const z = v.zona && S.d.territorios.find(x => x.id === v.zona);
+      await accion('noticiaGuardar', p, n.id ? 'Noticia actualizada' : z ? 'Noticia publicada y ' + z.nombre + ' actualizada' : 'Noticia publicada');
+      S.tipeado = false; $('#notCuerpo').dataset.texto = ''; renderNoticia();
+    }
   });
+  const f = $('#dlgForm form'); if (!f || !f.elements.zona) return;
+  const filas = ['accion', 'ganador', 'perdedor'].map(k => f.elements[k].closest('label'));
+  const tit = f.elements.titulo; let auto = '';
+  const sync = () => {
+    const z = S.d.territorios.find(x => x.id === f.elements.zona.value);
+    filas.forEach(l => { l.hidden = !z; });
+    const sugerido = z ? titularZona(z.nombre, f.elements.accion.value, f.elements.ganador.value) : '';
+    if (!tit.value.trim() || tit.value === auto) { tit.value = sugerido; auto = sugerido; }
+  };
+  ['zona', 'accion', 'ganador'].forEach(k => f.elements[k].addEventListener('change', sync));
+  sync();
 }
 
 function formTorneo(t) {
@@ -1769,7 +1811,7 @@ function panelAdmin() {
       <div><h3>Publicar</h3><div class="panel-btns">${b('nueva-noticia', 'Publicar noticia', 'Va a la portada')}${b('nueva-guerra', 'Registrar guerra', 'Conquista, defensa, disputa…')}${b('nuevo-torneo', 'Nuevo torneo', 'Aparece en el calendario')}${b('nuevo-combate', 'Registrar combate', 'Suma a la clasificación')}</div></div>
       <div><h3>Miembros por team</h3><ul class="panel-miembros">${S.d.equipos.map(e => `<li style="--c:${esc(e.color)}"><span><b>${esc(e.emoji || '')} ${esc(e.nombre)}</b><small class="mm-estado" data-mm-estado="${esc(e.id)}">${textoCupo(Core.cantidad(e.miembros))}</small></span>${controlMiembros(e)}</li>`).join('')}</ul><p class="muted" style="font-size:13px;margin-top:8px">Escribí el número o usá − y +: se guarda solo.</p></div>
       <div><h3>Mundo</h3><div class="panel-btns">${b('nuevo-team', 'Nuevo team', 'Nombre, color y lore')}${b('nueva-zona', 'Nueva zona', 'Se suma al atlas')}${b('mapa-subir', 'Cambiar mapa', 'Imagen nueva en tu Drive')}</div></div>
-      <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('clave-editor', 'Clave de editor', S.d.config && S.d.config.editor ? 'Activa · cambiarla' : 'Para quien publica noticias')}${S.d.config && S.d.config.editor ? b('quitar-editor', 'Quitar editor', 'Su clave deja de andar') : ''}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
+      <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('clave-editor', 'Clave del noticiero', S.d.config && S.d.config.editor ? 'Activa · cambiarla' : 'Noticias, zonas y crónica')}${S.d.config && S.d.config.editor ? b('quitar-editor', 'Quitar noticiero', 'Su clave deja de andar') : ''}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
       <p class="muted">Para editar un team, una zona o un carnet, abrí su ficha: las opciones de admin aparecen ahí.</p>
     </div></div>`;
   abrir(d);
@@ -1793,14 +1835,14 @@ function formGuerra() {
 
 function entrarAdmin() {
   formulario({
-    titulo: 'Acceso de administración', texto: MODO === 'demo' ? 'Estás en la demostración: la clave es demo.' : 'Entrá con la clave de admin o con la de editor de noticias. Se valida en el Drive de la comunidad.', boton: 'Entrar',
+    titulo: 'Acceso de administración', texto: MODO === 'demo' ? 'Estás en la demostración: la clave es demo.' : 'Entrá con la clave de admin o con la del noticiero. Se valida en el Drive de la comunidad.', boton: 'Entrar',
     campos: [{ n: 'clave', l: 'Clave', t: 'password', req: true }],
     enviar: async v => {
       const r = await llamar('login', { clave: v.clave });
       S.token = r.token; S.rol = r.rol || 'admin';
       almacen.set('rlo-token', S.token); almacen.set('rlo-rol', S.rol);
       await cargar();
-      toast(esEditor() ? 'Sesión de editor iniciada: podés publicar, editar y borrar noticias.' : 'Sesión de admin iniciada.');
+      toast(esEditor() ? 'Sesión del noticiero iniciada: noticias, zonas y crónica.' : 'Sesión de admin iniciada.');
     }
   });
 }
@@ -1898,11 +1940,11 @@ document.addEventListener('click', async ev => {
         enviar: async v => { if (v.nueva !== v.repetir) throw new Error('Las claves nuevas no coinciden.'); await llamar('clave', { actual: v.actual, nueva: v.nueva }); toast('Clave cambiada. Usala la próxima vez que entres.'); }
       }); break;
       case 'clave-editor': cerrar($('#dlgPanel')); formulario({
-        titulo: 'Clave de editor de noticias', texto: 'Quien entre con esta clave solo puede publicar, editar y borrar noticias. Si ya había una, se reemplaza y la sesión del editor anterior se cierra.', boton: 'Guardar clave',
-        campos: [{ n: 'nueva', l: 'Clave de editor (mínimo 8 caracteres)', t: 'password', req: true }, { n: 'repetir', l: 'Repetí la clave', t: 'password', req: true }],
-        enviar: async v => { if (v.nueva !== v.repetir) throw new Error('Las claves no coinciden.'); await llamar('claveEditor', { nueva: v.nueva }); await cargar(true); toast('Clave de editor guardada. Pasásela por privado a quien publique las noticias.'); }
+        titulo: 'Clave del noticiero', texto: 'Quien entre con esta clave maneja las noticias, quién tiene cada zona, la crónica de guerra y los puntos del mapa. No puede tocar teams, torneos, carnets ni claves. Si ya había una, se reemplaza y la sesión anterior se cierra.', boton: 'Guardar clave',
+        campos: [{ n: 'nueva', l: 'Clave del noticiero (mínimo 8 caracteres)', t: 'password', req: true }, { n: 'repetir', l: 'Repetí la clave', t: 'password', req: true }],
+        enviar: async v => { if (v.nueva !== v.repetir) throw new Error('Las claves no coinciden.'); await llamar('claveEditor', { nueva: v.nueva }); await cargar(true); toast('Clave del noticiero guardada. Pasásela por privado a quien lleve las noticias.'); }
       }); break;
-      case 'quitar-editor': cerrar($('#dlgPanel')); confirmar('Quitar editor de noticias', 'La clave de editor deja de funcionar y su sesión se cierra.', 'Quitar', async () => { await llamar('claveEditor', { quitar: true }); await cargar(true); toast('Acceso de editor quitado.'); }); break;
+      case 'quitar-editor': cerrar($('#dlgPanel')); confirmar('Quitar noticiero', 'La clave del noticiero deja de funcionar y su sesión se cierra.', 'Quitar', async () => { await llamar('claveEditor', { quitar: true }); await cargar(true); toast('Acceso del noticiero quitado.'); }); break;
       case 'salir': cerrar($('#dlgPanel')); salirAdmin(); break;
     }
   } catch (e) { toast(e.message, 'error'); }
