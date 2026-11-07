@@ -132,9 +132,7 @@ body.es-admin main section{scroll-margin-top:122px}
 .team{display:grid;grid-template-columns:56px 1fr;grid-template-rows:auto auto 1fr;column-gap:14px;text-align:left;background:var(--sea-800);border:2px solid color-mix(in srgb,var(--c) 30%,var(--sea-700));border-radius:var(--r);padding:16px;cursor:pointer;min-height:150px;position:relative;overflow:hidden}
 .team:hover{border-color:var(--c)}
 .team:before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--c)}
-.team-emb img,.ficha-logo img{width:100%;height:100%;object-fit:contain;display:block}
-.ficha-logo{width:72px;height:72px;border-radius:14px;display:grid;place-items:center;font-size:38px;background:color-mix(in srgb,var(--c) 18%,var(--sea-900));border:2px solid color-mix(in srgb,var(--c) 45%,transparent);overflow:hidden;padding:6px}
-.team-emb{overflow:hidden;padding:5px;grid-row:1/3;width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-size:28px;background:color-mix(in srgb,var(--c) 20%,transparent);border:2px solid color-mix(in srgb,var(--c) 45%,transparent)}
+.team-emb{grid-row:1/3;width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-size:28px;background:color-mix(in srgb,var(--c) 20%,transparent);border:2px solid color-mix(in srgb,var(--c) 45%,transparent)}
 .team-nom{font:600 22px/1.05 var(--px);align-self:end}
 .team-tipo{color:var(--mist);font-size:13px;margin-top:4px}
 .team-cupo{grid-column:1/3;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;font-size:14px;color:#c3dbe0}
@@ -284,9 +282,6 @@ body.es-admin main section{scroll-margin-top:122px}
 .movs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .movs li{font-size:12px;background:var(--sea-850);border-radius:6px;padding:5px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .shiny{color:var(--sand)}
-.captura{border-radius:12px;overflow:hidden;border:1px solid var(--sea-700);background:var(--sea-950)}
-.captura img{width:100%;height:auto}
-.captura-nota{font-size:14px;color:var(--mist);background:var(--sea-900);border:1px dashed var(--sea-600);border-radius:10px;padding:10px 12px}
 .grupo{border:0;padding:0;margin:0}
 .grupo legend{font:600 20px var(--px);margin-bottom:10px;padding:0;color:var(--foam)}
 .slots{display:grid;gap:8px}
@@ -296,7 +291,6 @@ body.es-admin main section{scroll-margin-top:122px}
 .slot-n{font:600 18px var(--px);color:var(--sand);width:18px}
 .slot[open] summary{border-bottom:1px solid var(--sea-700)}
 .slot .campos{padding:12px 14px 14px}
-.prev-captura{max-height:180px;border-radius:10px;border:1px solid var(--sea-700);margin-top:6px}
 .revisar{display:grid;gap:12px}
 .revisar li{list-style:none;background:var(--sea-900);border:1px solid var(--sea-700);border-radius:12px;padding:12px;display:grid;gap:10px}
 .revisar img{max-height:260px;border-radius:8px;justify-self:start}
@@ -756,7 +750,7 @@ var Core = (function () {
     'Serena': '+DefEsp −Atq', 'Amable': '+DefEsp −Def', 'Grosera': '+DefEsp −Vel', 'Cauta': '+DefEsp −AtEsp', 'Rara': ''
   }; // a partir de esta cantidad de miembros el team figura como Lleno
   var TABLAS = {
-    equipos: ['id', 'nombre', 'emoji', 'lider', 'tipo', 'color', 'lore', 'orden', 'miembros', 'logo'],
+    equipos: ['id', 'nombre', 'emoji', 'lider', 'tipo', 'color', 'lore', 'orden', 'miembros'],
     territorios: ['id', 'nombre', 'tipo', 'estado', 'equipo', 'retador', 'ultimo', 'referencia', 'x', 'y', 'actualizado'],
     guerras: ['id', 'fecha', 'territorioId', 'territorio', 'accion', 'ganador', 'perdedor', 'resumen', 'nota'],
     torneos: ['id', 'nombre', 'fecha', 'formato', 'info', 'enlace', 'creado'],
@@ -1028,7 +1022,6 @@ const Demo = {
       const d = Core.limpiarCarnet(p, this.db().equipos);
       if (dc.some(x => x.nombre.toLowerCase() === d.nombre.toLowerCase())) throw new Error('Ya hay un carnet con ese nombre de entrenador.');
       const c = Object.assign({ id: 'c' + Date.now().toString(36), numero: String(dc.reduce((m, x) => Math.max(m, Number(x.numero)), 0) + 1), creado: ctx.ahora, actualizado: ctx.ahora, clave: p.clave }, d);
-      if (p.captura) { c.capturaData = 'data:' + p.captura.mime + ';base64,' + p.captura.base64; c.capturaEstado = 'pendiente'; }
       dc.push(c); DemoC.guardar(dc); return pub(c);
     }
     if (a === 'carnetVerificar') { if (dbusca(p.id).clave !== p.clave) throw new Error('Clave incorrecta.'); return { ok: true }; }
@@ -1037,11 +1030,8 @@ const Demo = {
       const d = Core.limpiarCarnet(p, this.db().equipos);
       if (dc.some(x => x.id !== c.id && x.nombre.toLowerCase() === d.nombre.toLowerCase())) throw new Error('Ya hay un carnet con ese nombre de entrenador.');
       Object.assign(c, d, { actualizado: ctx.ahora }); if (p.nuevaClave) c.clave = p.nuevaClave;
-      if (p.quitarCaptura) { c.capturaData = ''; c.capturaEstado = ''; }
-      if (p.captura) { c.capturaData = 'data:' + p.captura.mime + ';base64,' + p.captura.base64; c.capturaEstado = 'pendiente'; }
       DemoC.guardar(dc); return pub(c);
     }
-    if (a === 'imagenCaptura') throw new Error('Sin imagen');
     if (a === 'login') { if (p.clave !== 'demo') throw new Error('Clave incorrecta. En la demostración la clave es "demo".'); return { token: 'demo-token' }; }
     if (a === 'imagen') throw new Error('Sin imagen');
     if (tok !== 'demo-token') throw new Error('Tu sesión de admin venció. Volvé a ingresar.');
@@ -1049,9 +1039,6 @@ const Demo = {
     if (a === 'adminDatos') return this.vista(true);
     if (a === 'carnetBorrar') { DemoC.guardar(dc.filter(x => x.id !== p.id)); return { borrado: true }; }
     if (a === 'carnetClave') { const c = dbusca(p.id); c.clave = Math.random().toString(36).slice(2, 8); DemoC.guardar(dc); return { clave: c.clave }; }
-    if (a === 'capturasPendientes') return dc.filter(c => c.capturaEstado === 'pendiente').map(c => ({ id: c.id, numero: c.numero, nombre: c.nombre }));
-    if (a === 'capturaVer') return dbusca(p.id).capturaData;
-    if (a === 'capturaAprobar' || a === 'capturaRechazar') { const c = dbusca(p.id); if (a === 'capturaAprobar') c.capturaEstado = 'aprobada'; else { c.capturaData = ''; c.capturaEstado = ''; } DemoC.guardar(dc); return { estado: c.capturaEstado }; }
     if (a === 'clave') throw new Error('En la demostración la clave siempre es "demo". Con Drive conectado se cambia de verdad.');
     if (a === 'mapaSubir') { this.mapa = 'data:' + p.mime + ';base64,' + p.base64; return this.vista(true); }
     Core.aplicar(this.db(), a, p, ctx); this.guardar(); return this.vista(true);
@@ -1225,7 +1212,7 @@ function renderTeams() {
   S.d.territorios.forEach(t => { if (t.estado === 'Controlada') zonas[t.equipo] = (zonas[t.equipo] || 0) + 1; });
   $('#gridTeams').innerHTML = S.d.equipos.length ? S.d.equipos.map(e => { const m = Core.cantidad(e.miembros), lleno = m >= Core.CUPO; return `
     <button type="button" class="team${lleno ? ' es-lleno' : ''}" data-act="team" data-id="${esc(e.id)}" style="--c:${esc(e.color || '#f4d38b')}" aria-label="${esc(e.nombre)}: ${m} de ${Core.CUPO} miembros${lleno ? ', lleno' : ''}">
-      <span class="team-emb" aria-hidden="true">${emblema(e)}</span>
+      <span class="team-emb" aria-hidden="true">${esc(e.emoji || '✦')}</span>
       <span class="team-nom">${esc(e.nombre)}</span>
       <span class="team-tipo">${esc(e.tipo || 'Equipo comunitario')} · líder ${esc(e.lider && e.lider !== '—' ? e.lider : 'sin asignar')}</span>
       <span class="team-cupo"><span><b>${m}</b>/ ${Core.CUPO} miembros</span>${lleno ? '<span class="lleno">Lleno</span>' : ''}</span>
@@ -1329,48 +1316,20 @@ function formulario({ titulo, texto, campos = [], boton = 'Guardar', peligro = f
 }
 const confirmar = (titulo, texto, boton, enviar) => formulario({ titulo, texto, boton, peligro: true, enviar });
 
-/** Logo del team si lo subieron; si no, su emoji. */
-function emblema(e) {
-  if (!e.logo) return esc(e.emoji || '✦');
-  const id = encodeURIComponent(e.logo);
-  return `<img src="https://lh3.googleusercontent.com/d/${id}=w256" alt="" loading="lazy" onerror="if(!this.dataset.r){this.dataset.r=1;this.src='https://drive.google.com/thumbnail?id=${id}&sz=w256'}else{this.replaceWith(document.createTextNode(${esc(JSON.stringify(e.emoji || '✦'))}))}">`;
-}
-
-async function prepararLogo(file) {
-  if (!/^image\//.test(file.type)) throw new Error('El logo tiene que ser una imagen.');
-  if (file.size > 10 * 1024 * 1024) throw new Error('La imagen pesa más de 10 MB.');
-  const url = URL.createObjectURL(file);
-  try {
-    const img = await new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ko(new Error('No pude leer la imagen.')); i.src = url; });
-    const k = Math.min(1, 320 / Math.max(img.naturalWidth, img.naturalHeight));
-    const cv = document.createElement('canvas'); cv.width = Math.max(1, Math.round(img.naturalWidth * k)); cv.height = Math.max(1, Math.round(img.naturalHeight * k));
-    const g = cv.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(img, 0, 0, cv.width, cv.height);
-    return { mime: 'image/png', base64: cv.toDataURL('image/png').split(',')[1] };
-  } finally { URL.revokeObjectURL(url); }
-}
-
-function formLogo(e) {
-  formulario({
-    titulo: 'Logo de ' + e.nombre, texto: 'Se muestra en la tarjeta y en la ficha del team, en lugar del emoji. Mejor si es cuadrado y con fondo transparente (PNG).', boton: 'Subir logo',
-    campos: [{ n: 'archivo', l: 'Imagen del logo', t: 'file', req: true }],
-    enviar: async v => { if (!v.archivo) throw new Error('Elegí una imagen.'); const l = await prepararLogo(v.archivo); await accion('equipoLogo', Object.assign({ id: e.id }, l), 'Logo actualizado'); fichaTeam(e.id); }
-  });
-}
-
 function fichaTeam(id) {
   const e = S.d.equipos.find(x => x.id === id); if (!e) return;
   const zonas = S.d.territorios.filter(t => t.estado === 'Controlada' && t.equipo === e.nombre);
   const m = Core.cantidad(e.miembros), lleno = m >= Core.CUPO;
   const carnetsTeam = (S.carnets || []).filter(c => c.equipo === e.nombre);
   const d = $('#dlgTeam');
-  d.innerHTML = `<div class="dlg" style="--c:${esc(e.color)}"><div class="dlg-cab"><span class="ficha-logo" aria-hidden="true">${emblema(e)}</span><h2>${esc(e.nombre)}</h2><p class="muted">${esc(e.tipo || 'Equipo comunitario')}</p><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
+  d.innerHTML = `<div class="dlg" style="--c:${esc(e.color)}"><div class="dlg-cab"><span style="font-size:34px" aria-hidden="true">${esc(e.emoji || '✦')}</span><h2>${esc(e.nombre)}</h2><p class="muted">${esc(e.tipo || 'Equipo comunitario')}</p><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
     <div class="dlg-cuerpo">
       <p class="lore">${esc(e.lore || 'Este team está escribiendo su historia en la comunidad.')}</p>
       ${lleno ? `<p class="aviso-lleno">${esc(e.nombre)} está lleno: completó su cupo de ${Core.CUPO} miembros. Consultá en el grupo si se libera un lugar o mirá otros teams.</p>` : `<p class="muted">Para sumarte a ${esc(e.nombre)}, escribile al líder o a un admin en el grupo de WhatsApp de Online. Quedan ${Core.CUPO - m} ${Core.CUPO - m === 1 ? 'lugar' : 'lugares'}.</p>`}
       <dl class="ficha"><div><dt>Líder</dt><dd>${esc(e.lider && e.lider !== '—' ? e.lider : 'Sin asignar')}</dd></div><div><dt>Miembros</dt><dd>${esAdmin() ? `<small class="mm-estado" data-mm-estado="${esc(e.id)}">${textoCupo(m)}</small>${controlMiembros(e)}` : m + ' de ' + Core.CUPO + (lleno ? ' · Lleno' : '')}</dd></div><div><dt>Zonas controladas</dt><dd>${zonas.length}</dd></div></dl>
       ${carnetsTeam.length ? `<div><h3 style="font-size:18px;margin-bottom:8px">Entrenadores con carnet</h3><div class="zchips">${carnetsTeam.map(c => `<button type="button" data-act="carnet" data-id="${esc(c.id)}" style="--c:${esc(e.color)}">${esc(c.nombre)}</button>`).join('')}</div></div>` : ''}
       ${zonas.length ? `<div><h3 style="font-size:18px;margin-bottom:8px">Territorio</h3><div class="zchips">${zonas.map(z => `<button type="button" data-act="zona" data-id="${esc(z.id)}" style="--c:${esc(e.color)}">${esc(z.nombre)}</button>`).join('')}</div></div>` : ''}
-      <div class="dlg-acc">${esAdmin() ? `<button class="btn danger" type="button" data-act="borrar-team" data-id="${esc(e.id)}">Quitar team</button><button class="btn" type="button" data-act="logo-team" data-id="${esc(e.id)}">${e.logo ? 'Cambiar logo' : 'Subir logo'}</button>${e.logo ? `<button class="btn" type="button" data-act="quitar-logo" data-id="${esc(e.id)}">Quitar logo</button>` : ''}<button class="btn" type="button" data-act="editar-team" data-id="${esc(e.id)}">Editar</button>` : ''}${lleno ? `<a class="btn" href="${WPP_ONLINE}" target="_blank" rel="noopener">Consultar en el grupo</a>` : `<a class="btn sand" href="${WPP_ONLINE}" target="_blank" rel="noopener">Pedir ingreso por WhatsApp</a>`}</div>
+      <div class="dlg-acc">${esAdmin() ? `<button class="btn danger" type="button" data-act="borrar-team" data-id="${esc(e.id)}">Quitar team</button><button class="btn" type="button" data-act="editar-team" data-id="${esc(e.id)}">Editar</button>` : ''}${lleno ? `<a class="btn" href="${WPP_ONLINE}" target="_blank" rel="noopener">Consultar en el grupo</a>` : `<a class="btn sand" href="${WPP_ONLINE}" target="_blank" rel="noopener">Pedir ingreso por WhatsApp</a>`}</div>
     </div></div>`;
   abrir(d);
 }
@@ -1517,7 +1476,7 @@ function miniCarnet(c) {
   const col = c.equipo ? colorEq(c.equipo) : '#93b9c3';
   const slots = Array.from({ length: 6 }, (_, i) => { const x = c.poke[i]; return x ? `<span class="mini-poke" style="--tc:${COLOR_TIPO[x.t] || '#3d9ab8'}" title="${esc(x.e)}">${esc(x.a || x.e)}${x.s ? ' ✨' : ''}</span>` : '<span class="mini-poke vacio-slot"></span>'; }).join('');
   return `<button type="button" class="carnet-mini" data-act="carnet" data-id="${esc(c.id)}" style="--c:${esc(col)}">
-    <span class="cm-cab">${avatar(c.nombre, col, 46)}<span class="cm-txt"><b>${esc(c.nombre)}</b><small>${numCarnet(c.numero)} · ${esc(c.equipo || 'Sin team')}</small></span>${c.foto ? '<span class="cm-ico" title="Tiene captura del equipo">▣</span>' : ''}${c.pvp ? '<span class="cm-ico" title="Acepta desafíos">⚔</span>' : ''}</span>
+    <span class="cm-cab">${avatar(c.nombre, col, 46)}<span class="cm-txt"><b>${esc(c.nombre)}</b><small>${numCarnet(c.numero)} · ${esc(c.equipo || 'Sin team')}</small></span>${c.pvp ? '<span class="cm-ico" title="Acepta desafíos">⚔</span>' : ''}</span>
     <span class="cm-poke">${slots}</span></button>`;
 }
 
@@ -1541,8 +1500,6 @@ function carnetHTML(c) {
   const desde = c.creado && !isNaN(new Date(c.creado)) ? new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric' }).format(new Date(c.creado)) : '';
   const url = enlaceCarnet(c);
   const wa = 'https://wa.me/?text=' + encodeURIComponent('🎴 Carnet de entrenador de ' + c.nombre + ' (' + numCarnet(c.numero) + ')\n' + url);
-  const cap = c.captura ? `<figure class="captura" style="margin:0"><img class="img-captura" data-id="${esc(c.id)}" src="${esc(c.captura.url)}" data-alt="${esc(c.captura.alt || '')}" alt="Captura del equipo de ${esc(c.nombre)} en el juego" loading="lazy"></figure>`
-    : c.capturaPendiente ? `<p class="captura-nota">Captura del equipo en revisión: se va a ver cuando un admin la apruebe.${adm ? ' <button class="link" type="button" data-act="captura-revisar" data-id="' + esc(c.id) + '">Revisar ahora</button>' : ''}</p>` : '';
   return `<div class="dlg carnet" style="--c:${esc(col)}">
     <div class="carnet-cab"><div class="carnet-id">${avatar(c.nombre, col, 84)}<div>
       <p class="carnet-sup">Carnet de entrenador · Región Star</p><h2>${esc(c.nombre)}</h2>
@@ -1552,7 +1509,6 @@ function carnetHTML(c) {
       ${c.lema ? `<p class="carnet-lema">“${esc(c.lema)}”</p>` : ''}
       <dl class="ficha">${c.usuario ? `<div><dt>Usuario en Reloaded Online</dt><dd>${esc(c.usuario)}</dd></div>` : ''}${desde ? `<div><dt>Entrenador desde</dt><dd>${esc(desde)}</dd></div>` : ''}<div><dt>Equipo</dt><dd>${c.pokemon.length} de 6 Pokémon</dd></div></dl>
       <div class="equipo-poke">${Array.from({ length: 6 }, (_, i) => pokeHTML(c.pokemon[i])).join('')}</div>
-      ${cap}
       <div class="dlg-acc">
         ${adm ? `<button class="btn sm danger" type="button" data-act="carnet-borrar" data-id="${esc(c.id)}">Borrar carnet</button><button class="btn sm" type="button" data-act="carnet-clave" data-id="${esc(c.id)}">Clave nueva</button>` : ''}
         <button class="btn sm" type="button" data-act="copiar" data-url="${esc(url)}">Copiar enlace</button>
@@ -1569,8 +1525,6 @@ async function abrirCarnet(id) {
   try {
     const c = await llamar('carnet', { id });
     S.carnetAbierto = c; d.innerHTML = carnetHTML(c);
-    const img = $('.img-captura', d);
-    if (img) { let paso = 0; img.onerror = () => { paso++; if (paso === 1 && img.dataset.alt) img.src = img.dataset.alt; else if (paso <= 2 && MODO !== 'demo') llamar('imagenCaptura', { id }).then(s => { img.src = s; }).catch(() => img.closest('figure').remove()); else img.closest('figure').remove(); }; }
     if (location.hash !== '#carnet/' + id) history.replaceState(null, '', '#carnet/' + id);
   } catch (e) {
     d.innerHTML = `<div class="dlg"><div class="dlg-cab"><h2>Carnet no encontrado</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div><div class="dlg-cuerpo"><p class="muted">${esc(e.message)}</p></div></div>`;
@@ -1588,20 +1542,6 @@ async function cargarDex() {
   $('#dl-especies').innerHTML = op(S.dex.especies.map(e => e[0])); $('#dl-movs').innerHTML = op(S.dex.movimientos);
   $('#dl-habs').innerHTML = op(S.dex.habilidades); $('#dl-objs').innerHTML = op(S.dex.objetos);
   return S.dex;
-}
-
-async function prepararCaptura(file) {
-  if (!/^image\//.test(file.type)) throw new Error('La captura tiene que ser una imagen.');
-  if (file.size > 15 * 1024 * 1024) throw new Error('La imagen pesa más de 15 MB.');
-  const url = URL.createObjectURL(file);
-  try {
-    const img = await new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ko(new Error('No pude leer la imagen.')); i.src = url; });
-    const k = Math.min(1, 1400 / Math.max(img.naturalWidth, img.naturalHeight));
-    const cv = document.createElement('canvas'); cv.width = Math.round(img.naturalWidth * k); cv.height = Math.round(img.naturalHeight * k);
-    const g = cv.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(img, 0, 0, cv.width, cv.height);
-    const data = cv.toDataURL('image/jpeg', 0.87);
-    return { mime: 'image/jpeg', base64: data.split(',')[1], vista: data };
-  } finally { URL.revokeObjectURL(url); }
 }
 
 function formCarnet(c, clave) {
@@ -1627,7 +1567,6 @@ function formCarnet(c, clave) {
         <label class="chk" style="grid-column:1/-1"><input type="checkbox" name="p${i}-shiny"${x.shiny ? ' checked' : ''}> Es shiny ✨</label>
       </div></details>`;
   };
-  const tieneCap = !nuevo && (c.captura || c.capturaPendiente);
   d.innerHTML = `<form class="dlg" novalidate autocomplete="off">
     <div class="dlg-cab"><h2>${nuevo ? 'Crear mi carnet' : 'Editar carnet'}</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
     <div class="dlg-cuerpo">
@@ -1639,9 +1578,6 @@ function formCarnet(c, clave) {
         <label class="chk" style="grid-column:1/-1"><input type="checkbox" name="pvp"${c.pvp ? ' checked' : ''}> Acepto desafíos PvP</label>
       </div></fieldset>
       <fieldset class="grupo"><legend>Equipo Pokémon</legend><p class="muted" style="font-size:14px;margin-bottom:10px">Hasta 6. Si dejás vacío el nombre, el espacio queda libre.</p><div class="slots">${[0, 1, 2, 3, 4, 5].map(slot).join('')}</div></fieldset>
-      <fieldset class="grupo"><legend>Captura del equipo (opcional)</legend><p class="muted" style="font-size:14px">Una captura de tu equipo sacada del juego. Se muestra en tu carnet cuando un admin la aprueba.</p>
-        <div class="campos"><label class="campo">Imagen<input name="captura" type="file" accept="image/png,image/jpeg,image/webp"></label>
-        ${tieneCap ? `<label class="chk"><input type="checkbox" name="quitarCaptura"> Quitar la captura actual</label>` : ''}<img class="prev-captura" alt="" hidden></div></fieldset>
       <fieldset class="grupo"><legend>${nuevo ? 'Tu clave' : 'Cambiar clave (opcional)'}</legend><p class="muted" style="font-size:14px">${nuevo ? 'La vas a usar para editar tu carnet. Guardala: después no se puede ver.' : 'Si no la querés cambiar, dejalo vacío.'}</p>
         <div class="campos dos"><label class="campo">${nuevo ? 'Clave *' : 'Clave nueva'}<input name="clave1" type="password" autocomplete="new-password"></label><label class="campo">Repetí la clave<input name="clave2" type="password" autocomplete="new-password"></label></div></fieldset>
       <input class="sr" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -1649,7 +1585,6 @@ function formCarnet(c, clave) {
       <div class="dlg-acc"><button class="btn" type="button" data-cerrar>Cancelar</button><button class="btn sand" type="submit">${nuevo ? 'Crear carnet' : 'Guardar cambios'}</button></div>
     </div></form>`;
   const f = $('form', d), err = $('.form-error', d), b = $('[type=submit]', d);
-  let captura = null;
   const completarEspecie = (i, auto) => {
     const nom = f.elements['p' + i + '-especie'].value.trim();
     $$('.slot-t', f)[i].textContent = nom || 'Espacio libre';
@@ -1660,12 +1595,6 @@ function formCarnet(c, clave) {
   };
   cargarDex().then(() => { for (let i = 0; i < 6; i++) completarEspecie(i, false); });
   f.addEventListener('input', ev => { const m = ev.target.name && ev.target.name.match(/^p(\d)-especie$/); if (m) completarEspecie(Number(m[1]), true); });
-  f.elements.captura.addEventListener('change', async ev => {
-    const file = ev.target.files[0], prev = $('.prev-captura', f); captura = null; prev.hidden = true;
-    if (!file) return;
-    try { captura = await prepararCaptura(file); prev.src = captura.vista; prev.hidden = false; err.textContent = ''; }
-    catch (e) { err.textContent = e.message; ev.target.value = ''; }
-  });
   f.onsubmit = async ev => {
     ev.preventDefault(); err.textContent = '';
     const v = n => (f.elements[n] ? f.elements[n].value : '');
@@ -1673,13 +1602,11 @@ function formCarnet(c, clave) {
       nombre: v('nombre'), equipo: v('equipo'), usuario: v('usuario'), lema: v('lema'), pvp: f.elements.pvp.checked, web: v('web'),
       pokemon: [0, 1, 2, 3, 4, 5].map(i => ({ especie: v(`p${i}-especie`), apodo: v(`p${i}-apodo`), nivel: v(`p${i}-nivel`), tipo1: v(`p${i}-tipo1`), tipo2: v(`p${i}-tipo2`), habilidad: v(`p${i}-habilidad`), objeto: v(`p${i}-objeto`), naturaleza: v(`p${i}-naturaleza`), movimientos: [0, 1, 2, 3].map(k => v(`p${i}-m${k}`)), shiny: f.elements[`p${i}-shiny`].checked }))
     };
-    if (captura) datos.captura = { mime: captura.mime, base64: captura.base64 };
-    if (f.elements.quitarCaptura && f.elements.quitarCaptura.checked) datos.quitarCaptura = true;
     const c1 = v('clave1'), c2 = v('clave2');
     if (datos.nombre.trim().length < 2) { err.textContent = 'Escribí tu nombre de entrenador.'; f.elements.nombre.focus(); return; }
     if (nuevo && c1.length < 4) { err.textContent = 'Elegí una clave de al menos 4 caracteres.'; f.elements.clave1.focus(); return; }
     if (c1 && c1 !== c2) { err.textContent = 'Las claves no coinciden.'; f.elements.clave2.focus(); return; }
-    b.disabled = true; const t0 = b.textContent; b.textContent = captura ? 'Subiendo…' : 'Guardando…';
+    b.disabled = true; const t0 = b.textContent; b.textContent = 'Guardando…';
     try {
       const r = nuevo ? await llamar('carnetCrear', Object.assign(datos, { clave: c1 }))
         : await llamar('carnetEditar', Object.assign(datos, { id: c.id, clave: clave || '', nuevaClave: c1 }));
@@ -1701,17 +1628,6 @@ function editarCarnet(id) {
     campos: [{ n: 'clave', l: 'Clave del carnet', t: 'password', req: true }],
     enviar: async v => { await llamar('carnetVerificar', { id, clave: v.clave }); cerrar($('#dlgCarnet')); setTimeout(() => formCarnet(c, v.clave), 0); }
   });
-}
-
-async function revisarCapturas() {
-  const d = $('#dlgLista');
-  d.innerHTML = '<div class="dlg"><div class="dlg-cab"><h2>Capturas por revisar</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div><div class="dlg-cuerpo"><p class="cargando">Cargando…</p></div></div>';
-  abrir(d);
-  try {
-    const l = await llamar('capturasPendientes');
-    $('.dlg-cuerpo', d).innerHTML = l.length ? `<p class="muted">Aprobá solo capturas del juego. Lo que rechaces se borra.</p><ul class="revisar" style="padding:0;margin:0">${l.map(c => `<li data-rev="${esc(c.id)}"><b>${esc(c.nombre)} · ${numCarnet(c.numero)}</b><img alt="Captura de ${esc(c.nombre)}" hidden><div class="dlg-acc" style="justify-content:flex-start"><button class="btn sm sand" type="button" data-act="captura-aprobar" data-id="${esc(c.id)}">Aprobar</button><button class="btn sm danger" type="button" data-act="captura-rechazar" data-id="${esc(c.id)}">Rechazar</button></div></li>`).join('')}</ul>` : '<p class="vacio">No hay capturas para revisar.</p>';
-    l.forEach(c => llamar('capturaVer', { id: c.id }).then(src => { const img = $(`[data-rev="${CSS.escape(c.id)}"] img`, d); if (img) { img.src = src; img.hidden = false; } }).catch(() => { }));
-  } catch (e) { $('.dlg-cuerpo', d).innerHTML = `<p class="form-error">${esc(e.message)}</p>`; }
 }
 
 function copiarTexto(texto) {
@@ -1766,7 +1682,7 @@ function panelAdmin() {
   d.innerHTML = `<div class="dlg"><div class="dlg-cab"><p class="muted">Reloaded Online</p><h2>Panel de administración</h2><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
     <div class="dlg-cuerpo panel-g">
       <div class="panel-stats"><div><b>${ctrl}/${z.length}</b><span>zonas con dueño</span></div><div><b>${S.d.guerras.length}</b><span>partes de guerra</span></div><div><b>${(S.carnets || []).length}</b><span>carnets</span></div><div><b>${ubic}</b><span>zonas en el mapa</span></div></div>
-      <div><h3>Publicar</h3><div class="panel-btns">${b('nueva-noticia', 'Publicar noticia', 'Va a la portada')}${b('nueva-guerra', 'Registrar guerra', 'Conquista, defensa, disputa…')}${b('nuevo-torneo', 'Nuevo torneo', 'Aparece en el calendario')}${b('nuevo-combate', 'Registrar combate', 'Suma a la clasificación')}${b('capturas', 'Capturas por revisar', 'Fotos de equipos de los carnets')}</div></div>
+      <div><h3>Publicar</h3><div class="panel-btns">${b('nueva-noticia', 'Publicar noticia', 'Va a la portada')}${b('nueva-guerra', 'Registrar guerra', 'Conquista, defensa, disputa…')}${b('nuevo-torneo', 'Nuevo torneo', 'Aparece en el calendario')}${b('nuevo-combate', 'Registrar combate', 'Suma a la clasificación')}</div></div>
       <div><h3>Miembros por team</h3><ul class="panel-miembros">${S.d.equipos.map(e => `<li style="--c:${esc(e.color)}"><span><b>${esc(e.emoji || '')} ${esc(e.nombre)}</b><small class="mm-estado" data-mm-estado="${esc(e.id)}">${textoCupo(Core.cantidad(e.miembros))}</small></span>${controlMiembros(e)}</li>`).join('')}</ul><p class="muted" style="font-size:13px;margin-top:8px">Escribí el número o usá − y +: se guarda solo.</p></div>
       <div><h3>Mundo</h3><div class="panel-btns">${b('nuevo-team', 'Nuevo team', 'Nombre, color y lore')}${b('nueva-zona', 'Nueva zona', 'Se suma al atlas')}${b('mapa-subir', 'Cambiar mapa', 'Imagen nueva en tu Drive')}</div></div>
       <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
@@ -1852,11 +1768,8 @@ document.addEventListener('click', async ev => {
       case 'carnet-nuevo': formCarnet(null); break;
       case 'carnet-editar': editarCarnet(id); break;
       case 'copiar': await copiarTexto(el.dataset.url); toast('Enlace copiado.'); break;
-      case 'carnet-borrar': confirmar('Borrar carnet', 'Se borra el carnet y su captura. No se puede deshacer.', 'Borrar', async () => { await llamar('carnetBorrar', { id }); cerrar($('#dlgCarnet')); toast('Carnet borrado.'); cargarCarnets(); }); break;
+      case 'carnet-borrar': confirmar('Borrar carnet', 'Se borra el carnet. No se puede deshacer.', 'Borrar', async () => { await llamar('carnetBorrar', { id }); cerrar($('#dlgCarnet')); toast('Carnet borrado.'); cargarCarnets(); }); break;
       case 'carnet-clave': confirmar('Clave nueva', 'Se genera una clave nueva para este carnet y la anterior deja de funcionar.', 'Generar clave', async () => { const r = await llamar('carnetClave', { id }); setTimeout(() => formulario({ titulo: 'Clave nueva: ' + r.clave, texto: 'Pasásela por privado al dueño del carnet. Con esta clave puede editarlo y elegir otra.', boton: 'Copiar y cerrar', enviar: () => copiarTexto(r.clave) }), 0); }); break;
-      case 'capturas': cerrar($('#dlgPanel')); revisarCapturas(); break;
-      case 'captura-revisar': cerrar($('#dlgCarnet')); revisarCapturas(); break;
-      case 'captura-aprobar': case 'captura-rechazar': { await llamar(a === 'captura-aprobar' ? 'capturaAprobar' : 'capturaRechazar', { id }); const li = el.closest('li'); if (li) li.remove(); toast(a === 'captura-aprobar' ? 'Captura aprobada.' : 'Captura rechazada y borrada.'); cargarCarnets(); break; }
       case 'zona': cerrar($('#dlgTeam')); cerrar($('#dlgMapa')); fichaZona(id); break;
       case 'filtro': S.filtro = el.dataset.f; renderAtlas(); break;
       case 'mas-guerras': S.verGuerras += 20; renderCronica(); break;
@@ -1868,8 +1781,6 @@ document.addEventListener('click', async ev => {
       case 'editar-zona': formZona(S.d.territorios.find(x => x.id === id)); break;
       case 'borrar-zona': cerrar($('#dlgZona')); borrar('Borrar zona', 'Se borra la zona del atlas junto con su historial. No se puede deshacer.', 'zonaBorrar', 'Zona borrada'); break;
       case 'editar-team': formTeam(S.d.equipos.find(x => x.id === id)); break;
-      case 'logo-team': formLogo(S.d.equipos.find(x => x.id === id)); break;
-      case 'quitar-logo': confirmar('Quitar logo', 'El team vuelve a mostrar su emoji.', 'Quitar', async () => { await accion('equipoLogo', { id, quitar: true }, 'Logo quitado'); fichaTeam(id); }); break;
       case 'mm': { const caja = el.closest('[data-mm]'), inp = $('input', caja); const v = Core.cantidad(inp.value) + Number(el.dataset.paso); inp.value = Core.cantidad(v); cambiarMiembros(caja.dataset.mm, v); break; }
       case 'borrar-team': cerrar($('#dlgTeam')); borrar('Quitar team', 'El team deja de aparecer. Sus zonas conservan el nombre hasta que las edites.', 'equipoBorrar', 'Team quitado'); break;
       case 'borrar-guerra': borrar('Borrar del historial', 'Se borra este parte de la crónica. El estado actual de la zona no cambia.', 'guerraBorrar', 'Parte borrado'); break;
