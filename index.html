@@ -524,15 +524,15 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
     <div class="sec-cab"><h2>Empezá a jugar</h2><p>Tres pasos para entrar a la Región Star con la comunidad.</p></div>
     <ol class="pasos">
       <li><h3>Descargá el juego</h3><p>Pokémon Reloaded Online está para PC y Android. Explorá el mundo con otros entrenadores, combatí e intercambiá Pokémon.</p><a class="btn sand" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Descargar Reloaded Online</a></li>
-      <li><h3>Entrá al grupo de Online</h3><p>Ahí se coordinan las guerras de teams, los torneos y los ingresos. También es el lugar para consultas sobre el juego.</p><a class="btn" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Unirme por WhatsApp</a></li>
-      <li><h3>Elegí tu team</h3><p>Mirá la ficha de cada team, qué zonas controla y quién lo lidera. Después escribile al líder o a un admin en el grupo.</p><a class="btn" href="#teams" data-ir="teams">Ver los teams</a></li>
+      <li><h3>Entrá al grupo de Online</h3><p>Ahí se coordinan las guerras de teams y los torneos. También es el lugar para consultas sobre el juego.</p><a class="btn" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Unirme por WhatsApp</a></li>
+      <li><h3>Elegí tu team</h3><p>Mirá la ficha de cada team, qué zonas controla y quién lo lidera. Después pedí el ingreso en el grupo general de WhatsApp.</p><a class="btn" href="#teams" data-ir="teams">Ver los teams</a></li>
     </ol>
   </div>
 </section>
 
 <section class="sec" id="teams">
   <div class="wrap">
-    <div class="sec-cab"><h2>Elegí tu team</h2><p>Cada team tiene su identidad y su liderazgo. Tocá uno para ver su ficha. Para sumarte, pedí el ingreso en el grupo de WhatsApp de Online.</p></div>
+    <div class="sec-cab"><h2>Elegí tu team</h2><p>Cada team tiene su identidad y su liderazgo. Tocá uno para ver su ficha. Para sumarte, pedí el ingreso en el grupo general de WhatsApp.</p></div>
     <div class="teams" id="gridTeams"></div>
   </div>
 </section>
@@ -608,7 +608,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
         <a class="enlace" href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener"><span>Jugar · PC o Android</span><b>Pokémon Reloaded Online ↗</b></a>
         <a class="enlace" href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener"><span>Noticias y desarrollo</span><b>Blog de The Last Beta ↗</b></a>
         <a class="enlace" href="https://www.facebook.com/groups/680476122770975/?ref=share" target="_blank" rel="noopener"><span>Facebook · más de 10.000 miembros</span><b>Grupo de la comunidad ↗</b></a>
-        <a class="enlace" href="https://chat.whatsapp.com/Hqtn0jtL4vuBE4dfQVrHj5" target="_blank" rel="noopener"><span>WhatsApp</span><b>Grupo general ↗</b></a>
+        <a class="enlace" href="https://chat.whatsapp.com/Fqqo0nNf4CW9fMEpXaeVr6" target="_blank" rel="noopener"><span>WhatsApp</span><b>Grupo general ↗</b></a>
         <a class="enlace" href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH?s=cl&amp;p=a&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener"><span>WhatsApp · Online</span><b>Grupo reservado a Online ↗</b></a>
         <a class="enlace" href="https://mega.nz/file/Um0UVABI#HxpgjQ5wXSZUvq3K2OgNMT3TibxphscAb31USpVaE2A" target="_blank" rel="noopener"><span>Descarga</span><b>The Last Beta ↗</b></a>
       </div>
@@ -691,7 +691,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
     <nav class="pie-links" aria-label="Enlaces de la comunidad">
       <a href="https://reloadedonline.duckdns.org/" target="_blank" rel="noopener">Jugar online</a>
       <a href="https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH" target="_blank" rel="noopener">Grupo de Online</a>
-      <a href="https://chat.whatsapp.com/Hqtn0jtL4vuBE4dfQVrHj5" target="_blank" rel="noopener">Grupo general</a>
+      <a href="https://chat.whatsapp.com/Fqqo0nNf4CW9fMEpXaeVr6" target="_blank" rel="noopener">Grupo general</a>
       <a href="https://www.facebook.com/groups/680476122770975/?ref=share" target="_blank" rel="noopener">Facebook</a>
       <a href="https://pokemon-reloaded.blogspot.com/?m=1" target="_blank" rel="noopener">Blog del juego</a>
       <a href="#reglas" data-ir="reglas">Reglas</a>
@@ -991,6 +991,8 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbw3y8HEUodf4NRaMdMQy8s4
 // Dirección pública de la página (para compartir noticias). Si queda vacía se usa la actual.
 const SITIO_URL = 'https://rodrigoguerrini.github.io/reloaded-online/';
 const WPP_ONLINE = 'https://chat.whatsapp.com/BRLTjIxYjFKGg16dBMsAJH';
+// Grupo general: ahí se piden los ingresos a los teams.
+const WPP_GENERAL = 'https://chat.whatsapp.com/Fqqo0nNf4CW9fMEpXaeVr6';
 
 const MODO = (window.google && google.script && google.script.run) ? 'drive' : (API_URL ? 'remoto' : 'demo');
 const $ = (s, r = document) => r.querySelector(s);
@@ -1325,11 +1327,11 @@ function fichaTeam(id) {
   d.innerHTML = `<div class="dlg" style="--c:${esc(e.color)}"><div class="dlg-cab"><span style="font-size:34px" aria-hidden="true">${esc(e.emoji || '✦')}</span><h2>${esc(e.nombre)}</h2><p class="muted">${esc(e.tipo || 'Equipo comunitario')}</p><button class="x" type="button" data-cerrar aria-label="Cerrar">✕</button></div>
     <div class="dlg-cuerpo">
       <p class="lore">${esc(e.lore || 'Este team está escribiendo su historia en la comunidad.')}</p>
-      ${lleno ? `<p class="aviso-lleno">${esc(e.nombre)} está lleno: completó su cupo de ${Core.CUPO} miembros. Consultá en el grupo si se libera un lugar o mirá otros teams.</p>` : `<p class="muted">Para sumarte a ${esc(e.nombre)}, escribile al líder o a un admin en el grupo de WhatsApp de Online. Quedan ${Core.CUPO - m} ${Core.CUPO - m === 1 ? 'lugar' : 'lugares'}.</p>`}
+      ${lleno ? `<p class="aviso-lleno">${esc(e.nombre)} está lleno: completó su cupo de ${Core.CUPO} miembros. Consultá en el grupo general si se libera un lugar o mirá otros teams.</p>` : `<p class="muted">Para sumarte a ${esc(e.nombre)}, escribile al líder o a un admin en el grupo general de WhatsApp. Quedan ${Core.CUPO - m} ${Core.CUPO - m === 1 ? 'lugar' : 'lugares'}.</p>`}
       <dl class="ficha"><div><dt>Líder</dt><dd>${esc(e.lider && e.lider !== '—' ? e.lider : 'Sin asignar')}</dd></div><div><dt>Miembros</dt><dd>${esAdmin() ? `<small class="mm-estado" data-mm-estado="${esc(e.id)}">${textoCupo(m)}</small>${controlMiembros(e)}` : m + ' de ' + Core.CUPO + (lleno ? ' · Lleno' : '')}</dd></div><div><dt>Zonas controladas</dt><dd>${zonas.length}</dd></div></dl>
       ${carnetsTeam.length ? `<div><h3 style="font-size:18px;margin-bottom:8px">Entrenadores con carnet</h3><div class="zchips">${carnetsTeam.map(c => `<button type="button" data-act="carnet" data-id="${esc(c.id)}" style="--c:${esc(e.color)}">${esc(c.nombre)}</button>`).join('')}</div></div>` : ''}
       ${zonas.length ? `<div><h3 style="font-size:18px;margin-bottom:8px">Territorio</h3><div class="zchips">${zonas.map(z => `<button type="button" data-act="zona" data-id="${esc(z.id)}" style="--c:${esc(e.color)}">${esc(z.nombre)}</button>`).join('')}</div></div>` : ''}
-      <div class="dlg-acc">${esAdmin() ? `<button class="btn danger" type="button" data-act="borrar-team" data-id="${esc(e.id)}">Quitar team</button><button class="btn" type="button" data-act="editar-team" data-id="${esc(e.id)}">Editar</button>` : ''}${lleno ? `<a class="btn" href="${WPP_ONLINE}" target="_blank" rel="noopener">Consultar en el grupo</a>` : `<a class="btn sand" href="${WPP_ONLINE}" target="_blank" rel="noopener">Pedir ingreso por WhatsApp</a>`}</div>
+      <div class="dlg-acc">${esAdmin() ? `<button class="btn danger" type="button" data-act="borrar-team" data-id="${esc(e.id)}">Quitar team</button><button class="btn" type="button" data-act="editar-team" data-id="${esc(e.id)}">Editar</button>` : ''}${lleno ? `<a class="btn" href="${WPP_GENERAL}" target="_blank" rel="noopener">Consultar en el grupo general</a>` : `<a class="btn sand" href="${WPP_GENERAL}" target="_blank" rel="noopener">Pedir ingreso por WhatsApp</a>`}</div>
     </div></div>`;
   abrir(d);
 }
