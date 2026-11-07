@@ -325,6 +325,43 @@ body.es-admin main section{scroll-margin-top:122px}
 .prueba{margin-top:12px;display:flex;gap:14px;align-items:center;background:var(--sea-850);border-left:4px solid var(--sand);border-radius:8px;padding:14px 16px;font-size:15px}
 .prueba b{color:var(--sand);white-space:nowrap}
 
+/* horario de conquistas */
+.horario{margin-bottom:28px;background:var(--sea-850);border:2px solid var(--sea-700);border-radius:var(--r);padding:22px}
+.horario-cab{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+.horario-cab .sub{margin-bottom:4px}
+.horario-cab p{color:var(--mist);font-size:15px;margin:0}
+.hz-estado{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--sea-700);background:var(--sea-800);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;color:var(--foam)}
+.hz-estado i{width:10px;height:10px;border-radius:50%;background:var(--sand);flex:none}
+.hz-estado.on{border-color:#2f8a5b;background:#0f3b2c}
+.hz-estado.on i{background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:latido 1.8s infinite}
+@keyframes latido{70%{box-shadow:0 0 0 9px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+.horario-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.franja{display:grid;gap:4px;align-content:start;background:var(--sea-800);border:2px solid var(--sea-700);border-radius:var(--r);padding:16px}
+.franja small{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sand)}
+.franja b{font:600 26px/1.15 var(--sans);font-variant-numeric:tabular-nums;color:var(--foam)}
+.franja span{font-size:14px;color:var(--mist)}
+.franja.hoy{border-color:var(--sand)}
+.franja.tu b{font-size:18px}
+.franja.tu .tu-l{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:baseline;margin-top:2px}
+.franja.tu .tu-l span{font-size:13px}
+.franja.tu .tu-l b{font-size:17px}
+.hz-paises{margin-top:12px}
+.hz-paises summary{cursor:pointer;color:var(--sand);font-size:14px;font-weight:600;width:max-content}
+.hz-tabla{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.hz-tabla th,.hz-tabla td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--sea-700)}
+.hz-tabla th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mist);font-weight:600}
+.hz-tabla td{color:#d6e8ea;font-variant-numeric:tabular-nums}
+.hz-tabla tr.es-tu td{color:var(--sand);font-weight:600}
+.hz-tabla .hz-h{white-space:nowrap}
+.nota{font-style:normal;font-size:12px;font-weight:400;color:var(--mist);text-transform:none;letter-spacing:0}
+.hz-chip{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;color:var(--mist);text-decoration:none}
+.hz-chip i{width:9px;height:9px;border-radius:50%;background:var(--sand);flex:none}
+.hz-chip.on{color:#bff5d3}
+.hz-chip.on i{background:#4ade80;animation:latido 1.8s infinite}
+.hz-chip:hover{color:var(--foam)}
+@media (max-width:900px){.horario-g{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.franja.tu{grid-column:1/-1}}
+@media (max-width:520px){.horario{padding:16px}.horario-g{grid-template-columns:minmax(0,1fr)}.hz-tabla th,.hz-tabla td{padding:7px 6px}}
+
 /* el juego */
 .juego{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}
 .juego-txt p{font-size:17px;color:#d6e8ea;margin-bottom:16px}
@@ -473,14 +510,14 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
 <body>
 <div class="adminbar" id="adminbar" hidden>
   <div class="wrap adminbar-in">
-    <span class="adminbar-t"><i></i>Administración</span>
-    <div class="adminbar-acc" role="toolbar" aria-label="Acciones rápidas">
+    <span class="adminbar-t"><i></i><span id="adminbarTitulo">Administración</span></span>
+    <div class="adminbar-acc" role="toolbar" aria-label="Acciones rápidas" data-solo-rol="admin">
       <button type="button" data-act="nueva-noticia">Publicar noticia</button>
       <button type="button" data-act="nueva-guerra">Registrar guerra</button>
       <button type="button" data-act="nuevo-torneo">Nuevo torneo</button>
       <button type="button" data-act="nuevo-combate">Registrar combate</button>
     </div>
-    <div class="adminbar-fin"><button type="button" class="oscuro" data-act="panel">Panel</button><button type="button" data-act="salir">Salir</button></div>
+    <div class="adminbar-fin"><button type="button" class="oscuro" data-act="nueva-noticia" data-solo-rol="editor" hidden>Publicar noticia</button><button type="button" class="oscuro" data-act="panel" data-solo-rol="admin">Panel</button><button type="button" data-act="salir">Salir</button></div>
   </div>
 </div>
 <header class="top">
@@ -509,6 +546,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
       <p class="hero-lede">Seguí la guerra de teams zona por zona, sumate a un escuadrón y anotate en los torneos. Cada resultado queda registrado para toda la comunidad.</p>
       <div class="dom" id="dominio"><p class="cargando">Cargando la región…</p></div>
       <div class="cta"><a class="btn sand" href="#teams" data-ir="teams">Elegí tu team</a><a class="btn" href="#atlas" data-ir="atlas">Ver el atlas</a></div>
+      <a class="hz-chip" id="hzHero" href="#horario" data-ir="horario"><i></i><span>Horario de conquistas</span></a>
     </div>
     <figure class="carta" id="mapa">
       <div class="ubicando-aviso" id="avisoUbicar" hidden><span>Tocá el mapa donde está <b id="ubicarNombre"></b></span><button class="btn sm" type="button" data-act="cancelar-ubicar" style="border-color:#2b1e05;color:#2b1e05">Cancelar</button></div>
@@ -647,6 +685,18 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
 <section class="sec" id="reglas">
   <div class="wrap">
     <div class="sec-cab"><h2>Reglas de la guerra de teams</h2><p>Conquista y defensa para el roleo PvP. El atlas y el mapa se actualizan con los reportes y las capturas de victoria.</p></div>
+    <div class="horario" id="horario">
+      <div class="horario-cab">
+        <div><h3 class="sub">Horario de conquistas</h3><p>Las próximas conquistas se juegan en estas franjas. La referencia es la hora de Cuba.</p></div>
+        <span class="hz-estado" id="hzEstado" role="status"><i></i><span>Horario de Cuba</span></span>
+      </div>
+      <div class="horario-g">
+        <div class="franja" data-franja="semana"><small>Lunes a viernes</small><b>19:00 a 23:00</b><span>7:00 p. m. a 11:00 p. m. · hora de Cuba</span></div>
+        <div class="franja" data-franja="finde"><small>Sábados y domingos</small><b>15:00 a 23:00</b><span>3:00 p. m. a 11:00 p. m. · hora de Cuba</span></div>
+        <div class="franja tu" id="hzTu" hidden></div>
+      </div>
+      <details class="hz-paises"><summary>Ver el horario en otros países</summary><table class="hz-tabla" id="hzTabla"></table></details>
+    </div>
     <ol class="reglas">
       <li><div><h3>Reunir y anunciar</h3><p>Para reclamar una zona enemiga tienen que llegar 4 o 5 integrantes y anunciar su llegada en el grupo.</p></div></li>
       <li><div><h3>Zona sin defensores</h3><p>Si revisan la ciudad y no hay nadie defendiéndola, el team atacante puede tomarla.</p></div></li>
@@ -657,7 +707,7 @@ dialog::backdrop{background:rgba(2,16,22,.78)}
       <li><div><h3>Recuperar territorio</h3><p>Si un team vuelve a reclutar miembros y su ciudad está ocupada, tiene que luchar para recuperarla.</p></div></li>
       <li class="elite"><div><h3>Intervención del Escuadrón Élite</h3><p>Si el Escuadrón Élite derrota a 4 o 5 miembros de un team en guerra, el castigo previsto es que todo ese team quede preso por 4 días.</p><small>La aplicación de esta sanción todavía está en construcción.</small></div></li>
     </ol>
-    <div class="prueba"><b>Fase de prueba</b><span>Todavía no hay horario fijo para las batallas. Coordinen los desafíos en el grupo y disfruten el roleo.</span></div>
+    <div class="prueba"><b>Coordinación</b><span>Anuncien los desafíos en el grupo dentro del horario de conquistas y disfruten el roleo.</span></div>
   </div>
 </section>
 
@@ -1025,7 +1075,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const vacio = () => ({ equipos: [], territorios: [], guerras: [], torneos: [], noticias: [], combates: [], config: {} });
-const S = { d: vacio(), token: '', cargando: true, filtro: 'Todos', q: '', ubicando: null, verGuerras: 12, tipeado: false, mapaKey: '' };
+const S = { d: vacio(), token: '', rol: '', cargando: true, filtro: 'Todos', q: '', ubicando: null, verGuerras: 12, tipeado: false, mapaKey: '' };
 const almacen = { get(k) { try { return sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }, set(k, v) { try { v ? sessionStorage.setItem(k, v) : sessionStorage.removeItem(k); } catch (e) { } } };
 
 // ---------- Datos de demostración (solo cuando no hay Drive) ----------
@@ -1116,7 +1166,9 @@ async function cargar(silencioso) {
 }
 
 // ---------- Utilidades de presentación ----------
-const esAdmin = () => !!S.token;
+const esAdmin = () => !!S.token && S.rol !== 'editor';
+const esEditor = () => !!S.token && S.rol === 'editor';
+const puedeNoticias = () => !!S.token;
 const equipo = n => S.d.equipos.find(e => e.nombre === n);
 const colorEq = n => (equipo(n) || {}).color || '#93b9c3';
 function colorZona(t) {
@@ -1152,9 +1204,13 @@ function ir(id) { const el = document.getElementById(id); if (el) el.scrollIntoV
 
 // ---------- Render ----------
 function render() {
-  document.body.classList.toggle('es-admin', esAdmin());
+  const rolServidor = S.token && S.d.config && S.d.config.rol;
+  if (rolServidor && rolServidor !== S.rol) { S.rol = rolServidor; almacen.set('rlo-rol', S.rol); }
+  document.body.classList.toggle('es-admin', !!S.token);
   renderDominio(); renderNoticia(); renderMapa(); renderTeams(); renderAtlas(); renderCronica(); renderTorneos(); renderEstado();
-  $('#adminbar').hidden = !esAdmin();
+  $('#adminbar').hidden = !S.token;
+  $('#adminbarTitulo').textContent = esEditor() ? 'Editor de noticias' : 'Administración';
+  $$('#adminbar [data-solo-rol]').forEach(e => { e.hidden = (e.dataset.soloRol === 'editor') !== esEditor(); });
   renderClasif();
   renderCarnets();
   $$('.solo-admin').forEach(e => e.hidden = !esAdmin());
@@ -1276,7 +1332,7 @@ function renderCronica() {
   $('#lineaMas').innerHTML = g.length > S.verGuerras ? `<button class="btn sm" type="button" data-act="mas-guerras">Ver ${Math.min(20, g.length - S.verGuerras)} partes más</button>` : '';
   $('#archivo').innerHTML = S.d.noticias.length ? S.d.noticias.map((n, i) => `
     <details class="nota"${i === 0 ? ' open' : ''}><summary><small>${fecha(n.fecha)}</small><b>${esc(n.titulo)}</b></summary><p>${pintar(n.cuerpo)}</p>
-    ${esAdmin() ? `<div class="acc"><button class="btn sm" type="button" data-act="editar-noticia" data-id="${esc(n.id)}">Editar</button><button class="btn sm danger" type="button" data-act="borrar-noticia" data-id="${esc(n.id)}">Borrar</button></div>` : ''}</details>`).join('')
+    ${puedeNoticias() ? `<div class="acc"><button class="btn sm" type="button" data-act="editar-noticia" data-id="${esc(n.id)}">Editar</button><button class="btn sm danger" type="button" data-act="borrar-noticia" data-id="${esc(n.id)}">Borrar</button></div>` : ''}</details>`).join('')
     : `<p class="vacio">${S.cargando ? 'Cargando…' : 'Sin noticias publicadas.'}</p>`;
 }
 
@@ -1713,7 +1769,7 @@ function panelAdmin() {
       <div><h3>Publicar</h3><div class="panel-btns">${b('nueva-noticia', 'Publicar noticia', 'Va a la portada')}${b('nueva-guerra', 'Registrar guerra', 'Conquista, defensa, disputa…')}${b('nuevo-torneo', 'Nuevo torneo', 'Aparece en el calendario')}${b('nuevo-combate', 'Registrar combate', 'Suma a la clasificación')}</div></div>
       <div><h3>Miembros por team</h3><ul class="panel-miembros">${S.d.equipos.map(e => `<li style="--c:${esc(e.color)}"><span><b>${esc(e.emoji || '')} ${esc(e.nombre)}</b><small class="mm-estado" data-mm-estado="${esc(e.id)}">${textoCupo(Core.cantidad(e.miembros))}</small></span>${controlMiembros(e)}</li>`).join('')}</ul><p class="muted" style="font-size:13px;margin-top:8px">Escribí el número o usá − y +: se guarda solo.</p></div>
       <div><h3>Mundo</h3><div class="panel-btns">${b('nuevo-team', 'Nuevo team', 'Nombre, color y lore')}${b('nueva-zona', 'Nueva zona', 'Se suma al atlas')}${b('mapa-subir', 'Cambiar mapa', 'Imagen nueva en tu Drive')}</div></div>
-      <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
+      <div><h3>Cuenta</h3><div class="panel-btns">${b('planilla', 'Abrir planilla', 'Los datos en tu Drive')}${b('clave', 'Cambiar clave', 'Para entrar como admin')}${b('clave-editor', 'Clave de editor', S.d.config && S.d.config.editor ? 'Activa · cambiarla' : 'Para quien publica noticias')}${S.d.config && S.d.config.editor ? b('quitar-editor', 'Quitar editor', 'Su clave deja de andar') : ''}${b('salir', 'Salir', 'Cerrar la sesión de admin')}</div></div>
       <p class="muted">Para editar un team, una zona o un carnet, abrí su ficha: las opciones de admin aparecen ahí.</p>
     </div></div>`;
   abrir(d);
@@ -1737,18 +1793,20 @@ function formGuerra() {
 
 function entrarAdmin() {
   formulario({
-    titulo: 'Entrar como admin', texto: MODO === 'demo' ? 'Estás en la demostración: la clave es demo.' : 'La clave se valida en tu Drive; nunca viaja guardada en la página.', boton: 'Entrar',
-    campos: [{ n: 'clave', l: 'Clave de admin', t: 'password', req: true }],
+    titulo: 'Acceso de administración', texto: MODO === 'demo' ? 'Estás en la demostración: la clave es demo.' : 'Entrá con la clave de admin o con la de editor de noticias. Se valida en el Drive de la comunidad.', boton: 'Entrar',
+    campos: [{ n: 'clave', l: 'Clave', t: 'password', req: true }],
     enviar: async v => {
       const r = await llamar('login', { clave: v.clave });
-      S.token = r.token; almacen.set('rlo-token', S.token);
-      await cargar(); toast('Sesión de admin iniciada.');
+      S.token = r.token; S.rol = r.rol || 'admin';
+      almacen.set('rlo-token', S.token); almacen.set('rlo-rol', S.rol);
+      await cargar();
+      toast(esEditor() ? 'Sesión de editor iniciada: podés publicar, editar y borrar noticias.' : 'Sesión de admin iniciada.');
     }
   });
 }
 function salirAdmin(vencida) {
   if (S.token && !vencida) llamar('logout').catch(() => { });
-  S.token = ''; almacen.set('rlo-token', ''); cancelarUbicar();
+  S.token = ''; S.rol = ''; almacen.set('rlo-token', ''); almacen.set('rlo-rol', ''); cancelarUbicar();
   if (vencida) toast('Tu sesión de admin venció. Volvé a ingresar.', 'error');
   if (!vencida) cargar(true); else render();
 }
@@ -1839,6 +1897,12 @@ document.addEventListener('click', async ev => {
         campos: [{ n: 'actual', l: 'Clave actual', t: 'password', req: true }, { n: 'nueva', l: 'Clave nueva (mínimo 8 caracteres)', t: 'password', req: true }, { n: 'repetir', l: 'Repetí la clave nueva', t: 'password', req: true }],
         enviar: async v => { if (v.nueva !== v.repetir) throw new Error('Las claves nuevas no coinciden.'); await llamar('clave', { actual: v.actual, nueva: v.nueva }); toast('Clave cambiada. Usala la próxima vez que entres.'); }
       }); break;
+      case 'clave-editor': cerrar($('#dlgPanel')); formulario({
+        titulo: 'Clave de editor de noticias', texto: 'Quien entre con esta clave solo puede publicar, editar y borrar noticias. Si ya había una, se reemplaza y la sesión del editor anterior se cierra.', boton: 'Guardar clave',
+        campos: [{ n: 'nueva', l: 'Clave de editor (mínimo 8 caracteres)', t: 'password', req: true }, { n: 'repetir', l: 'Repetí la clave', t: 'password', req: true }],
+        enviar: async v => { if (v.nueva !== v.repetir) throw new Error('Las claves no coinciden.'); await llamar('claveEditor', { nueva: v.nueva }); await cargar(true); toast('Clave de editor guardada. Pasásela por privado a quien publique las noticias.'); }
+      }); break;
+      case 'quitar-editor': cerrar($('#dlgPanel')); confirmar('Quitar editor de noticias', 'La clave de editor deja de funcionar y su sesión se cierra.', 'Quitar', async () => { await llamar('claveEditor', { quitar: true }); await cargar(true); toast('Acceso de editor quitado.'); }); break;
       case 'salir': cerrar($('#dlgPanel')); salirAdmin(); break;
     }
   } catch (e) { toast(e.message, 'error'); }
@@ -1859,9 +1923,100 @@ $('#dialogo').addEventListener('click', ev => { if (ev.target.closest('a')) retu
 $('#dlgMapa').addEventListener('close', cancelarUbicar);
 $$('dialog').forEach(d => d.addEventListener('click', ev => { if (ev.target === d) { if (d.id === 'dlgMapa') cancelarUbicar(); cerrar(d); } }));
 
+// ---------- Horario de conquistas (referencia: hora de Cuba) ----------
+const HORARIO = {
+  tz: 'America/Havana',
+  franjas: [
+    { id: 'semana', nombre: 'Lun a vie', dias: [1, 2, 3, 4, 5], desde: 19 * 60, hasta: 23 * 60 },
+    { id: 'finde', nombre: 'Sáb y dom', dias: [6, 0], desde: 15 * 60, hasta: 23 * 60 }
+  ],
+  paises: [
+    ['Cuba', 'America/Havana'], ['México', 'America/Mexico_City'], ['Centroamérica', 'America/Tegucigalpa'],
+    ['Colombia · Perú · Ecuador', 'America/Bogota'], ['Venezuela · Bolivia', 'America/Caracas'],
+    ['Rep. Dominicana · Puerto Rico', 'America/Santo_Domingo'], ['Chile', 'America/Santiago'],
+    ['Argentina · Uruguay · Paraguay', 'America/Argentina/Buenos_Aires'], ['España', 'Europe/Madrid']
+  ]
+};
+const PAIS_TZ = { 'America/Havana': 'Cuba', 'America/Mexico_City': 'México', 'America/Monterrey': 'México', 'America/Merida': 'México', 'America/Cancun': 'México', 'America/Tijuana': 'México', 'America/Chihuahua': 'México', 'America/Hermosillo': 'México', 'America/Mazatlan': 'México', 'America/Tegucigalpa': 'Honduras', 'America/Guatemala': 'Guatemala', 'America/El_Salvador': 'El Salvador', 'America/Managua': 'Nicaragua', 'America/Costa_Rica': 'Costa Rica', 'America/Panama': 'Panamá', 'America/Bogota': 'Colombia', 'America/Lima': 'Perú', 'America/Guayaquil': 'Ecuador', 'America/Caracas': 'Venezuela', 'America/La_Paz': 'Bolivia', 'America/Santo_Domingo': 'Rep. Dominicana', 'America/Puerto_Rico': 'Puerto Rico', 'America/Santiago': 'Chile', 'America/Montevideo': 'Uruguay', 'America/Asuncion': 'Paraguay', 'Europe/Madrid': 'España', 'America/New_York': 'EE. UU. (este)', 'America/Chicago': 'EE. UU. (centro)', 'America/Los_Angeles': 'EE. UU. (oeste)' };
+const paisTz = tz => PAIS_TZ[tz] || (/^America\/(Argentina\/|Buenos_Aires$|Cordoba$|Mendoza$|Catamarca$|Jujuy$|Rosario$)/.test(tz) ? 'Argentina' : '');
+const DIAS_ES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+function partesTz(tz, d) {
+  const p = {};
+  new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }).formatToParts(d).forEach(x => { p[x.type] = x.value; });
+  return { y: +p.year, mo: +p.month, d: +p.day, h: +p.hour % 24, mi: +p.minute, wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday) };
+}
+function desfaseTz(tz, d) { const p = partesTz(tz, d); return Math.round((Date.UTC(p.y, p.mo - 1, p.d, p.h, p.mi) - d.getTime()) / 60000); }
+const hhmm = m => { m = ((m % 1440) + 1440) % 1440; return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); };
+function franjaEn(f, tz, ahora) {
+  const dif = desfaseTz(tz, ahora) - desfaseTz(HORARIO.tz, ahora), a = f.desde + dif, b = f.hasta + dif;
+  const nota = a >= 1440 ? 'día siguiente' : a < 0 ? 'día anterior' : '';
+  return { texto: hhmm(a) + ' a ' + hhmm(b), corto: hhmm(a) + '–' + hhmm(b), nota, dif };
+}
+function estadoConquistas(ahora) {
+  const c = partesTz(HORARIO.tz, ahora), min = c.h * 60 + c.mi;
+  for (let k = 0; k < 8; k++) {
+    const wd = (c.wd + k) % 7, f = HORARIO.franjas.find(x => x.dias.includes(wd));
+    if (!f) continue;
+    if (k === 0 && min >= f.desde && min < f.hasta) return { abierto: true, f, falta: f.hasta - min };
+    if (k > 0 || min < f.desde) {
+      const falta = k * 1440 + f.desde - min;
+      return { abierto: false, f, k, wd, falta, inicio: new Date(Math.floor(ahora.getTime() / 60000) * 60000 + falta * 60000) };
+    }
+  }
+}
+const duracion = m => m < 60 ? m + ' min' : Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + (m % 60) + ' min' : '');
+function pintarHorario() {
+  const ahora = new Date(), e = estadoConquistas(ahora); if (!e) return;
+  let miTz = ''; try { miTz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (err) { }
+  const mismoQueCuba = !miTz || desfaseTz(miTz, ahora) === desfaseTz(HORARIO.tz, ahora);
+  const horaLocal = d => new Intl.DateTimeFormat('es', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(d);
+  let txt, corto;
+  if (e.abierto) {
+    const cierre = new Date(Math.floor(ahora.getTime() / 60000) * 60000 + e.falta * 60000);
+    txt = 'Conquistas abiertas · cierran a las ' + hhmm(e.f.hasta) + ' de Cuba' + (mismoQueCuba ? '' : ' (' + horaLocal(cierre) + ' en tu hora)');
+    corto = 'Conquistas abiertas ahora · quedan ' + duracion(e.falta);
+  } else {
+    const relativo = (dias, wd) => dias === 0 ? 'hoy' : dias === 1 ? 'mañana' : 'el ' + DIAS_ES[wd];
+    const cuandoCuba = e.falta < 60 ? 'en ' + e.falta + ' min' : relativo(e.k, e.wd);
+    let cuandoTu = cuandoCuba;
+    if (!mismoQueCuba && e.falta >= 60) {
+      const a = partesTz(miTz, ahora), b = partesTz(miTz, e.inicio);
+      const dias = Math.round((Date.UTC(b.y, b.mo - 1, b.d) - Date.UTC(a.y, a.mo - 1, a.d)) / 864e5);
+      cuandoTu = relativo(dias, b.wd);
+    }
+    const aLas = e.falta < 60 ? '' : ' a las ' + hhmm(e.f.desde) + ' de Cuba';
+    txt = 'Cerradas · abren ' + cuandoCuba + aLas + (mismoQueCuba || e.falta < 60 ? '' : ' (' + (cuandoTu !== cuandoCuba ? cuandoTu + ' ' : '') + horaLocal(e.inicio) + ' en tu hora)');
+    corto = 'Próximas conquistas: ' + cuandoTu + (e.falta < 60 ? '' : ', ' + (mismoQueCuba ? hhmm(e.f.desde) + ' de Cuba' : horaLocal(e.inicio) + ' en tu hora'));
+  }
+  const est = $('#hzEstado'), chip = $('#hzHero');
+  if (est) { est.classList.toggle('on', e.abierto); est.lastElementChild.textContent = txt; }
+  if (chip) { chip.classList.toggle('on', e.abierto); chip.lastElementChild.textContent = corto; }
+  const hoyCuba = partesTz(HORARIO.tz, ahora).wd;
+  $$('.franja[data-franja]').forEach(el => el.classList.toggle('hoy', HORARIO.franjas.some(f => f.id === el.dataset.franja && f.dias.includes(hoyCuba))));
+  const tu = $('#hzTu');
+  if (tu) {
+    tu.hidden = mismoQueCuba;
+    if (!mismoQueCuba) {
+      const pais = paisTz(miTz);
+      tu.innerHTML = '<small>En tu hora' + (pais ? ' · ' + esc(pais) : '') + '</small><div class="tu-l">' + HORARIO.franjas.map(f => { const r = franjaEn(f, miTz, ahora); return '<span>' + f.nombre + '</span><b>' + r.texto + (r.nota ? ' <em class="nota">(' + r.nota + ')</em>' : '') + '</b>'; }).join('') + '</div><span>Se calcula con el horario de tu dispositivo.</span>';
+    }
+  }
+  const tabla = $('#hzTabla');
+  if (tabla && !tabla.dataset.listo) {
+    tabla.dataset.listo = '1';
+    tabla.innerHTML = '<thead><tr><th>País</th>' + HORARIO.franjas.map(f => '<th>' + f.nombre + '</th>').join('') + '</tr></thead><tbody>' + HORARIO.paises.map(([n, tz]) => {
+      const es = miTz && (tz === miTz || desfaseTz(tz, ahora) === desfaseTz(miTz, ahora) && paisTz(miTz) && n.includes(paisTz(miTz)));
+      return '<tr' + (es ? ' class="es-tu"' : '') + '><td>' + esc(n) + '</td>' + HORARIO.franjas.map(f => { const r = franjaEn(f, tz, ahora); return '<td><span class="hz-h">' + r.corto + '</span>' + (r.nota ? ' <em class="nota">' + r.nota + '</em>' : '') + '</td>'; }).join('') + '</tr>';
+    }).join('') + '</tbody>';
+  }
+}
+try { pintarHorario(); } catch (err) { }
+setInterval(() => { if (!document.hidden) try { pintarHorario(); } catch (err) { } }, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) try { pintarHorario(); } catch (err) { } });
+
 // ---------- Arranque ----------
-S.token = almacen.get('rlo-token');
-if (MODO === 'demo' && S.token !== 'demo-token') S.token = '';
+S.token = almacen.get('rlo-token'); S.rol = S.token ? (almacen.get('rlo-rol') || 'admin') : '';
+if (MODO === 'demo' && S.token !== 'demo-token') { S.token = ''; S.rol = ''; }
 const quiereAdmin = /(^|[?&#])admin\b/.test(location.search + location.hash) || /\/admin\/?$/.test(location.pathname) || window.__ADMIN__;
 let guardado = null;
 if (MODO !== 'demo') try { guardado = JSON.parse(localStorage.getItem('rlo-cache-v1') || 'null'); } catch (e) { }
